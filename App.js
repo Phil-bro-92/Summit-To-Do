@@ -2,16 +2,16 @@ import React, {useState, useEffect} from "react";
 import {
   NativeRouter,
   Routes,
-  Route,
-  ImageBackground,
+  Route
 } from "react-router-native";
 import HomepageContainer from "./containers/HomepageContainer";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ImageBackground } from "react-native";
 import ListContainer from "./containers/ListContainer";
 import MapContainer from "./containers/MapContainer";
 import UserContainer from "./containers/UserContainer";
 import NavBar from "./components/NavBar";
-// import background from './background2.png';
+
+
 
 const App=()=> {
   const [munros, setMunros] = useState([]);
@@ -28,20 +28,30 @@ const App=()=> {
       .then((data) => setMunros(data));
   };
   return (
-    <NativeRouter>
-      <View style={styles.container} >
-        {/* <ImageBackground source={background} style={styles.backgroundImage}> */}
-          <Routes>
-            <Route exact path="/" element={<HomepageContainer />} />
-            <Route exact path="/munro-list" element={<ListContainer munros={munros} />} />
-            <Route exact path="/munro-map" element={<MapContainer munros={munros} />} />
-            <Route exact path="/user-profile" element={<UserContainer />} />
-          </Routes>
-          <NavBar />
-        {/* </ImageBackground> */}
-      </View>
-    </NativeRouter>
-  );
+		<NativeRouter>
+			<View style={styles.container}>
+				<ImageBackground
+					source={require("./assets/background/background1.png")}
+					style={styles.backgroundImage}>
+					<Routes>
+						<Route exact path="/" element={<HomepageContainer munros={munros} />} />
+						<Route
+							exact
+							path="/munro-list"
+							element={<ListContainer munros={munros} />}
+						/>
+						<Route
+							exact
+							path="/munro-map"
+							element={<MapContainer munros={munros} />}
+						/>
+						<Route exact path="/user-profile" element={<UserContainer />} />
+					</Routes>
+					<NavBar />
+				</ImageBackground>
+			</View>
+		</NativeRouter>
+	);
 }
 
 const styles = StyleSheet.create({
