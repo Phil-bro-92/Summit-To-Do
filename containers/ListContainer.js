@@ -9,9 +9,9 @@ import {
   Cols,
   Cell,
 } from "react-native-table-component";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 const ListContainer = ({ munros }) => {
-
   munros.map((munro) => {
     console.log(munro.name);
   });
@@ -32,10 +32,16 @@ const ListContainer = ({ munros }) => {
         <Rows data={tableData} textStyle={styles.text} />
         {
           (munroItems = munros.map((munro, index) => {
+            let climbedIcon;
+            if (munro.climbed) {
+              climbedIcon = <Icon name="landscape" size={24} color="green" />;
+            } else {
+              climbedIcon = <Icon name="landscape" size={24} color="grey" />;
+            }
             return (
               <Row
                 key={index}
-                data={[munro.name, munro.height, munro.climbed]}
+                data={[munro.name, munro.height, climbedIcon]}
                 heightArr={[28, 28]}
               />
             );
