@@ -10,21 +10,21 @@ import { Link } from "react-router-native";
 
 export default function NavBar() {
   return (
-    <View style={styles.navbar}>
-      <Link to={"/"}>
-        <FontAwesomeIcon style={styles.icon} icon={faHouseChimney} size={28} />
-      </Link>
-      <Link to={"/munro-list"}>
-        <FontAwesomeIcon style={styles.icon} icon={faMountainSun} size={28} />
-      </Link>
-      <Link to={"/munro-map"}>
-        <FontAwesomeIcon style={styles.icon} icon={faMapPin} size={28} />
-      </Link>
-      <Link to={"/user-profile"}>
-        <FontAwesomeIcon style={styles.icon} icon={faCircleUser} size={28} />
-      </Link>
-    </View>
-  );
+		<View style={styles.navbar}>
+			<Link to={"/"} style={styles.link}>
+				<FontAwesomeIcon style={styles.icon} icon={faHouseChimney} size={29} />
+			</Link>
+			<Link to={"/munro-list"} style={styles.link}>
+				<FontAwesomeIcon style={styles.icon} icon={faMountainSun} size={29} />
+			</Link>
+			<Link to={"/munro-map"} style={styles.link}>
+				<FontAwesomeIcon style={styles.icon} icon={faMapPin} size={29} />
+			</Link>
+			<Link to={"/user-profile"} style={styles.link}>
+				<FontAwesomeIcon style={styles.icon} icon={faCircleUser} size={29} />
+			</Link>
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({
@@ -45,4 +45,7 @@ const styles = StyleSheet.create({
     color: "rgb(200, 220, 200)",
     alignSelf: "center",
   },
+  link: {
+        alignSelf: 'center'
+  }
 });
