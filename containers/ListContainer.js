@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TextInput } from "react-native";
 import {
   Table,
   TableWrapper,
@@ -12,26 +12,43 @@ import {
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 const ListContainer = ({ munros }) => {
-  munros.map((munro) => {
-    console.log(munro.name);
-  });
+  const tableHead = ["Name", "Height", "Completed"];
+  const [filteredMunros, setFilteredMunros] = useState([]);
 
-  // const header = ["Name", "Height", "Completed"];
-  const [tableHead, setTableHead] = useState(["Name", "Height", "Completed"]);
-  const [tableData, setTableData] = useState([
-    ["1", "2", "3"],
-    ["a", "b", "c"],
-    ["1", "2", "3"],
-    ["a", "b", "c"],
-  ]);
+console.log(filterMunros);
+  const filterMunros = (input) => {
+    const filteredNodes = munros.filter((munro) => {
+      return munro.name.toLowerCase().includes(input.toLowerCase());
+    });
+    setFilteredMunros(filteredNodes);
+    if (input === "") {
+      setFilteredMunros([]);
+    }
+  };
+
+  const handleFilterMunros = (text) => {
+    filterMunros(text);
+  };
+
+  let res;
+  if (filteredMunros.length > 0) {
+    res = filteredMunros;
+  } else {
+    res = munros;
+  }
 
   return (
     <View style={styles.container}>
+      <TextInput
+        style={styles.textInput}
+        placeholder="Search Munros:"
+        onChangeText={handleFilterMunros}
+      ></TextInput>
       <Table borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}>
         <Row data={tableHead} style={styles.head} textStyle={styles.text} />
-        <Rows data={tableData} textStyle={styles.text} />
+
         {
-          (munroItems = munros.map((munro, index) => {
+          (munroItems = res.map((munro, index) => {
             let climbedIcon;
             if (munro.climbed) {
               climbedIcon = <Icon name="landscape" size={24} color="green" />;
@@ -41,7 +58,7 @@ const ListContainer = ({ munros }) => {
             return (
               <Row
                 key={index}
-                data={[munro.name, munro.height, climbedIcon]}
+                data={[munro.name, munro.height + "m", climbedIcon]}
                 heightArr={[28, 28]}
               />
             );
@@ -56,5 +73,8 @@ const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: "#fff" },
   head: { height: 40, backgroundColor: "#f1f8ff" },
   text: { margin: 6 },
+  textInput: {
+    margin: "8%",
+  },
 });
 export default ListContainer;
