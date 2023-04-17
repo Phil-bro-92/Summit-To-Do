@@ -1,18 +1,32 @@
 import { ImageBackground, StyleSheet, Text, View, Image} from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faHouseChimney, faLocationPin, faMapPin, faCircleUser, faMountain} from '@fortawesome/free-solid-svg-icons';
-import background from '../containers/background3.png';
+import background from '../containers/background2.png';
+import { useFonts } from 'expo-font';
+import logo from '../containers/icon3.png';
+import NavBar from '../components/NavBar';
+
 
 
 export default function HomepageContainer (){
+
+
+  const name = "José";
+
+    const [fontsLoaded] = useFonts({
+    'Sen-Bold': require('../assets/fonts/Sen-Bold.ttf'),
+    'Sen-Regular': require('../assets/fonts/Sen-Regular.ttf'),
+    'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf')
+  })
+
+
   return (
       <View style={styles.homepageContainer}>
      <ImageBackground source={background} style={styles.backgroundImage}>
-      <View style={styles.navbar}>
-        <FontAwesomeIcon style={styles.icon} icon={faHouseChimney} size={30}/>
-        <FontAwesomeIcon style={styles.icon} icon={faMountain}size={30}/>
-        <FontAwesomeIcon style={styles.icon} icon={faMapPin}size={30}/>
-        <FontAwesomeIcon style={styles.icon} icon={faCircleUser}size={30}/>
+     <NavBar />
+    <View style={styles.logo}>
+        <Image source={logo} style={styles.logoImage}/>
+      </View>
+        <View style={styles.greeting}>
+    <Text style={styles.greetingText}>Hi {name}!</Text>
     </View>
     </ImageBackground>
     </View>
@@ -20,33 +34,35 @@ export default function HomepageContainer (){
 }
 const styles = StyleSheet.create({
    homepageContainer: {
-    backgroundColor: 'white',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
    },
 
   backgroundImage:{
-    width: 400,
-    height: 900
+    width: '100%',
+    height: '100%',
+    position: 'fixed',
+    zIndex: -2
   },
+  greeting: {
+    marginTop: '-25%'
 
-  navbar: {
-    width: '95%',
-    marginBottom: '10%',
-    height: 90,
-    backgroundColor:'rgba(0, 0, 0, 0.5)',
-    position: 'absolute',
-    bottom: 0,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    borderRadius: '50%',
   },
-  icon: {
-    color: 'rgb(200, 200, 220)',
-    margin: 30,
+  greetingText: {
+    fontSize: 40,
+    textAlign: 'center',
+     color: 'rgb(200, 220, 200)',
+     fontFamily: 'Poppins-Bold'
+  },
+  logo: {
+    width: '100%',
+
+  },
+  logoImage: {
+    marginTop: '12%',
+    width: '40%',
+    height: '30%',
+    alignSelf: 'center'
   }
 
 });
