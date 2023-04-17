@@ -44,7 +44,7 @@ console.log(filterMunros);
         placeholder="Search Munros:"
         onChangeText={handleFilterMunros}
       ></TextInput>
-      <Table borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}>
+      <Table borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }} style={styles.table}>
         <Row data={tableHead} style={styles.head} textStyle={styles.text} />
 
         {
@@ -70,11 +70,16 @@ console.log(filterMunros);
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: "#fff" },
+  container: { flex: 1, padding: 16, paddingTop: 30},
   head: { height: 40, backgroundColor: "#f1f8ff" },
   text: { margin: 6 },
   textInput: {
     margin: "8%",
   },
+  table: {
+     backgroundColor: 'rgba(250, 250, 250, 0.3)'
+  }
+
+
 });
 export default ListContainer;
