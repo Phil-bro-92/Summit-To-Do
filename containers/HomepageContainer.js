@@ -1,5 +1,5 @@
-import { ImageBackground, StyleSheet, Text, View, Image} from 'react-native';
-import background from '../containers/background2.png';
+import { StyleSheet, Text, View, Image} from 'react-native';
+
 import { useFonts } from 'expo-font';
 import logo from '../containers/icon3.png';
 import NavBar from '../components/NavBar';
@@ -20,15 +20,15 @@ export default function HomepageContainer (){
 
   return (
       <View style={styles.homepageContainer}>
-     <ImageBackground source={background} style={styles.backgroundImage}>
-     <NavBar />
+     
+     
     <View style={styles.logo}>
         <Image source={logo} style={styles.logoImage}/>
       </View>
         <View style={styles.greeting}>
     <Text style={styles.greetingText}>Hi {name}!</Text>
     </View>
-    </ImageBackground>
+  
     </View>
   )
 }
