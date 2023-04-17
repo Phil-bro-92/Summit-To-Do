@@ -4,20 +4,11 @@ import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { Marker } from "react-native-maps";
 
-const MapContainer = () => {
-  const [munros, setMunros] = useState([]);
-
-  useEffect(() => {
-    fetchMunros();
+const MapContainer = ({ munros }) => {
+  munros.map((munro) => {
+    console.log(munro.name);
   });
 
-  const fetchMunros = () => {
-    fetch(
-      "https://raw.githubusercontent.com/Phil-bro-92/munro_api/main/munroAPI.json"
-    )
-      .then((res) => res.json())
-      .then((data) => setMunros(data));
-  };
   return (
     <MapView
       style={styles.map}
