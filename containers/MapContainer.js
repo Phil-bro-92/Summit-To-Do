@@ -5,9 +5,6 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import { Marker } from "react-native-maps";
 
 const MapContainer = ({ munros }) => {
-  munros.map((munro) => {
-    console.log(munro.name);
-  });
 
   return (
     <MapView
