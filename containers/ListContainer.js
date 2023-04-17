@@ -11,6 +11,7 @@ import {
 } from "react-native-table-component";
 
 const ListContainer = ({ munros }) => {
+
   munros.map((munro) => {
     console.log(munro.name);
   });
@@ -32,7 +33,7 @@ const ListContainer = ({ munros }) => {
         {
           (munroItems = munros.map((munro, index) => {
             return (
-              <Rows
+              <Row
                 key={index}
                 data={[munro.name, munro.height, munro.climbed]}
                 heightArr={[28, 28]}
