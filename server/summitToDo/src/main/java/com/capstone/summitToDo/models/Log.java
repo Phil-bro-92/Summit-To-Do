@@ -11,11 +11,9 @@ public class Log {
     private String comment;
 
     @Column(name = "date_completed")
-    private DateFormat dateCompleted;
+    private String dateCompleted;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+
 
     @ManyToOne
     @JoinColumn(name = "munro_id")
@@ -24,7 +22,7 @@ public class Log {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Log(String comment, DateFormat dateCompleted, Munro munro) {
+    public Log(String comment, String dateCompleted, Munro munro) {
         this.comment = comment;
         this.dateCompleted = dateCompleted;
         this.munro = munro;
@@ -41,11 +39,11 @@ public class Log {
         this.comment = comment;
     }
 
-    public DateFormat getDateCompleted() {
+    public String getDateCompleted() {
         return dateCompleted;
     }
 
-    public void setDateCompleted(DateFormat dateCompleted) {
+    public void setDateCompleted(String dateCompleted) {
         this.dateCompleted = dateCompleted;
     }
 
