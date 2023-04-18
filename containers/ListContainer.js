@@ -22,6 +22,7 @@ import {
 } from "react-native-table-component";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import FilterModal from "../components/FilterModal";
+import NavBar from "../components/NavBar";
 
 const ListContainer = ({ munros }) => {
   const tableHead = ["Name", "Height", "Completed"];
@@ -127,6 +128,7 @@ const ListContainer = ({ munros }) => {
   }
 
   return (
+
     <SafeAreaView>
       <View style={styles.searchFilter}>
         <TextInput
@@ -143,28 +145,32 @@ const ListContainer = ({ munros }) => {
           style={styles.table}
         >
           <Row data={tableHead} style={styles.head} textStyle={styles.text} />
-
-          {
-            (munroItems = res.map((munro, index) => {
-              let climbedIcon;
-              if (munro.climbed) {
-                climbedIcon = <Icon name="landscape" size={24} color="green" />;
-              } else {
-                climbedIcon = <Icon name="landscape" size={24} color="grey" />;
-              }
-              return (
-                <Row
-                  key={index}
-                  data={[munro.name, munro.height + "m", climbedIcon]}
-                  heightArr={[28, 28]}
-                />
-              );
-            }))
-          }
-        </Table>
-      </ScrollView>
-    </SafeAreaView>
-  );
+						{
+							(munroItems = res.map((munro, index) => {
+								let climbedIcon;
+								if (munro.climbed) {
+									climbedIcon = (
+										<Icon name="landscape" size={24} color="green" />
+									);
+								} else {
+									climbedIcon = (
+										<Icon name="landscape" size={24} color="grey" />
+									);
+								}
+								return (
+									<Row
+										key={index}
+										data={[munro.name, munro.height + "m", climbedIcon]}
+										heightArr={[28, 28]}
+									/>
+								);
+							}))
+						}
+					</Table>
+				</ScrollView>
+			</SafeAreaView>
+		</View>
+	);
 };
 
 const styles = StyleSheet.create({

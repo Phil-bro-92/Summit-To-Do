@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignSelf: "center",
     borderRadius: "30%",
+    zIndex: 5
   },
   icon: {
     color: "rgb(200, 220, 200)",

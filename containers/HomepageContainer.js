@@ -2,9 +2,9 @@ import { StyleSheet, Text, View, Image} from 'react-native';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faAward } from '@fortawesome/free-solid-svg-icons';
 import { useFonts } from 'expo-font';
-import logo from '../containers/icon3.png';
 import NavBar from '../components/NavBar';
 import { useState } from 'react';
+import { ProgressBar } from 'react-native-paper';
 
 
 
@@ -25,11 +25,14 @@ export default function HomepageContainer ({munros}){
     'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf')
   })
 
+  const progressBarValue= ((100 / 282) * munrosCompleted.length) / 1000;
+  const progressBarPercentage = Math.round((100/282 )* munrosCompleted.length);
 
   return (
 		<View style={styles.homepageContainer}>
+		<NavBar />
 			<View style={styles.logo}>
-				<Image source={logo} style={styles.logoImage} />
+				<Image source={require('../assets/images/Logo.png')} style={styles.logoImage} />
 			</View>
 			<View style={styles.greeting}>
 				<Text style={styles.greetingText}>Hi {name}!</Text>
@@ -40,18 +43,28 @@ export default function HomepageContainer ({munros}){
 					Completed: {munrosCompleted.length}
 				</Text>
 				<Text style={styles.remaining}>Remaining: {munrosRemaining} </Text>
+				<View style={styles.progressBarCont}>
+					<View>
+						<ProgressBar
+							progress={progressBarValue}
+							color={"green"}
+							style={styles.progressBar}
+						/>
+					</View>
+					<Text style={styles.progressPercent}>{progressBarPercentage}%</Text>
+				</View>
 			</View>
 			<View style={styles.log}>
-					<Text style={styles.logText}>Log Completed Munro</Text>
-					<Image
-						source={require("../assets/images/image.png")}
-						style={styles.image}
-					/>
-					<Image
-						source={require("../assets/images/image2.png")}
-						style={styles.arrow}
-					/>
-				</View>
+				<Text style={styles.logText}>Log Completed Munro</Text>
+				<Image
+					source={require("../assets/images/image.png")}
+					style={styles.image}
+				/>
+				<Image
+					source={require("../assets/images/image2.png")}
+					style={styles.arrow}
+				/>
+			</View>
 			<View style={styles.recent}>
 				<Text style={styles.recentHeader}>Most Recently Climbed</Text>
 			</View>
@@ -81,6 +94,7 @@ const styles = StyleSheet.create({
 	},
 	logo: {
 		width: "100%",
+		marginTop: '5%'
 	},
 	logoImage: {
 		marginTop: "12%",
@@ -111,6 +125,17 @@ const styles = StyleSheet.create({
 		fontSize: 15,
 		marginLeft: "10%",
 		padding: "2%",
+	},
+	progressBarCont: {
+		width: '100%',
+		display: 'flex',
+	
+	},
+	progressBar: {
+		width: '70%',
+		marginLeft: '5%'
+
+
 	},
 	log: {
 		alignSelf: "center",

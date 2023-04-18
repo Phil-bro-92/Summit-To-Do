@@ -10,6 +10,9 @@ import ListContainer from "./containers/ListContainer";
 import MapContainer from "./containers/MapContainer";
 import UserContainer from "./containers/UserContainer";
 import NavBar from "./components/NavBar";
+import LogInContainer from "./containers/LogInContainer";
+import RegisterContainer from "./containers/RegisterContainer";
+
 
 
 
@@ -28,13 +31,20 @@ const App=()=> {
       .then((data) => setMunros(data));
   };
   return (
-		<NativeRouter>
+		<NativeRouter initialEntries={["/login"]}>
 			<View style={styles.container}>
 				<ImageBackground
 					source={require("./assets/background/background1.png")}
-					style={styles.backgroundImage}>
+					style={styles.backgroundImage}
+				>
 					<Routes>
-						<Route exact path="/" element={<HomepageContainer munros={munros} />} />
+						<Route exact path="/login" element={<LogInContainer />} />
+						<Route exact path="/register" element={<RegisterContainer />} />
+						<Route
+							exact
+							path="/"
+							element={<HomepageContainer munros={munros} />}
+						/>
 						<Route
 							exact
 							path="/munro-list"
@@ -47,7 +57,6 @@ const App=()=> {
 						/>
 						<Route exact path="/user-profile" element={<UserContainer />} />
 					</Routes>
-					<NavBar />
 				</ImageBackground>
 			</View>
 		</NativeRouter>
