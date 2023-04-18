@@ -3,9 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faChildReaching, faPersonHiking } from '@fortawesome/free-solid-svg-icons';
 import { useFonts } from 'expo-font';
 import NavBar from '../components/NavBar';
-import { useState } from 'react';
-import { ProgressBar } from 'react-native-paper';
-
 
 
 export default function HomepageContainer ({munros}){
