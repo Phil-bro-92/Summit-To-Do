@@ -3,10 +3,14 @@ import { StyleSheet, Dimensions } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { Marker } from "react-native-maps";
+import NavBar from "../components/NavBar";
+import {View} from 'react-native'
 
 const MapContainer = ({ munros }) => {
 
   return (
+    <View>
+    <NavBar />
     <MapView
       style={styles.map}
       provider={PROVIDER_GOOGLE}
@@ -28,6 +32,7 @@ const MapContainer = ({ munros }) => {
         </Marker>
       ))}
     </MapView>
+    </View>
   );
 };
 

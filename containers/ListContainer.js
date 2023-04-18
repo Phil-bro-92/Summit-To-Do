@@ -11,6 +11,7 @@ import {
   Cell,
 } from "react-native-table-component";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import NavBar from "../components/NavBar";
 
 const ListContainer = ({ munros }) => {
   const tableHead = ["Name", "Height", "Completed"];
@@ -39,40 +40,47 @@ console.log(filterMunros);
   }
 
   return (
-    <SafeAreaView>
-      <ScrollView style={styles.ScrollView}>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Search Munros:"
-          onChangeText={handleFilterMunros}
-        ></TextInput>
-        <Table
-          borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}
-          style={styles.table}
-        >
-          <Row data={tableHead} style={styles.head} textStyle={styles.text} />
+		<View>
+			<NavBar />
+			<SafeAreaView>
+				<ScrollView style={styles.ScrollView}>
+					<TextInput
+						style={styles.textInput}
+						placeholder="Search Munros:"
+						onChangeText={handleFilterMunros}
+					></TextInput>
+					<Table
+						borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}
+						style={styles.table}
+					>
+						<Row data={tableHead} style={styles.head} textStyle={styles.text} />
 
-          {
-            (munroItems = res.map((munro, index) => {
-              let climbedIcon;
-              if (munro.climbed) {
-                climbedIcon = <Icon name="landscape" size={24} color="green" />;
-              } else {
-                climbedIcon = <Icon name="landscape" size={24} color="grey" />;
-              }
-              return (
-                <Row
-                  key={index}
-                  data={[munro.name, munro.height + "m", climbedIcon]}
-                  heightArr={[28, 28]}
-                />
-              );
-            }))
-          }
-        </Table>
-      </ScrollView>
-    </SafeAreaView>
-  );
+						{
+							(munroItems = res.map((munro, index) => {
+								let climbedIcon;
+								if (munro.climbed) {
+									climbedIcon = (
+										<Icon name="landscape" size={24} color="green" />
+									);
+								} else {
+									climbedIcon = (
+										<Icon name="landscape" size={24} color="grey" />
+									);
+								}
+								return (
+									<Row
+										key={index}
+										data={[munro.name, munro.height + "m", climbedIcon]}
+										heightArr={[28, 28]}
+									/>
+								);
+							}))
+						}
+					</Table>
+				</ScrollView>
+			</SafeAreaView>
+		</View>
+	);
 };
 
 const styles = StyleSheet.create({
