@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import { SafeAreaView } from "react-native";
+import { View, Text, StyleSheet, TextInput, ScrollView } from "react-native";
 import {
   Table,
   TableWrapper,
@@ -38,34 +39,39 @@ console.log(filterMunros);
   }
 
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.textInput}
-        placeholder="Search Munros:"
-        onChangeText={handleFilterMunros}
-      ></TextInput>
-      <Table borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }} style={styles.table}>
-        <Row data={tableHead} style={styles.head} textStyle={styles.text} />
+    <SafeAreaView>
+      <ScrollView style={styles.ScrollView}>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Search Munros:"
+          onChangeText={handleFilterMunros}
+        ></TextInput>
+        <Table
+          borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}
+          style={styles.table}
+        >
+          <Row data={tableHead} style={styles.head} textStyle={styles.text} />
 
-        {
-          (munroItems = res.map((munro, index) => {
-            let climbedIcon;
-            if (munro.climbed) {
-              climbedIcon = <Icon name="landscape" size={24} color="green" />;
-            } else {
-              climbedIcon = <Icon name="landscape" size={24} color="grey" />;
-            }
-            return (
-              <Row
-                key={index}
-                data={[munro.name, munro.height + "m", climbedIcon]}
-                heightArr={[28, 28]}
-              />
-            );
-          }))
-        }
-      </Table>
-    </View>
+          {
+            (munroItems = res.map((munro, index) => {
+              let climbedIcon;
+              if (munro.climbed) {
+                climbedIcon = <Icon name="landscape" size={24} color="green" />;
+              } else {
+                climbedIcon = <Icon name="landscape" size={24} color="grey" />;
+              }
+              return (
+                <Row
+                  key={index}
+                  data={[munro.name, munro.height + "m", climbedIcon]}
+                  heightArr={[28, 28]}
+                />
+              );
+            }))
+          }
+        </Table>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -73,12 +79,12 @@ const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, paddingTop: 30},
   head: { height: 40, backgroundColor: "#f1f8ff" },
   text: { margin: 6 },
+  scrollView: { marginHorizontal: 20},
   textInput: {
     margin: "8%",
   },
-  table: {
-     backgroundColor: 'rgba(250, 250, 250, 0.3)'
-  }
+  table: { backgroundColor: 'rgba(250, 250, 250, 0.3)'
+  },
 
 
 });
