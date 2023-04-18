@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image} from 'react-native';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faAward } from '@fortawesome/free-solid-svg-icons';
+import { faChildReaching, faPersonHiking } from '@fortawesome/free-solid-svg-icons';
 import { useFonts } from 'expo-font';
 import NavBar from '../components/NavBar';
 import { useState } from 'react';
@@ -25,14 +25,19 @@ export default function HomepageContainer ({munros}){
     'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf')
   })
 
-  const progressBarValue= ((100 / 282) * munrosCompleted.length) / 1000;
   const progressBarPercentage = Math.round((100/282 )* munrosCompleted.length);
+
+
+  
 
   return (
 		<View style={styles.homepageContainer}>
-		<NavBar />
+			<NavBar />
 			<View style={styles.logo}>
-				<Image source={require('../assets/images/Logo.png')} style={styles.logoImage} />
+				<Image
+					source={require("../assets/images/Logo.png")}
+					style={styles.logoImage}
+				/>
 			</View>
 			<View style={styles.greeting}>
 				<Text style={styles.greetingText}>Hi {name}!</Text>
@@ -44,13 +49,24 @@ export default function HomepageContainer ({munros}){
 				</Text>
 				<Text style={styles.remaining}>Remaining: {munrosRemaining} </Text>
 				<View style={styles.progressBarCont}>
-					<View>
-						<ProgressBar
-							progress={progressBarValue}
-							color={"green"}
-							style={styles.progressBar}
-						/>
+					<View style={styles.barCont}>
+						<View style={styles.progressBar}></View>
+						<View
+							style={styles.progressAmount}
+							width={`${progressBarPercentage}%`}
+						></View>
+						<View>
+							<View left={`${progressBarPercentage}%`}>
+								<FontAwesomeIcon
+									icon={faPersonHiking}
+									size={22}
+									style={styles.progressIcon}
+								/>
+							</View>
+						</View>
 					</View>
+				</View>
+				<View>
 					<Text style={styles.progressPercent}>{progressBarPercentage}%</Text>
 				</View>
 			</View>
@@ -94,7 +110,7 @@ const styles = StyleSheet.create({
 	},
 	logo: {
 		width: "100%",
-		marginTop: '5%'
+		marginTop: "5%",
 	},
 	logoImage: {
 		marginTop: "12%",
@@ -127,15 +143,41 @@ const styles = StyleSheet.create({
 		padding: "2%",
 	},
 	progressBarCont: {
-		width: '100%',
-		display: 'flex',
-	
+		width: "90%",
+		display: "flex",
+		flexDirection: "row",
+		justifyContent: "space-evenly",
+		alignItems: "center",
+		alignSelf: "center",
+	},
+	barCont: {
+		width: "80%",
 	},
 	progressBar: {
-		width: '70%',
-		marginLeft: '5%'
-
-
+		width: "100%",
+		height: "22%",
+		backgroundColor: "rgba(0,0,0,0.1)",
+		position: "absolute",
+		borderRadius: "10%",
+		zIndex: -3,
+		borderColor: 'white',
+		borderWidth: 1
+	},
+	progressAmount: {
+		height: "22%",
+		backgroundColor: "rgba(13, 130, 13,1)",
+		borderRadius: "10%",
+		position: "relative",
+		zIndex: -2,
+	},
+	progressIcon: {
+		marginTop: "-10%",
+		left: '-5%'
+	},
+	progressPercent: {
+		fontSize: 15,
+		alignSelf: "center",
+		position: "absolute",
 	},
 	log: {
 		alignSelf: "center",
@@ -146,14 +188,13 @@ const styles = StyleSheet.create({
 		marginTop: "3%",
 		display: "flex",
 		flexDirection: "row",
-    justifyContent: 'space-between',
-    alignItems: 'center'
+		justifyContent: "space-between",
+		alignItems: "center",
 	},
 	image: {
 		resizeMode: "contain",
 		height: 30,
 		width: 30,
-  
 	},
 	logText: {
 		fontSize: 18,
@@ -163,7 +204,7 @@ const styles = StyleSheet.create({
 		resizeMode: "contain",
 		height: 20,
 		width: 20,
-    marginRight: '5%'
+		marginRight: "5%",
 	},
 	recent: {
 		alignSelf: "center",

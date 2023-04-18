@@ -31,10 +31,10 @@ const App=()=> {
       .then((data) => setMunros(data));
   };
   return (
-		<NativeRouter initialEntries={["/login"]}>
+		<NativeRouter initialEntries={['/login']}>
 			<View style={styles.container}>
 				<ImageBackground
-					source={require("./assets/background/background1.png")}
+					source={require("./assets/background/lightenedbg.png")}
 					style={styles.backgroundImage}
 				>
 					<Routes>

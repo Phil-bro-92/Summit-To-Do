@@ -128,7 +128,7 @@ const ListContainer = ({ munros }) => {
   }
 
   return (
-
+<View style={styles.listCont}>
     <SafeAreaView>
       <View style={styles.searchFilter}>
         <TextInput
@@ -150,16 +150,27 @@ const ListContainer = ({ munros }) => {
 								let climbedIcon;
 								if (munro.climbed) {
 									climbedIcon = (
-										<Icon name="landscape" size={24} color="green" />
+										<Icon
+											name="landscape"
+											size={35}
+											color="green"
+											alignSelf={"center"}
+										/>
 									);
 								} else {
 									climbedIcon = (
-										<Icon name="landscape" size={24} color="grey" />
+										<Icon
+											name="landscape"
+											size={25}
+											color="grey"
+											alignSelf={"center"}
+										/>
 									);
 								}
 								return (
 									<Row
 										key={index}
+										textStyle={styles.dataText}
 										data={[munro.name, munro.height + "m", climbedIcon]}
 										heightArr={[28, 28]}
 									/>
@@ -169,22 +180,47 @@ const ListContainer = ({ munros }) => {
 					</Table>
 				</ScrollView>
 			</SafeAreaView>
+			<NavBar />
 		</View>
 	);
 };
 
+
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, paddingTop: 30 },
-  head: { height: 40, backgroundColor: "#f1f8ff" },
-  text: { margin: 6 },
-  scrollView: { marginHorizontal: 20 },
+  listCont: {
+    height: '100%',
+    width: '100%'
+  },
+
+  container: { 
+    flex: 1, 
+    padding: 16,
+    paddingTop: 30},
+  head: { 
+    height: 40, 
+    backgroundColor: 'rgba(0,0,0,0.3)'},
+  text: { margin: 6 , fontSize: 15, color: 'white'}, 
+  scrollView: { marginHorizontal: 25},
   textInput: {
     margin: "8%",
+    backgroundColor: 'rgba(250, 250, 250, 0.5)',
+    height: '5%',
+    borderRadius: '10%'
   },
-  table: { backgroundColor: "rgba(250, 250, 250, 0.3)" },
-  searchFilter: {
-    // flex: 1,
-    // flexDirection: "row"
+  table: { backgroundColor: 'rgba(250, 250, 250, 0.3)',
+  width: '90%',
+  alignSelf: 'center',
+
   },
+
+  ScrollView: {
+    height: '68%'
+  },
+  dataText: {
+    fontSize: 18,
+    margin: '8%'
+  }
+
+
 });
 export default ListContainer;
