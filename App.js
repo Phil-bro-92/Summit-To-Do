@@ -30,8 +30,12 @@ const App=()=> {
       .then((res) => res.json())
       .then((data) => setMunros(data));
   };
+
+//  initialEntries={['/login']}
+
+
   return (
-		<NativeRouter initialEntries={['/login']}>
+		<NativeRouter>
 			<View style={styles.container}>
 				<ImageBackground
 					source={require("./assets/background/lightenedbg.png")}
