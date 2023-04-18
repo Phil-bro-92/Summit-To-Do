@@ -31,6 +31,20 @@ const App=()=> {
       .then((data) => setMunros(data));
   };
 
+
+		const sortedNames = [...munros];
+    sortedNames.sort((a, b) => {
+			return b.name - a.name;
+		});
+
+
+	const handleSortHeight = () => {
+		const sortedHeight = munros.sort((a, b) => {
+			return a.height - b.height;
+		});
+    setMunros(sortedHeight)
+	};
+
 //  initialEntries={['/login']}
 
 
@@ -52,7 +66,7 @@ const App=()=> {
 						<Route
 							exact
 							path="/munro-list"
-							element={<ListContainer munros={munros} />}
+							element={<ListContainer munros={munros} sortedNames={sortedNames}/>}
 						/>
 						<Route
 							exact

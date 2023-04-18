@@ -24,14 +24,14 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import FilterModal from "../components/FilterModal";
 import NavBar from "../components/NavBar";
 
-const ListContainer = ({ munros }) => {
-  const tableHead = ["Name", "Height", "Completed"];
+const ListContainer = ({ munros, sortedNames }) => {
   const [filteredMunros, setFilteredMunros] = useState([]);
   const [easyMunros, setEasyMunros] = useState([]);
   const [moderateMunros, setModerateMunros] = useState([]);
   const [hardMunros, setHardMunros] = useState([]);
   const [completedMunros, setCompletedMunros] = useState([]);
   const [uncompletedMunros, setUncompletedMunros] = useState([])
+
 
   const filterMunros = (input) => {
     const filteredNodes = munros.filter((munro) => {
@@ -104,11 +104,7 @@ const ListContainer = ({ munros }) => {
       setHardMunros([]);
   }
 
-  const handleSortNamesAlphabetically = () => {
-    const sortedNames = munros.sort((a,b) => {
-      return a.name - b.name
-    })
-  }
+   
 
   let res;
   if (filteredMunros.length > 0) {
@@ -127,24 +123,40 @@ const ListContainer = ({ munros }) => {
     res = munros;
   }
 
-  return (
-<View style={styles.listCont}>
-    <SafeAreaView>
-      <View style={styles.searchFilter}>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Search Munros:"
-          onChangeText={handleFilterMunros}
-        ></TextInput>
-        <FilterModal handleFilterCompletedMunros={handleFilterCompletedMunros} handleFilterUncompletedMunros={handleFilterUncompletedMunros} handleFilterEasyMunros={handleFilterEasyMunros} handleFilterModerateMunros={handleFilterModerateMunros} handleFilterHardMunros={handleFilterHardMunros} handleFilterAllMunros={handleFilterAllMunros}/>
-      </View>
+   const handleSortNamesAlphabetically = () => {
+    res = sortedNames;
+    }
 
-      <ScrollView style={styles.ScrollView}>
-        <Table
-          borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}
-          style={styles.table}
-        >
-          <Row data={tableHead} style={styles.head} textStyle={styles.text} />
+  return (
+		<View style={styles.listCont}>
+			<SafeAreaView>
+				<View style={styles.searchFilter}>
+					<TextInput
+						style={styles.textInput}
+						placeholder="Search Munros:"
+						onChangeText={handleFilterMunros}
+					></TextInput>
+					<FilterModal
+						handleFilterCompletedMunros={handleFilterCompletedMunros}
+						handleFilterUncompletedMunros={handleFilterUncompletedMunros}
+						handleFilterEasyMunros={handleFilterEasyMunros}
+						handleFilterModerateMunros={handleFilterModerateMunros}
+						handleFilterHardMunros={handleFilterHardMunros}
+						handleFilterAllMunros={handleFilterAllMunros}
+					/>
+				</View>
+
+				<ScrollView style={styles.ScrollView}>
+					<Table
+						borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}
+						style={styles.table}
+					>
+						<TableWrapper style={styles.tablewrap}>
+							<Cell data="Name" onPress={handleSortNamesAlphabetically}/>
+							<Cell data="Height" />
+							<Cell data="Completed"/>
+						</TableWrapper>
+
 						{
 							(munroItems = res.map((munro, index) => {
 								let climbedIcon;
@@ -219,6 +231,12 @@ const styles = StyleSheet.create({
   dataText: {
     fontSize: 18,
     margin: '8%'
+  },
+  tablewrap: {
+    display: 'flex',
+    flexDirection: 'row',
+    height: 40, 
+    backgroundColor: 'rgba(0,0,0,0.3)'
   }
 
 
