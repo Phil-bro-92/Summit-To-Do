@@ -13,12 +13,15 @@ const MapContainer = ({ munros }) => {
     <NavBar />
     <MapView
       style={styles.map}
+      mapType={"terrain"}
       provider={PROVIDER_GOOGLE}
+      loadingEnabled={true}
+      scrollEnabled={false}
       initialRegion={{
-        latitude: 56.8,
-        longitude: -4.2026,
-        latitudeDelta: 5,
-        longitudeDelta: 5,
+        latitude: 57.09538900176176,
+        longitude: -4.77555789014292,
+        latitudeDelta: 4,
+        longitudeDelta: 4.8,
       }}
     >
       {munros.map((munro, index) => (
