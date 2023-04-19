@@ -45,11 +45,11 @@ const App=()=> {
     setMunros(sortedHeight)
 	};
 
-//  initialEntries={['/login']}
+
 
 
   return (
-		<NativeRouter>
+		<NativeRouter initialEntries={['/login']}>
 			<View style={styles.container}>
 				<ImageBackground
 					source={require("./assets/background/lightenedbg.png")}
@@ -66,7 +66,9 @@ const App=()=> {
 						<Route
 							exact
 							path="/munro-list"
-							element={<ListContainer munros={munros} sortedNames={sortedNames}/>}
+							element={
+								<ListContainer munros={munros} sortedNames={sortedNames} />
+							}
 						/>
 						<Route
 							exact
