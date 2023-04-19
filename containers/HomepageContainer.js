@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View, Image} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faChildReaching, faPersonHiking } from '@fortawesome/free-solid-svg-icons';
 import { useFonts } from 'expo-font';
 import NavBar from '../components/NavBar';
+import {Link} from 'react-router-native';
 
 
 export default function HomepageContainer ({munros}){
@@ -67,17 +68,19 @@ export default function HomepageContainer ({munros}){
 					<Text style={styles.progressPercent}>{progressBarPercentage}%</Text>
 				</View>
 			</View>
-			<View style={styles.log}>
-				<Text style={styles.logText}>Log Completed Munro</Text>
-				<Image
-					source={require("../assets/images/image.png")}
-					style={styles.image}
-				/>
-				<Image
-					source={require("../assets/images/image2.png")}
-					style={styles.arrow}
-				/>
-			</View>
+			<Link to={"/munro-list"} component={TouchableOpacity} underlayColor={'white'} style={styles.logLink}>
+				<View style={styles.log}>
+					<Text style={styles.logText}>Log Completed Munro</Text>
+					<Image
+						source={require("../assets/images/image.png")}
+						style={styles.image}
+					/>
+					<Image
+						source={require("../assets/images/image2.png")}
+						style={styles.arrow}
+					/>
+				</View>
+			</Link>
 			<View style={styles.recent}>
 				<Text style={styles.recentHeader}>Most Recently Climbed</Text>
 			</View>
@@ -157,8 +160,8 @@ const styles = StyleSheet.create({
 		position: "absolute",
 		borderRadius: "10%",
 		zIndex: -3,
-		borderColor: 'white',
-		borderWidth: 1
+		borderColor: "white",
+		borderWidth: 1,
 	},
 	progressAmount: {
 		height: "22%",
@@ -169,29 +172,37 @@ const styles = StyleSheet.create({
 	},
 	progressIcon: {
 		marginTop: "-10%",
-		left: '-5%'
+		left: "-5%",
 	},
 	progressPercent: {
 		fontSize: 15,
 		alignSelf: "center",
 		position: "absolute",
 	},
-	log: {
+	logLink: {
+		padding: "0%",
+		margin: "0%",
 		alignSelf: "center",
 		backgroundColor: "rgba(250,250, 250, 0.7)",
 		width: "70%",
 		height: "7%",
 		borderRadius: "20%",
 		marginTop: "3%",
-		display: "flex",
+		outline: 'none'
+	},
+	log: {
+			display: "flex",
 		flexDirection: "row",
 		justifyContent: "space-between",
 		alignItems: "center",
+		marginTop: '5%',
+		padding: '0%'
+
 	},
 	image: {
 		resizeMode: "contain",
-		height: 30,
-		width: 30,
+		height: 25,
+		width: 25,
 	},
 	logText: {
 		fontSize: 18,

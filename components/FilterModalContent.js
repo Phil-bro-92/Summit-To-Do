@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 
+
+
 const FilterModalContent = ({handleFilterCompletedMunros,handleFilterUncompletedMunros, handleFilterEasyMunros, handleFilterModerateMunros, handleFilterHardMunros, handleFilterAllMunros}) => {
   return (
     <View>
@@ -16,7 +18,6 @@ const FilterModalContent = ({handleFilterCompletedMunros,handleFilterUncompleted
         title="Uncompleted"
         onPress={handleFilterUncompletedMunros}
       />
-      <Text>Difficulty:</Text>
       <Button title="Easy" onPress={handleFilterEasyMunros}
       />
       <Button
@@ -28,4 +29,9 @@ const FilterModalContent = ({handleFilterCompletedMunros,handleFilterUncompleted
   );
 };
 
+styles=StyleSheet.create({
+modalCont: {
+
+}
+})
 export default FilterModalContent;

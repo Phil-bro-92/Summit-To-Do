@@ -8,12 +8,16 @@ import {
   StyleSheet
 } from "react-native";
 import FilterModalContent from "./FilterModalContent";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faFilter, faX } from "@fortawesome/free-solid-svg-icons";
+
 
 const FilterModal = ({handleFilterCompletedMunros,handleFilterUncompletedMunros, handleFilterEasyMunros, handleFilterModerateMunros, handleFilterHardMunros, handleFilterAllMunros}) => {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <View>
       <Modal
+        style={styles.modalCont}
             animationType="none"
             transparent={true}
             visible={modalVisible}
@@ -29,7 +33,7 @@ const FilterModal = ({handleFilterCompletedMunros,handleFilterUncompletedMunros,
                     setModalVisible(!modalVisible);
                   }}
                 >
-                  <Text>Close</Text>
+                 <FontAwesomeIcon icon={faX} size={13} />
                 </Pressable>
               </View>
             </View>
@@ -40,7 +44,7 @@ const FilterModal = ({handleFilterCompletedMunros,handleFilterUncompletedMunros,
               setModalVisible(true);
             }}
           >
-            <Text>Filter</Text>
+            <Text><FontAwesomeIcon icon={faFilter} size={20} color={'rgba(250,250,250, 0.7)'}/></Text>
           </Pressable>
           </View>
     </View>
@@ -50,9 +54,9 @@ const FilterModal = ({handleFilterCompletedMunros,handleFilterUncompletedMunros,
 const styles=StyleSheet.create({
   centeredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end',
+    marginTop: '25%',
   },
   modalView: {
     margin: 20,

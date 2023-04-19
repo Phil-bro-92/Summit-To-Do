@@ -169,73 +169,90 @@ const ListContainer = ({ munros, sortedNames }) => {
   };
 
   return (
-    <View style={styles.listCont}>
-      <SafeAreaView>
-        <View style={styles.searchFilter}>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Search Munros:"
-            onChangeText={handleFilterMunros}
-          ></TextInput>
-          <FilterModal
-            handleFilterCompletedMunros={handleFilterCompletedMunros}
-            handleFilterUncompletedMunros={handleFilterUncompletedMunros}
-            handleFilterEasyMunros={handleFilterEasyMunros}
-            handleFilterModerateMunros={handleFilterModerateMunros}
-            handleFilterHardMunros={handleFilterHardMunros}
-            handleFilterAllMunros={handleFilterAllMunros}
-          />
-        </View>
+		<View style={styles.listCont}>
+			<SafeAreaView>
+				<View style={styles.searchFilter}>
+					<View style={styles.searchBarCont}>
+						<TextInput
+							style={styles.textInput}
+							placeholder="Search Munros:"
+							onChangeText={handleFilterMunros}
+						></TextInput>
+					</View>
+					<View style={styles.filterModal}>
+						<FilterModal
+							handleFilterCompletedMunros={handleFilterCompletedMunros}
+							handleFilterUncompletedMunros={handleFilterUncompletedMunros}
+							handleFilterEasyMunros={handleFilterEasyMunros}
+							handleFilterModerateMunros={handleFilterModerateMunros}
+							handleFilterHardMunros={handleFilterHardMunros}
+							handleFilterAllMunros={handleFilterAllMunros}
+						/>
+					</View>
+				</View>
 
-        <ScrollView style={styles.ScrollView}>
-          <Table
-            borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}
-            style={styles.table}
-          >
-            <TableWrapper style={styles.tablewrap}>
-              <Cell data="Name" onPress={handleSortNamesAlphabetically} />
-              <Cell data="Height" onPress={handleSortHeight} />
-              <Cell data="Completed" />
-            </TableWrapper>
+				<ScrollView style={styles.ScrollView}>
+					<Table
+						borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}
+						style={styles.table}
+					>
+						<TableWrapper
+							style={styles.tablewrap}
+							width={"100%"}
+						>
+							<Cell
+								data="Name"
+								onPress={handleSortNamesAlphabetically}
+								width={"50%"}
+								alignSelf={"center"}
+							/>
+							<Cell
+								data="Height"
+								onPress={handleSortHeight}
+								alignSelf={"center"}
+							/>
+							<Cell data="Completed" alignSelf={"center"} />
+						</TableWrapper>
 
-            {
-              (munroItems = res.map((munro, index) => {
-                let climbedIcon;
-                if (munro.climbed) {
-                  climbedIcon = (
-                    <Icon
-                      name="landscape"
-                      size={35}
-                      color="green"
-                      alignSelf={"center"}
-                    />
-                  );
-                } else {
-                  climbedIcon = (
-                    <Icon
-                      name="landscape"
-                      size={25}
-                      color="grey"
-                      alignSelf={"center"}
-                    />
-                  );
-                }
-                return (
-                  <Row
-                    key={index}
-                    textStyle={styles.dataText}
-                    data={[munro.name, munro.height + "m", climbedIcon]}
-                    heightArr={[28, 28]}
-                  />
-                );
-              }))
-            }
-          </Table>
-        </ScrollView>
-      </SafeAreaView>
-      <NavBar />
-    </View>
-  );
+						{
+							(munroItems = res.map((munro, index) => {
+								let climbedIcon;
+								if (munro.climbed) {
+									climbedIcon = (
+										<Icon
+											name="landscape"
+											size={35}
+											color="green"
+											alignSelf={"center"}
+										/>
+									);
+								} else {
+									climbedIcon = (
+										<Icon
+											name="landscape"
+											size={25}
+											color="grey"
+											alignSelf={"center"}
+										/>
+									);
+								}
+								return (
+									<Row
+										key={index}
+										textStyle={styles.dataText}
+										data={[munro.name, munro.height + "m", climbedIcon]}
+										heightArr={[28, 28]}
+										flexArr={[2, 1, 1]}
+									/>
+								);
+							}))
+						}
+					</Table>
+				</ScrollView>
+			</SafeAreaView>
+			<NavBar />
+		</View>
+	);
 };
 
 const styles = StyleSheet.create({
@@ -244,10 +261,24 @@ const styles = StyleSheet.create({
     width: "100%",
   },
 
-  container: {
-    flex: 1,
-    padding: 16,
-    paddingTop: 30,
+  searchFilter:{
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: '-10%',
+    marginBottom: '-10%'
+
+
+  },
+  searchBarCont: {
+    width: '80%',
+    alignSelf: 'center',
+    marginLeft: '-5%'
+  },
+  filterModal: {
   },
   head: {
     height: 40,
@@ -256,9 +287,9 @@ const styles = StyleSheet.create({
   text: { margin: 6, fontSize: 15, color: "white" },
   scrollView: { marginHorizontal: 25 },
   textInput: {
-    margin: "8%",
+    margin: "5%",
     backgroundColor: "rgba(250, 250, 250, 0.5)",
-    height: "5%",
+    height: "20%",
     borderRadius: "10%",
   },
   table: {
@@ -268,7 +299,7 @@ const styles = StyleSheet.create({
   },
 
   ScrollView: {
-    height: "68%",
+    height: "65%",
   },
   dataText: {
     fontSize: 18,
@@ -278,7 +309,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     height: 40,
-    backgroundColor: "rgba(0,0,0,0.3)",
+    backgroundColor: "rgba(0,0,0,0.2)",
   },
 });
 export default ListContainer;

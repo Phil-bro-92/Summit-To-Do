@@ -11,16 +11,24 @@ import { Link } from "react-router-native";
 export default function NavBar() {
   return (
 		<View style={styles.navbar}>
-			<Link to={"/"} style={styles.link}>
+			<Link to={"/"} style={styles.link} underlayColor={"transparent"}>
 				<FontAwesomeIcon style={styles.icon} icon={faHouseChimney} size={29} />
 			</Link>
-			<Link to={"/munro-list"} style={styles.link}>
+			<Link
+				to={"/munro-list"}
+				style={styles.link}
+				underlayColor={"transparent"}
+			>
 				<FontAwesomeIcon style={styles.icon} icon={faMountainSun} size={29} />
 			</Link>
-			<Link to={"/munro-map"} style={styles.link}>
+			<Link to={"/munro-map"} style={styles.link} underlayColor={"transparent"}>
 				<FontAwesomeIcon style={styles.icon} icon={faMapPin} size={29} />
 			</Link>
-			<Link to={"/user-profile"} style={styles.link}>
+			<Link
+				to={"/user-profile"}
+				style={styles.link}
+				underlayColor={"transparent"}
+			>
 				<FontAwesomeIcon style={styles.icon} icon={faCircleUser} size={29} />
 			</Link>
 		</View>
