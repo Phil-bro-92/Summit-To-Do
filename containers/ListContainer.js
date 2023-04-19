@@ -37,8 +37,8 @@ const ListContainer = ({ munros, sortedNames }) => {
   const [areMunrosAscending, setAreMunrosAscending] = useState(false);
   const [munrosAlphabetical, setMunrosAlphabetical] = useState([]);
   const [areMunrosAlphabetical, setAreMunrosAlphabetical] = useState(false);
-  const [munroModalVisible, setMunroModalVisible] = useState(false)
-  const [selectedMunro, setSelectedMunro] = useState([])
+  const [munroModalVisible, setMunroModalVisible] = useState(false);
+  const [selectedMunro, setSelectedMunro] = useState([]);
 
   const filterMunros = (input) => {
     const filteredNodes = munros.filter((munro) => {
@@ -132,8 +132,6 @@ const ListContainer = ({ munros, sortedNames }) => {
     res = munros;
   }
 
- 
-
   const handleSortNamesAlphabetically = () => {
     if (!areMunrosAlphabetical) {
       setAreMunrosAlphabetical(true);
@@ -150,15 +148,17 @@ const ListContainer = ({ munros, sortedNames }) => {
       );
     } else {
       setAreMunrosAlphabetical(false);
-      setMunrosAlphabetical(munros.sort((a, b) => {
-        if (a.name > b.name) {
-          return -1;
-        }
-        if (a.name < b.name) {
-          return 1;
-        }
-        return 0;
-      }));
+      setMunrosAlphabetical(
+        munros.sort((a, b) => {
+          if (a.name > b.name) {
+            return -1;
+          }
+          if (a.name < b.name) {
+            return 1;
+          }
+          return 0;
+        })
+      );
     }
   };
 
@@ -173,116 +173,105 @@ const ListContainer = ({ munros, sortedNames }) => {
   };
 
   const handleOnMunroPress = () => {
-
     setMunroModalVisible(true);
-  }
+  };
 
   return (
-		<View style={styles.listCont}>
-			<SafeAreaView>
-				<View style={styles.searchFilter}>
-					<View style={styles.searchBarCont}>
-						<TextInput
-							style={styles.textInput}
-							placeholder="Search Munros:"
-							onChangeText={handleFilterMunros}
-						></TextInput>
-					</View>
-					<View style={styles.filterModal}>
-						<FilterModal
-							handleFilterCompletedMunros={handleFilterCompletedMunros}
-							handleFilterUncompletedMunros={handleFilterUncompletedMunros}
-							handleFilterEasyMunros={handleFilterEasyMunros}
-							handleFilterModerateMunros={handleFilterModerateMunros}
-							handleFilterHardMunros={handleFilterHardMunros}
-							handleFilterAllMunros={handleFilterAllMunros}
-						/>
-					</View>
-				</View>
+    <View style={styles.listCont}>
+      <SafeAreaView>
+        <View style={styles.searchFilter}>
+          <View style={styles.searchBarCont}>
+            <TextInput
+              style={styles.textInput}
+              placeholder="Search Munros:"
+              onChangeText={handleFilterMunros}
+            ></TextInput>
+          </View>
+          <View style={styles.filterModal}>
+            <FilterModal
+              handleFilterCompletedMunros={handleFilterCompletedMunros}
+              handleFilterUncompletedMunros={handleFilterUncompletedMunros}
+              handleFilterEasyMunros={handleFilterEasyMunros}
+              handleFilterModerateMunros={handleFilterModerateMunros}
+              handleFilterHardMunros={handleFilterHardMunros}
+              handleFilterAllMunros={handleFilterAllMunros}
+            />
+          </View>
+        </View>
 
-				<ScrollView style={styles.ScrollView}>
-					<Table
-						borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}
-						style={styles.table}
-					>
-						<TableWrapper
-							style={styles.tablewrap}
-							width={"100%"}
-						>
-							<Cell
-								data="Name"
-								onPress={handleSortNamesAlphabetically}
-								width={"50%"}
-								alignSelf={"center"}
-							/>
-							<Cell
-								data="Height"
-								onPress={handleSortHeight}
-								alignSelf={"center"}
-							/>
-							<Cell data="Completed" alignSelf={"center"} />
-						</TableWrapper>
+        <ScrollView style={styles.ScrollView}>
+          <Table
+            borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}
+            style={styles.table}
+          >
+            <TableWrapper style={styles.tablewrap} width={"100%"}>
+              <Cell
+                data="Name"
+                onPress={handleSortNamesAlphabetically}
+                width={"50%"}
+                alignSelf={"center"}
+              />
+              <Cell
+                data="Height"
+                onPress={handleSortHeight}
+                alignSelf={"center"}
+              />
+              <Cell data="Completed" alignSelf={"center"} />
+            </TableWrapper>
 
-						{
-							(munroItems = res.map((munro, index) => {
-								let climbedIcon;
-								if (munro.climbed) {
-									climbedIcon = (
-										<Icon
-											name="landscape"
-											size={35}
-											color="green"
-											alignSelf={"center"}
-										/>
-									);
-								} else {
-									climbedIcon = (
-										<Icon
-											name="landscape"
-											size={25}
-											color="grey"
-											alignSelf={"center"}
-										/>
-									);
-								}
-								return (
-									<View>
-										<Modal
-											animationType="slide"
-											transparent={true}
-											visible={munroModalVisible}
-											onRequestClose={() => {
-											setModalVisible(!munroModalVisible);
-											}}
-											setMunroModalVisible={setMunroModalVisible}
-											munroModalVisible={munroModalVisible}
-											key={index}
-										
-										>
-											<MunroModal munro={selectedMunro} setMunroModalVisible={setMunroModalVisible} munroModalVisible={munroModalVisible} />
-										</Modal>
-										<Pressable onPress={()=>{
-                      setSelectedMunro(munro);
-                      setMunroModalVisible(true);
-                      }}>
-											<Row
-												key={index}
-												textStyle={styles.dataText}
-												data={[munro.name, munro.height + "m", climbedIcon]}
-												heightArr={[28, 28]}
-												flexArr={[2, 1, 1]}
-											/>
-										</Pressable>
-									</View>
-								);
-							}))
-						}
-					</Table>
-				</ScrollView>
-			</SafeAreaView>
-			<NavBar />
-		</View>
-	);
+            {
+              (munroItems = res.map((munro, index) => {
+                let climbedIcon;
+                if (munro.climbed) {
+                  climbedIcon = (
+                    <Icon
+                      name="landscape"
+                      size={35}
+                      color="green"
+                      alignSelf={"center"}
+                    />
+                  );
+                } else {
+                  climbedIcon = (
+                    <Icon
+                      name="landscape"
+                      size={25}
+                      color="grey"
+                      alignSelf={"center"}
+                    />
+                  );
+                }
+                return (
+                  <View>
+                    <MunroModal
+                      munro={selectedMunro}
+                      setMunroModalVisible={setMunroModalVisible}
+                      munroModalVisible={munroModalVisible}
+                    />
+                    <Pressable
+                      onPress={() => {
+                        setSelectedMunro(munro);
+                        setMunroModalVisible(true);
+                      }}
+                    >
+                      <Row
+                        key={index}
+                        textStyle={styles.dataText}
+                        data={[munro.name, munro.height + "m", climbedIcon]}
+                        heightArr={[28, 28]}
+                        flexArr={[2, 1, 1]}
+                      />
+                    </Pressable>
+                  </View>
+                );
+              }))
+            }
+          </Table>
+        </ScrollView>
+      </SafeAreaView>
+      <NavBar />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -291,25 +280,22 @@ const styles = StyleSheet.create({
     width: "100%",
   },
 
-  searchFilter:{
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    alignContent: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: '-10%',
-    marginBottom: '-10%'
-
-
+  searchFilter: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    alignContent: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: "-10%",
+    marginBottom: "-10%",
   },
   searchBarCont: {
-    width: '80%',
-    alignSelf: 'center',
-    marginLeft: '-5%'
+    width: "80%",
+    alignSelf: "center",
+    marginLeft: "-5%",
   },
-  filterModal: {
-  },
+  filterModal: {},
   head: {
     height: 40,
     backgroundColor: "rgba(0,0,0,0.3)",
