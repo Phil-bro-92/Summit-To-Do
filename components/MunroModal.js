@@ -1,94 +1,123 @@
-import React from 'react'
-import {Modal, View, Text, Pressable, StyleSheet, Linking} from 'react-native'
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  Pressable,
+  StyleSheet,
+  Linking,
+  Modal,
+} from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import MapView, { PROVIDER_GOOGLE, UrlTile } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Marker } from "react-native-maps";
-import {Link} from 'react-router-native'
+import LogModal from "./LogModal";
+import { useSearchParams } from "react-router-native";
 
-const MunroModal = ({munroModalVisible, setMunroModalVisible, munro }) => {
+const MunroModal = ({ munroModalVisible, setMunroModalVisible, munro }) => {
+  const [addLogsModalVisible, setAddLogsModalVisible] = useState(false);
 
-const handleMapsLink= () => {
-        Linking.openURL(munro.googleMapsLink);
-}
+  const handleMapsLink = () => {
+    Linking.openURL(munro.googleMapsLink);
+  };
 
-        return (
-					<View style={styles.centeredView}>
-						<View style={styles.modalView}>
-							<View style={styles.rowWrapper}>
-								<View style={styles.firstRow}>
-									<Text style={styles.modalHeader}>{munro.name}</Text>
-									<View style={styles.mountainIconCont}>
-										<Icon
-											name="landscape"
-											size={35}
-											color="green"
-											alignSelf={"center"}
-											style={styles.mountainIcon}
-										/>
-									</View>
-								</View>
-								<View style={styles.secondRow}>
-									<View style={styles.secondRowTextCont}>
-										<Text style={styles.modalTextLeft}>
-											Height: {munro.height}m
-										</Text>
-										<Text style={styles.modalTextLeft}> {munro.region}</Text>
-										<Text style={styles.modalTextLeft}>
-											Difficulty: {munro.difficulty}
-										</Text>
-										<Text style={styles.modalTextLeft}>
-											Duration: {munro.duration}
-										</Text>
-									</View>
+  return (
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={munroModalVisible}
+      onRequestClose={() => {
+        setModalVisible(!munroModalVisible);
+      }}
+      setMunroModalVisible={setMunroModalVisible}
+      munroModalVisible={munroModalVisible}
+    
+    >
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+          <View style={styles.rowWrapper}>
+            <View style={styles.firstRow}>
+              <Text style={styles.modalHeader}>{munro.name}</Text>
+              <Icon
+                name="landscape"
+                size={35}
+                color="green"
+                alignSelf={"center"}
+              />
+            </View>
+            <View style={styles.secondRow}>
+              <View>
+                <Text style={styles.modalText}>Height: {munro.height}m</Text>
+                <Text style={styles.modalText}> {munro.region}</Text>
+                <Text style={styles.modalText}>
+                  Difficulty: {munro.difficulty}
+                </Text>
+                <Text style={styles.modalText}>Duration: {munro.duration}</Text>
+              </View>
 
-									<MapView
-										onPress={handleMapsLink}
-										style={styles.map}
-										mapType={"standard"}
-										provider={PROVIDER_GOOGLE}
-										loadingEnabled={true}
-										scrollEnabled={false}
-										initialRegion={{
-											latitude: munro.latitude,
-											longitude: munro.longitude,
-											latitudeDelta: 1,
-											longitudeDelta: 1,
-										}}
-									>
-										<Marker
-											coordinate={{
-												latitude: munro.latitude,
-												longitude: munro.longitude,
-											}}
-											title={munro.name}
-											description={munro.height + "m"}
-										>
-											<Icon name="landscape" size={24} color="black" />
-										</Marker>
-									</MapView>
-								</View>
-								<View style={styles.thirdRow}>
-									<Text style={styles.modalText}>
-										Pronunciation: {munro.pronunciation}
-									</Text>
-									<Text style={styles.modalText}>
-										Gaelic Name: {munro.gaelicName}
-									</Text>
-									<Text style={styles.modalText}>
-										Translation: {munro.meaning}
-									</Text>
-								</View>
-								<Pressable
-									style={[styles.button, styles.buttonClose]}
-									onPress={() => setMunroModalVisible(!munroModalVisible)}
-								>
-									<Text style={styles.textStyle}>Hide Modal</Text>
-								</Pressable>
-							</View>
-						</View>
-					</View>
-				);
-}
+              <MapView
+                onPress={handleMapsLink}
+                style={styles.map}
+                mapType={"standard"}
+                provider={PROVIDER_GOOGLE}
+                loadingEnabled={true}
+                scrollEnabled={false}
+                initialRegion={{
+                  latitude: munro.latitude,
+                  longitude: munro.longitude,
+                  latitudeDelta: 1,
+                  longitudeDelta: 1,
+                }}
+              >
+                <Marker
+                  coordinate={{
+                    latitude: munro.latitude,
+                    longitude: munro.longitude,
+                  }}
+                  title={munro.name}
+                  description={munro.height + "m"}
+                >
+                  <Icon name="landscape" size={24} color="black" />
+                </Marker>
+              </MapView>
+            </View>
+            <View style={styles.thirdRow}>
+              <Text style={styles.modalText}>
+                Pronunciation: {munro.pronunciation}
+              </Text>
+              <Text style={styles.modalText}>
+                Gaelic Name: {munro.gaelicName}
+              </Text>
+              <Text style={styles.modalText}>Translation: {munro.meaning}</Text>
+            </View>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={munroModalVisible}
+              onRequestClose={() => {
+                setMunroModalVisible(!munroModalVisible);
+              }}
+            >
+              <LogModal />
+            </Modal>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setAddLogsModalVisible(addLogsModalVisible)}
+            >
+              <Text style={styles.textStyle}>Add Logs</Text>
+            </Pressable>
+
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setMunroModalVisible(!munroModalVisible)}
+            >
+              <Text style={styles.textStyle}>Hide Modal</Text>
+            </Pressable>
+          </View>
+        </View>
+      </View>
+    </Modal>
+  );
+};
 const styles = StyleSheet.create({
 	centeredView: {
 		flex: 1,
@@ -185,6 +214,7 @@ const styles = StyleSheet.create({
 		borderRadius: "10%",
                 alignSelf: 'center'
 	},
+
 });
 
-export default MunroModal
+export default MunroModal;
