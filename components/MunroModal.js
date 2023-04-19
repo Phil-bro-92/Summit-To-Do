@@ -17,29 +17,32 @@ const handleMapsLink= () => {
 							<View style={styles.rowWrapper}>
 								<View style={styles.firstRow}>
 									<Text style={styles.modalHeader}>{munro.name}</Text>
-									<Icon
-										name="landscape"
-										size={35}
-										color="green"
-										alignSelf={"center"}
-									/>
+									<View style={styles.mountainIconCont}>
+										<Icon
+											name="landscape"
+											size={35}
+											color="green"
+											alignSelf={"center"}
+											style={styles.mountainIcon}
+										/>
+									</View>
 								</View>
 								<View style={styles.secondRow}>
-									<View>
-										<Text style={styles.modalText}>
+									<View style={styles.secondRowTextCont}>
+										<Text style={styles.modalTextLeft}>
 											Height: {munro.height}m
 										</Text>
-										<Text style={styles.modalText}> {munro.region}</Text>
-										<Text style={styles.modalText}>
+										<Text style={styles.modalTextLeft}> {munro.region}</Text>
+										<Text style={styles.modalTextLeft}>
 											Difficulty: {munro.difficulty}
 										</Text>
-										<Text style={styles.modalText}>
+										<Text style={styles.modalTextLeft}>
 											Duration: {munro.duration}
 										</Text>
 									</View>
-                                                                
+
 									<MapView
-                                                                                onPress={handleMapsLink}
+										onPress={handleMapsLink}
 										style={styles.map}
 										mapType={"standard"}
 										provider={PROVIDER_GOOGLE}
@@ -63,7 +66,6 @@ const handleMapsLink= () => {
 											<Icon name="landscape" size={24} color="black" />
 										</Marker>
 									</MapView>
-                                                             
 								</View>
 								<View style={styles.thirdRow}>
 									<Text style={styles.modalText}>
@@ -124,22 +126,35 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "center",
                 height: '20%',
-                alignContent: 'center'
+                width: '100%',
+                alignContent: 'center',
+                alignItems: 'center'
 	},
 	secondRow: {
 		display: "flex",
 		flexDirection: "row",
+                justifyContent: 'space-evenly',
 		width: "100%",
 		height: "40%",
 		marginTop: "10%",
+               
 	},
+        secondRowTextCont:{
+                 textAlign: 'left'
+        },
         thirdRow: {
                 height: '30%',
+                width: '100%'
         },
 	modalHeader: {
 		width: "60%",
-		fontSize: 20,
+		fontSize: 25,
+                textAlign: 'center',
+                alignSelf: 'center'
 	},
+        mountainIconCont: {
+                width: '40%',
+        },
 	button: {
 		borderRadius: 20,
 		padding: 10,
@@ -157,13 +172,18 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 	},
 	modalText: {
-		marginBottom: 15,
-		textAlign: "center",
+		margin: '3%',
+                textAlign: 'center'
 	},
+        modalTextLeft: {
+                textAlign: 'left',
+                margin: '5%'
+        },
 	map: {
 		width: "50%",
-		height: "50%",
+		height: "100%",
 		borderRadius: "10%",
+                alignSelf: 'center'
 	},
 });
 

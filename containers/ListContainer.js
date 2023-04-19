@@ -23,7 +23,6 @@ import {
 import Icon from "react-native-vector-icons/MaterialIcons";
 import FilterModal from "../components/FilterModal";
 import NavBar from "../components/NavBar";
-import { faA } from "@fortawesome/free-solid-svg-icons";
 import MunroModal from "../components/MunroModal";
 
 const ListContainer = ({ munros, sortedNames }) => {
@@ -200,7 +199,7 @@ const ListContainer = ({ munros, sortedNames }) => {
 					</View>
 				</View>
 
-				<ScrollView style={styles.ScrollView}>
+				<ScrollView style={styles.scrollView}>
 					<Table
 						borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}
 						style={styles.table}
@@ -315,7 +314,6 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.3)",
   },
   text: { margin: 6, fontSize: 15, color: "white" },
-  scrollView: { marginHorizontal: 25 },
   textInput: {
     margin: "5%",
     backgroundColor: "rgba(250, 250, 250, 0.5)",
@@ -328,7 +326,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
 
-  ScrollView: {
+  scrollView: {
     height: "65%",
   },
   dataText: {
