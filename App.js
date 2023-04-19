@@ -76,6 +76,7 @@ const App=()=> {
 							element={<MapContainer munros={munros} />}
 						/>
 						<Route exact path="/user-profile" element={<UserContainer />} />
+						
 					</Routes>
 				</ImageBackground>
 			</View>

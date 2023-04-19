@@ -23,6 +23,8 @@ import {
 import Icon from "react-native-vector-icons/MaterialIcons";
 import FilterModal from "../components/FilterModal";
 import NavBar from "../components/NavBar";
+import { faA } from "@fortawesome/free-solid-svg-icons";
+import MunroModal from "../components/MunroModal";
 
 const ListContainer = ({ munros, sortedNames }) => {
   const [filteredMunros, setFilteredMunros] = useState([]);
@@ -35,6 +37,8 @@ const ListContainer = ({ munros, sortedNames }) => {
   const [areMunrosAscending, setAreMunrosAscending] = useState(false);
   const [munrosAlphabetical, setMunrosAlphabetical] = useState([]);
   const [areMunrosAlphabetical, setAreMunrosAlphabetical] = useState(false);
+  const [munroModalVisible, setMunroModalVisible] = useState(false)
+  const [selectedMunro, setSelectedMunro] = useState([])
 
   const filterMunros = (input) => {
     const filteredNodes = munros.filter((munro) => {
@@ -168,6 +172,11 @@ const ListContainer = ({ munros, sortedNames }) => {
     }
   };
 
+  const handleOnMunroPress = () => {
+
+    setMunroModalVisible(true);
+  }
+
   return (
 		<View style={styles.listCont}>
 			<SafeAreaView>
@@ -237,13 +246,34 @@ const ListContainer = ({ munros, sortedNames }) => {
 									);
 								}
 								return (
-									<Row
-										key={index}
-										textStyle={styles.dataText}
-										data={[munro.name, munro.height + "m", climbedIcon]}
-										heightArr={[28, 28]}
-										flexArr={[2, 1, 1]}
-									/>
+									<View>
+										<Modal
+											animationType="slide"
+											transparent={true}
+											visible={munroModalVisible}
+											onRequestClose={() => {
+											setModalVisible(!munroModalVisible);
+											}}
+											setMunroModalVisible={setMunroModalVisible}
+											munroModalVisible={munroModalVisible}
+											key={index}
+										
+										>
+											<MunroModal munro={selectedMunro} setMunroModalVisible={setMunroModalVisible} munroModalVisible={munroModalVisible} />
+										</Modal>
+										<Pressable onPress={()=>{
+                      setSelectedMunro(munro);
+                      setMunroModalVisible(true);
+                      }}>
+											<Row
+												key={index}
+												textStyle={styles.dataText}
+												data={[munro.name, munro.height + "m", climbedIcon]}
+												heightArr={[28, 28]}
+												flexArr={[2, 1, 1]}
+											/>
+										</Pressable>
+									</View>
 								);
 							}))
 						}
