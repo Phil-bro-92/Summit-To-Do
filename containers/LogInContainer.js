@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useHistory} from 'react-router-native';
-import {View, Text, StyleSheet, ImageBackground, Image, TextInput} from 'react-native';
+import {View, Text, StyleSheet, ImageBackground, Image, TextInput, KeyboardAvoidingView, Animated} from 'react-native';
 import { Button } from 'react-native';
 import {Link} from 'react-router-native'
 import HomepageContainer from './HomepageContainer';
@@ -11,35 +11,45 @@ const LogInContainer = () => {
 
 
   return (
-		<View style={styles.logInContainer}>
-			<ImageBackground
-				source={require("../assets/background/loginbackground.png")}
-				style={styles.background}
-			>
-				<View style={styles.logoCont}>
-					<Image
-						source={require("../assets/images/LogoWhite.png")}
-						style={styles.image}
-					/>
-					<Text style={styles.loginHeader}>Log In</Text>
-				</View>
-				<View style={styles.formCont}>
-					<TextInput placeholder="username" style={styles.username} />
-					<TextInput placeholder="password" style={styles.password} />
-					<Link to={"/"} style={styles.button}>
-						<Text style={styles.buttonText}>Log In</Text>
-					</Link>
-					<View style={styles.divider}>
-						<View style={styles.line}></View>
-						<Text style={styles.or}>or</Text>
-						<View style={styles.line}></View>
+		<KeyboardAvoidingView
+			behavior={Platform.OS === "ios" ? "position" : "height"}
+		>
+			<View style={styles.logInContainer}>
+				<ImageBackground
+					source={require("../assets/background/loginbackground.png")}
+					style={styles.background}
+				>
+					<View style={styles.logoCont}>
+					
+							<Image
+								source={require("../assets/images/LogoWhite.png")}
+								style={styles.image}
+							/>
+			
+						{/* <Text style={styles.loginHeader}>Log In</Text> */}
 					</View>
-					<Link to={"/register"} style={styles.button}>
-						<Text style={styles.buttonText}>Register</Text>
-					</Link>
-				</View>
-			</ImageBackground>
-		</View>
+					<View style={styles.formCont}>
+						<TextInput placeholder="username" style={styles.username} />
+						<TextInput placeholder="password" style={styles.password} />
+						<Link to={"/"} style={styles.button} underlayColor={"transparent"}>
+							<Text style={styles.buttonText}>Log In</Text>
+						</Link>
+						<View style={styles.divider}>
+							<View style={styles.line}></View>
+							<Text style={styles.or}>or</Text>
+							<View style={styles.line}></View>
+						</View>
+						<Link
+							to={"/register"}
+							style={styles.button}
+							underlayColor={"transparent"}
+						>
+							<Text style={styles.buttonText}>Register</Text>
+						</Link>
+					</View>
+				</ImageBackground>
+			</View>
+		</KeyboardAvoidingView>
 	);
 }
 
@@ -51,6 +61,7 @@ const styles = StyleSheet.create({
 	background: {
 		height: "100%",
 		width: "100%",
+		
 	},
 	logoCont: {
 		width: "100%",
@@ -69,8 +80,8 @@ const styles = StyleSheet.create({
 	},
 	image: {
 		resizeMode: "contain",
-		height: 250,
-		width: 250,
+		height: 300,
+		width: 300,
 		alignSelf: "center",
 	},
 	formCont: {
@@ -88,13 +99,15 @@ const styles = StyleSheet.create({
 		borderBottomColor: "rgba(93, 159, 107, 0.8)",
 		borderBottomWidth: 2,
 		marginTop: "10%",
+		fontSize: 18
 	},
 	password: {
 		marginTop: "10%",
-		marginBottom: "15%",
+		marginBottom: "10%",
 		width: "50%",
 		borderBottomColor: "rgba(93, 159, 107, 0.8)",
 		borderBottomWidth: 2,
+		fontSize: 18
 	},
 	divider: {
 		display: "flex",

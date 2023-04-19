@@ -17,11 +17,11 @@ export default function HomepageContainer ({munros}){
 
   const name = "José";
 
-    const [fontsLoaded] = useFonts({
-    'Sen-Bold': require('../assets/fonts/Sen-Bold.ttf'),
-    'Sen-Regular': require('../assets/fonts/Sen-Regular.ttf'),
-    'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf')
-  })
+//     const [fontsLoaded] = useFonts({
+//     'Sen-Bold': require('../assets/fonts/Sen-Bold.ttf'),
+//     'Sen-Regular': require('../assets/fonts/Sen-Regular.ttf'),
+//     'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf')
+//   })
 
   const progressBarPercentage = Math.round((100/282 )* munrosCompleted.length);
 
@@ -106,7 +106,6 @@ const styles = StyleSheet.create({
 		fontSize: 40,
 		textAlign: "center",
 		color: "rgb(200, 220, 200)",
-		fontFamily: "Poppins-Bold",
 	},
 	logo: {
 		width: "100%",
