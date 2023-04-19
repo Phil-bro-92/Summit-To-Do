@@ -1,11 +1,13 @@
-import React from 'react'
-import {Modal, View, Text, Pressable, StyleSheet, Linking} from 'react-native'
+import React, { useState } from 'react'
+import {View, Text, Pressable, StyleSheet, Linking, Modal} from 'react-native'
 import Icon from "react-native-vector-icons/MaterialIcons";
-import MapView, { PROVIDER_GOOGLE, UrlTile } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE} from "react-native-maps";
 import { Marker } from "react-native-maps";
-import {Link} from 'react-router-native'
+import AddLogModal from './AddLogModal';
+import { useSearchParams } from 'react-router-native';
 
 const MunroModal = ({munroModalVisible, setMunroModalVisible, munro }) => {
+	const [addLogsModalVisible, setAddLogsModalVisible] = useState(false);
 
 const handleMapsLink= () => {
         Linking.openURL(munro.googleMapsLink);
@@ -62,8 +64,7 @@ const handleMapsLink= () => {
 										>
 											<Icon name="landscape" size={24} color="black" />
 										</Marker>
-									</MapView>
-                                                             
+									</MapView>                                                     
 								</View>
 								<View style={styles.thirdRow}>
 									<Text style={styles.modalText}>
@@ -76,6 +77,22 @@ const handleMapsLink= () => {
 										Translation: {munro.meaning}
 									</Text>
 								</View>
+								<Modal
+											animationType="slide"
+											transparent={true}
+											visible={munroModalVisible}
+											onRequestClose={() => {
+											setMunroModalVisible(!munroModalVisible);
+											}}
+										><AddLogModal/>
+										</Modal>
+										<Pressable
+									style={[styles.button, styles.buttonClose]}
+									onPress={() => setAddLogsModalVisible(addLogsModalVisible)}
+								>
+									<Text style={styles.textStyle}>Add Logs</Text>
+								</Pressable>
+								
 								<Pressable
 									style={[styles.button, styles.buttonClose]}
 									onPress={() => setMunroModalVisible(!munroModalVisible)}
