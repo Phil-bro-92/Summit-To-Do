@@ -58,13 +58,6 @@ public class User {
         this.name = name;
     }
 
-    public String getUserName() {
-        return email;
-    }
-
-    public void setUserName(String userName) {
-        this.email = userName;
-    }
 
     public String getPassword() {
         return password;
@@ -105,5 +98,6 @@ public class User {
     public void removeMunroCompleted(Munro munro) {
         this.munrosCompleted.remove(munro);
     }
+
 
 }

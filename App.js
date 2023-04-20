@@ -12,11 +12,38 @@ import MunroContainer from "./containers/MunroContainer";
 const App = () => {
   const [munros, setMunros] = useState([]);
   const [selectedMunro, setSelectedMunro] = useState([]);
-  console.log(selectedMunro);
+  const [dbMunros, setDbMunros] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [logs, setLogs] = useState([]);
 
   useEffect(() => {
     fetchMunros();
+    fetchDbMunros();
+    fetchUsers();
+    fetchLogs();
   }, []);
+
+  useEffect(() => {
+    console.log(dbMunros);
+  },[dbMunros]);
+
+  const fetchDbMunros = () => {
+    fetch("/api/munros")
+      .then((res) => res.json())
+      .then((data) => setDbMunros(data));
+  };
+
+  const fetchUsers = () => {
+    fetch("/api/users")
+      .then((res) => res.json())
+      .then((data) => setUsers(data));
+  };
+
+  const fetchLogs = () => {
+    fetch("/api/logs")
+      .then((res) => res.json())
+      .then((data) => setLogs(data));
+  };
 
   const fetchMunros = () => {
     fetch(
@@ -38,7 +65,11 @@ const App = () => {
           style={styles.backgroundImage}
         >
           <Routes>
-            <Route exact path="/login" element={<LogInContainer />} />
+            <Route
+              exact
+              path="/login"
+              element={<LogInContainer users={users} />}
+            />
             <Route exact path="/register" element={<RegisterContainer />} />
             <Route
               exact
@@ -55,7 +86,11 @@ const App = () => {
                 />
               }
             />
-            <Route exact path="/munro-card" element={<MunroContainer munro={selectedMunro} />} />
+            <Route
+              exact
+              path="/munro-card"
+              element={<MunroContainer munro={selectedMunro} />}
+            />
 
             <Route
               exact
