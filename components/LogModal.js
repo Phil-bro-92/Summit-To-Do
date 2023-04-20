@@ -1,13 +1,16 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Modal } from "react-native";
 
 const LogModal = () => {
   return (
-    <View style={styles.centeredView}>
-      <View style={styles.modalView}>
-        <Text>Add Log</Text>
-      </View>
-    </View>
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={munroModalVisible}
+      onRequestClose={() => {
+        
+      }}
+    ></Modal>
   );
 };
 
