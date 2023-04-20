@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   View,
@@ -13,7 +13,29 @@ import {
 
 import { Link } from "react-router-native";
 
-const LogInContainer = () => {
+const LogInContainer = ({ users }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginAccepted, setLoginAccepted] = useState(true);
+
+  const isUser = () => {
+    users.map((user, index) => {
+      if (user.email === email && user.password === password) {
+        setLoginAccepted(true);
+      } else {
+        setLoginAccepted(false);
+      }
+    });
+  };
+
+  const handleEmailInput = (text) => {
+    setEmail(text);
+  };
+
+  const handlePasswordInput = (text) => {
+    setPassword(text);
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "position" : "height"}
@@ -32,11 +54,30 @@ const LogInContainer = () => {
             {/* <Text style={styles.loginHeader}>Log In</Text> */}
           </View>
           <View style={styles.formCont}>
-            <TextInput placeholder="username" style={styles.username} />
-            <TextInput placeholder="password" style={styles.password} />
-            <Link to={"/"} style={styles.button} underlayColor={"transparent"}>
-              <Text style={styles.buttonText}>Log In</Text>
-            </Link>
+            <TextInput
+              onChangeText={handleEmailInput}
+              placeholder="Email"
+              style={styles.username}
+            />
+            <TextInput
+              onChangeText={handlePasswordInput}
+              placeholder="Password"
+              style={styles.password}
+            />
+            {loginAccepted ? (
+              <Link
+                to={"/"}
+                onPress={isUser}
+                style={styles.button}
+                underlayColor={"transparent"}
+              >
+                <Text style={styles.buttonText}>Log In</Text>
+              </Link>
+            ) : (
+              <Link style={styles.button} underlayColor={"transparent"}>
+                <Text style={styles.buttonText}>Log In</Text>
+              </Link>
+            )}
             <View style={styles.divider}>
               <View style={styles.line}></View>
               <Text style={styles.or}>or</Text>

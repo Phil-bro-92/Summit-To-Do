@@ -14,8 +14,8 @@ public class User {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "user_name")
-    private String userName;
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "password")
     private String password;
@@ -42,9 +42,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public User(String name, String userName, String password, String profilePicture) {
+    public User(String name, String email, String password, String profilePicture) {
         this.name = name;
-        this.userName = userName;
+        this.email = email;
         this.password = password;
         this.profilePicture = profilePicture;
         this.munrosCompleted = new ArrayList<>();
@@ -60,14 +60,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getPassword() {
@@ -112,5 +104,13 @@ public class User {
 
     public String getProfilePicture() {
         return profilePicture;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
