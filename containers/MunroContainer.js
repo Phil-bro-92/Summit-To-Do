@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Linking } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Marker } from "react-native-maps";
+import AddLog from "../components/AddLog";
 
 const MunroContainer = ({munro}) => {
   const handleMapsLink = () => {
@@ -67,6 +68,7 @@ const MunroContainer = ({munro}) => {
             </Text>
             <Text style={styles.modalText}>Translation: {munro.meaning}</Text>
           </View>
+          <AddLog/>
         </View>
       </View>
     </View>
