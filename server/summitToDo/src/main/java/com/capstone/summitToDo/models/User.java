@@ -14,14 +14,11 @@ public class User {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "user_name")
-    private String userName;
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "password")
     private String password;
-
-    @Column(name = "profile_picture")
-    private String profilePicture;
 
     @JsonIgnoreProperties(value = "users")
     @OneToMany
@@ -42,11 +39,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public User(String name, String userName, String password, String profilePicture) {
+    public User(String name, String email, String password, String profilePicture) {
         this.name = name;
-        this.userName = userName;
+        this.email = email;
         this.password = password;
-        this.profilePicture = profilePicture;
         this.munrosCompleted = new ArrayList<>();
         this.logs = new ArrayList<>();
     }
@@ -63,11 +59,11 @@ public class User {
     }
 
     public String getUserName() {
-        return userName;
+        return email;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.email = userName;
     }
 
     public String getPassword() {
@@ -110,7 +106,4 @@ public class User {
         this.munrosCompleted.remove(munro);
     }
 
-    public String getProfilePicture() {
-        return profilePicture;
-    }
 }
