@@ -13,7 +13,8 @@ public class Log {
     @Column(name = "date_completed")
     private String dateCompleted;
 
-
+    @Column(name="weather")
+    private String weather;
 
     @ManyToOne
     @JoinColumn(name = "munro_id")
@@ -22,9 +23,10 @@ public class Log {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Log(String comment, String dateCompleted, Munro munro) {
+    public Log(String comment, String dateCompleted, String weather, Munro munro) {
         this.comment = comment;
         this.dateCompleted = dateCompleted;
+        this.weather = weather;
         this.munro = munro;
     }
 
@@ -53,5 +55,13 @@ public class Log {
 
     public void setMunro(Munro munro) {
         this.munro = munro;
+    }
+
+    public String getWeather() {
+        return weather;
+    }
+
+    public void setWeather(String weather) {
+        this.weather = weather;
     }
 }

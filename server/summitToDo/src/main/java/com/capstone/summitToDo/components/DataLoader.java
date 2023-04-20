@@ -243,9 +243,9 @@ public class DataLoader implements ApplicationRunner {
         munroRepository.save(munro104);
 
 
-        Log log1 = new Log("was easy", "2018-12-09", munro1);
+        Log log1 = new Log("was easy", "2018-12-09", "sunny",  munro1);
         logRepository.save(log1);
-        Log log2 = new Log("was windy", "2019-11-09", munro7);
+        Log log2 = new Log("was windy", "2019-11-09", "Windy", munro7);
         logRepository.save(log2);
 
 

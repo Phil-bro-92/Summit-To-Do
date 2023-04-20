@@ -20,9 +20,6 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "profile_picture")
-    private String profilePicture;
-
     @JsonIgnoreProperties(value = "users")
     @OneToMany
     @JoinTable(
@@ -46,7 +43,6 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.profilePicture = profilePicture;
         this.munrosCompleted = new ArrayList<>();
         this.logs = new ArrayList<>();
     }
@@ -61,6 +57,7 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
+
 
     public String getPassword() {
         return password;
@@ -102,15 +99,5 @@ public class User {
         this.munrosCompleted.remove(munro);
     }
 
-    public String getProfilePicture() {
-        return profilePicture;
-    }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }
