@@ -1,14 +1,13 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faChildReaching, faPersonHiking } from '@fortawesome/free-solid-svg-icons';
-import { useFonts } from 'expo-font';
+import { faPersonHiking } from '@fortawesome/free-solid-svg-icons';
 import NavBar from '../components/NavBar';
 import {Link} from 'react-router-native';
 
 
 export default function HomepageContainer ({munros}){
 
-  const munrosCompleted = munros.filter((munro, index) => {
+  const munrosCompleted = munros.filter((munro) => {
         return munro.climbed === true
   })
 

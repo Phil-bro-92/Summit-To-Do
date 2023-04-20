@@ -1,31 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   View,
-  Text,
   StyleSheet,
   TextInput,
   ScrollView,
-  Pressable,
-  Alert,
-  Modal,
   SafeAreaView,
-  Button,
 } from "react-native";
-import {
-  Table,
-  TableWrapper,
-  Row,
-  Rows,
-  Col,
-  Cols,
-  Cell,
-} from "react-native-table-component";
+import { Table, TableWrapper, Row, Cell } from "react-native-table-component";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import FilterModal from "../components/FilterModal";
 import NavBar from "../components/NavBar";
-import MunroModal from "../components/MunroModal";
+import { Link } from "react-router-native";
 
-const ListContainer = ({ munros, sortedNames }) => {
+const ListContainer = ({ munros, getSelectedMunro }) => {
   const [filteredMunros, setFilteredMunros] = useState([]);
   const [easyMunros, setEasyMunros] = useState([]);
   const [moderateMunros, setModerateMunros] = useState([]);
@@ -36,8 +23,6 @@ const ListContainer = ({ munros, sortedNames }) => {
   const [areMunrosAscending, setAreMunrosAscending] = useState(false);
   const [munrosAlphabetical, setMunrosAlphabetical] = useState([]);
   const [areMunrosAlphabetical, setAreMunrosAlphabetical] = useState(false);
-  const [munroModalVisible, setMunroModalVisible] = useState(false);
-  const [selectedMunro, setSelectedMunro] = useState([]);
 
   const filterMunros = (input) => {
     const filteredNodes = munros.filter((munro) => {
@@ -171,10 +156,6 @@ const ListContainer = ({ munros, sortedNames }) => {
     }
   };
 
-  const handleOnMunroPress = () => {
-    setMunroModalVisible(true);
-  };
-
   return (
     <View style={styles.listCont}>
       <SafeAreaView>
@@ -197,28 +178,25 @@ const ListContainer = ({ munros, sortedNames }) => {
             />
           </View>
         </View>
-				<ScrollView style={styles.scrollView}>
-					<Table
-						borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}
-						style={styles.table}
-					>
-						<TableWrapper
-							style={styles.tablewrap}
-							width={"100%"}
-						>
-							<Cell
-								data="Name"
-								onPress={handleSortNamesAlphabetically}
-								width={"50%"}
-								alignSelf={"center"}
-							/>
-							<Cell
-								data="Height"
-								onPress={handleSortHeight}
-								alignSelf={"center"}
-							/>
-							<Cell data="Completed" alignSelf={"center"} />
-						</TableWrapper>
+        <ScrollView style={styles.scrollView}>
+          <Table
+            borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}
+            style={styles.table}
+          >
+            <TableWrapper style={styles.tablewrap} width={"100%"}>
+              <Cell
+                data="Name"
+                onPress={handleSortNamesAlphabetically}
+                width={"50%"}
+                alignSelf={"center"}
+              />
+              <Cell
+                data="Height"
+                onPress={handleSortHeight}
+                alignSelf={"center"}
+              />
+              <Cell data="Completed" alignSelf={"center"} />
+            </TableWrapper>
 
             {
               (munroItems = res.map((munro, index) => {
@@ -244,16 +222,9 @@ const ListContainer = ({ munros, sortedNames }) => {
                 }
                 return (
                   <View>
-                    <MunroModal
-                      munro={selectedMunro}
-                      setMunroModalVisible={setMunroModalVisible}
-                      munroModalVisible={munroModalVisible}
-                    />
-                    <Pressable
-                      onPress={() => {
-                        setSelectedMunro(munro);
-                        setMunroModalVisible(true);
-                      }}
+                    <Link
+                      to={"/munro-card"}
+                      onPress={() => getSelectedMunro(munro)}
                     >
                       <Row
                         key={index}
@@ -262,7 +233,7 @@ const ListContainer = ({ munros, sortedNames }) => {
                         heightArr={[28, 28]}
                         flexArr={[2, 1, 1]}
                       />
-                    </Pressable>
+                    </Link>
                   </View>
                 );
               }))

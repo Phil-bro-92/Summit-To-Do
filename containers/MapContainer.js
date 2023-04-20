@@ -7,7 +7,7 @@ import NavBar from "../components/NavBar";
 import {View} from 'react-native'
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faMountain, faMountainCity } from "@fortawesome/free-solid-svg-icons";
-import MunroModal from "../components/MunroModal";
+import MunroModal from "./MunroContainer";
 
 const MapContainer = ({ munros }) => {
   const [munroSelected, setMunroSelected] = useState([]);
