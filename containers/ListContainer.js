@@ -221,21 +221,22 @@ const ListContainer = ({ munros, getSelectedMunro }) => {
                   );
                 }
                 return (
-                  <View>
-                    <Link
-                      to={"/munro-card"}
-                      onPress={() => getSelectedMunro(munro)}
-                    >
-                      <Row
-                        key={index}
-                        textStyle={styles.dataText}
-                        data={[munro.name, munro.height + "m", climbedIcon]}
-                        heightArr={[28, 28]}
-                        flexArr={[2, 1, 1]}
-                      />
-                    </Link>
-                  </View>
-                );
+									<View>
+										<Link
+											underlayColor={"transparent"}
+											to={"/munro-card"}
+											onPress={() => getSelectedMunro(munro)}
+										>
+											<Row
+												key={index}
+												textStyle={styles.dataText}
+												data={[munro.name, munro.height + "m", climbedIcon]}
+												heightArr={[28, 28]}
+												flexArr={[2, 1, 1]}
+											/>
+										</Link>
+									</View>
+								);
               }))
             }
           </Table>
