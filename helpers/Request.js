@@ -4,10 +4,11 @@ class Request {
   get(url) {
     return fetch(url).then((res) => res.json());
   }
-  delete(url) {
+  delete(url, payload) {
     return fetch(url, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
     });
   }
   post(url, payload) {
