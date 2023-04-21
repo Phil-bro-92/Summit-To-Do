@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-native";
 import {
 	View,
@@ -11,11 +11,56 @@ import {
   TouchableWithoutFeedback,
   Keyboard
 } from "react-native";
-import { Button } from "react-native";
 import { Link } from "react-router-native";
 import HomepageContainer from "./HomepageContainer";
+import Request from "../helpers/Request";
+import { Alert } from "react-native";
 
-const LogInContainer = () => {
+const RegisterContainer = () => {
+
+	const [name, setName] = useState("");
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [munrosCompleted, setMunrosCompleted] = useState([]);
+	const [logs, setLogs] = useState([]);
+	const [newUser, setNewUser] = useState({
+		name: "",
+		email: "",
+		password: "",
+		munrosCompleted: [],
+		logs: [],
+	});
+	
+	user1 = {name: name, email: email, password: password, munrosCompleted: [], logs: []}
+
+	useEffect(() => {
+	  setNewUser(user1);
+	  console.log(newUser)
+	}, [password])
+
+	const nameInput = (text) => {
+		setName(text)
+	}
+	const emailInput = (text) => {
+		setEmail(text)
+	}
+	const passwordInput = (text) => {
+		setPassword(text)
+	}
+	const handleAddUser = () => {
+		setNewUser({...newUser, name: name, email: email, password: password})
+		const request = new Request ();
+		request.post('http://127.0.0.1:8080/api/users', newUser)
+		Alert.alert("Registration successful. Please log in.");
+		setName("")
+		setEmail("")
+		setPassword("")
+
+		
+	}
+
+
+
 	return (
 		<KeyboardAvoidingView
 			behavior={Platform.OS === "ios" ? "position" : "height"}
@@ -30,7 +75,6 @@ const LogInContainer = () => {
 							source={require("../assets/images/LogoWhite.png")}
 							style={styles.image}
 						/>
-						<Text style={styles.loginHeader}>Log In</Text>
 					</View>
 
 					<View style={styles.formCont}>
@@ -40,6 +84,8 @@ const LogInContainer = () => {
 							keyboardType="default"
 							require
 							textContentType="givenName"
+							onChangeText={nameInput}
+							value={name}
 						/>
 						<TextInput
 							placeholder="email"
@@ -47,16 +93,24 @@ const LogInContainer = () => {
 							keyboardType="email-address"
 							require
 							textContentType="emailAddress"
+							onChangeText={emailInput}
+							value={email}
 						/>
 						<TextInput
 							placeholder="password"
 							style={styles.password}
-							keyboardType="visible-password"
+							secureTextEntry={true}
 							require
 							textContentType="password"
+							onChangeText={passwordInput}
+							value={password}
 						/>
 
-						<Link to={"/"} style={styles.button} underlayColor={"transparent"}>
+						<Link
+							style={styles.button}
+							underlayColor={"transparent"}
+							onPress={handleAddUser}
+						>
 							<Text style={styles.buttonText}>Register</Text>
 						</Link>
 						<View style={styles.divider}>
@@ -171,4 +225,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default LogInContainer;
+export default RegisterContainer;

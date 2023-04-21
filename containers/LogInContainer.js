@@ -64,6 +64,7 @@ const LogInContainer = ({ users }) => {
 							onChangeText={handlePasswordInput}
 							placeholder="Password"
 							style={styles.password}
+							secureTextEntry={true}
 						/>
 
 						{loginAccepted ? (
