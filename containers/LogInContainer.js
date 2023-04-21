@@ -13,16 +13,18 @@ import {
 
 import { Link } from "react-router-native";
 
-const LogInContainer = ({ users }) => {
+const LogInContainer = ({ users, findUser }) => {
   const [loginAccepted, setLoginAccepted] = useState(false);
   const [passwordInput, setPasswordInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
+  const [userEmail, setUserEmail] = useState("");
 
 
   useEffect(() => {
     users.filter((user) => {
       if (user.email === emailInput && user.password === passwordInput){
             setLoginAccepted(true);
+            setUserEmail(user.email);
       }
     })
 , [passwordInput]})
@@ -36,6 +38,8 @@ const LogInContainer = ({ users }) => {
   const handlePasswordInput = (text) => {
     setPasswordInput(text);
   };
+
+  findUser(userEmail);
 
   return (
 		<KeyboardAvoidingView
