@@ -1,12 +1,7 @@
-import request from 'request';
-
-const API_BASE_URL= 'http://localhost:8080/api/';
 
 class Request {
+
   get(url) {
-    return fetch(url).then((res) => res.json());
-  }
-  delete(url) {
     return fetch(url).then((res) => res.json());
   }
   delete(url) {

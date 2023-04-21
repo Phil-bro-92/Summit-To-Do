@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component } from "react";
 import { NativeRouter, Routes, Route } from "react-router-native";
 import HomepageContainer from "./containers/HomepageContainer";
 import { StyleSheet, View, ImageBackground } from "react-native";
@@ -8,6 +8,7 @@ import UserContainer from "./containers/UserContainer";
 import LogInContainer from "./containers/LogInContainer";
 import RegisterContainer from "./containers/RegisterContainer";
 import MunroContainer from "./containers/MunroContainer";
+import Request from "./helpers/Request.js";
 
 const App = () => {
   const [munros, setMunros] = useState([]);
@@ -15,6 +16,7 @@ const App = () => {
   const [dbMunros, setDbMunros] = useState([]);
   const [users, setUsers] = useState([]);
   const [logs, setLogs] = useState([]);
+
 
   useEffect(() => {
     fetchMunros();
@@ -24,25 +26,25 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    console.log(dbMunros);
-  },[dbMunros]);
+    console.log(logs);
+  },[logs]);
 
   const fetchDbMunros = () => {
-    fetch("/api/munros")
-      .then((res) => res.json())
-      .then((data) => setDbMunros(data));
+      const request = new Request();
+      request.get('http://127.0.0.1:8080/api/munros')
+			.then((data) => setDbMunros(data));
   };
 
   const fetchUsers = () => {
-    fetch("/api/users")
-      .then((res) => res.json())
-      .then((data) => setUsers(data));
+   const request = new Request();
+		request.get("http://127.0.0.1:8080/api/users")
+			.then((data) => setUsers(data));
   };
 
   const fetchLogs = () => {
-    fetch("/api/logs")
-      .then((res) => res.json())
-      .then((data) => setLogs(data));
+      const request = new Request();
+			request.get("http://127.0.0.1:8080/api/logs")
+				.then((data) => setLogs(data));
   };
 
   const fetchMunros = () => {
