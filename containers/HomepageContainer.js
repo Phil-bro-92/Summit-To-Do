@@ -5,16 +5,13 @@ import NavBar from '../components/NavBar';
 import {Link} from 'react-router-native';
 
 
-export default function HomepageContainer ({munros}){
+export default function HomepageContainer ({munros, user}){
 
-  const munrosCompleted = munros.filter((munro) => {
-        return munro.climbed === true
-  })
-
-  const munrosRemaining = 282 - (munrosCompleted.length) 
+ 
+  const munrosRemaining = 282 - (user.munrosCompleted.length) 
 
 
-  const name = "José";
+  const name = user.name;
 
 //     const [fontsLoaded] = useFonts({
 //     'Sen-Bold': require('../assets/fonts/Sen-Bold.ttf'),
@@ -22,7 +19,7 @@ export default function HomepageContainer ({munros}){
 //     'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf')
 //   })
 
-  const progressBarPercentage = Math.round((100/282 )* munrosCompleted.length);
+  const progressBarPercentage = (( user.munrosCompleted.length/282 )* 100).toFixed(1);
 
 
   
@@ -42,7 +39,7 @@ export default function HomepageContainer ({munros}){
 			<View style={styles.progress}>
 				<Text style={styles.progressHeader}>Munros</Text>
 				<Text style={styles.completed}>
-					Completed: {munrosCompleted.length}
+					Completed: {user.munrosCompleted.length}
 				</Text>
 				<Text style={styles.remaining}>Remaining: {munrosRemaining} </Text>
 				<View style={styles.progressBarCont}>
@@ -67,7 +64,12 @@ export default function HomepageContainer ({munros}){
 					<Text style={styles.progressPercent}>{progressBarPercentage}%</Text>
 				</View>
 			</View>
-			<Link to={"/munro-list"} component={TouchableOpacity} underlayColor={'white'} style={styles.logLink}>
+			<Link
+				to={"/munro-list"}
+				component={TouchableOpacity}
+				underlayColor={"white"}
+				style={styles.logLink}
+			>
 				<View style={styles.log}>
 					<Text style={styles.logText}>Log Completed Munro</Text>
 					<Image
@@ -81,7 +83,12 @@ export default function HomepageContainer ({munros}){
 				</View>
 			</Link>
 			<View style={styles.recent}>
-				<Text style={styles.recentHeader}>Most Recently Climbed</Text>
+				<Text style={styles.recentHeader}>Recently Climbed</Text>
+				<Text>{user.logs[0].dateCompleted}</Text>
+				<Text>{user.logs[0].munro.name}</Text>
+				<Text>{user.logs[0].munro.height}m</Text>
+				<Text>{user.logs[0].comment}</Text>
+				<Text>Weather: {user.logs[0].weather}</Text>
 			</View>
 		</View>
 	);
@@ -102,7 +109,7 @@ const styles = StyleSheet.create({
 		marginTop: "-35%",
 	},
 	greetingText: {
-		fontSize: 40,
+		fontSize: 30,
 		textAlign: "center",
 		color: "rgb(200, 220, 200)",
 	},

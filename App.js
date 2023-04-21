@@ -16,6 +16,7 @@ const App = () => {
   const [dbMunros, setDbMunros] = useState([]);
   const [users, setUsers] = useState([]);
   const [logs, setLogs] = useState([]);
+  const [loggedInUser, setLoggedInUser] = useState({})
 
 
   useEffect(() => {
@@ -55,6 +56,15 @@ const App = () => {
     setSelectedMunro(munro);
   };
 
+  const findUser = (userEmail) => {
+    users.filter((user) => {
+      if(userEmail === user.email){
+        setLoggedInUser(user)
+      }
+    })
+    console.log(loggedInUser);
+  }
+
   return (
     <NativeRouter initialEntries={["/login"]}>
       <View style={styles.container}>
@@ -66,13 +76,13 @@ const App = () => {
             <Route
               exact
               path="/login"
-              element={<LogInContainer users={users} />}
+              element={<LogInContainer users={users} findUser={findUser} />}
             />
             <Route exact path="/register" element={<RegisterContainer />} />
             <Route
               exact
               path="/"
-              element={<HomepageContainer munros={munros} />}
+              element={<HomepageContainer munros={munros} user = {loggedInUser}/>}
             />
             <Route
               exact
