@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TextInput, Button, Pressable, DatePickerIOS, Modal} from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCloud, faCloudRain, faSnowflake, faSun, faX } from "@fortawesome/free-solid-svg-icons";
@@ -8,7 +8,7 @@ const AddLog = () => {
   const [LogFormVisible, setLogFormVisible] = useState(true);
   const [LogsVisibile, setLogVisible] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [chosenDate, setChosenDate] = useState([]);
+  const [chosenDate, setChosenDate] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleSaveLog = () => {
@@ -21,9 +21,10 @@ const AddLog = () => {
   };
 
   const handleSubmitDate = (date) => {
-    setChosenDate(date)
+    setChosenDate(String(date))
     console.log(date)
   }
+
   return (
 		<View>
 			{LogFormVisible ? (
