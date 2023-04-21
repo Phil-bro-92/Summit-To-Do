@@ -25,10 +25,6 @@ const App = () => {
     fetchLogs();
   }, []);
 
-  useEffect(() => {
-    console.log(logs);
-  },[logs]);
-
   const fetchDbMunros = () => {
       const request = new Request();
       request.get('http://127.0.0.1:8080/api/munros')

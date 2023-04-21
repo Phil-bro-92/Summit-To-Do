@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   View,
@@ -14,88 +14,90 @@ import {
 import { Link } from "react-router-native";
 
 const LogInContainer = ({ users }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loginAccepted, setLoginAccepted] = useState(true);
+  const [loginAccepted, setLoginAccepted] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
+  const [emailInput, setEmailInput] = useState("");
 
-  const isUser = () => {
-    users.map((user, index) => {
-      if (user.email === email && user.password === password) {
-        setLoginAccepted(true);
-      } else {
-        setLoginAccepted(false);
+
+  useEffect(() => {
+    users.filter((user) => {
+      if (user.email === emailInput && user.password === passwordInput){
+            setLoginAccepted(true);
       }
-    });
-  };
+    })
+, [passwordInput]})
+  
 
   const handleEmailInput = (text) => {
-    setEmail(text);
-  };
+    setEmailInput(text);
+    }
+  
 
   const handlePasswordInput = (text) => {
-    setPassword(text);
+    setPasswordInput(text);
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "position" : "height"}
-    >
-      <View style={styles.logInContainer}>
-        <ImageBackground
-          source={require("../assets/background/loginbackground.png")}
-          style={styles.background}
-        >
-          <View style={styles.logoCont}>
-            <Image
-              source={require("../assets/images/LogoWhite.png")}
-              style={styles.image}
-            />
+		<KeyboardAvoidingView
+			behavior={Platform.OS === "ios" ? "position" : "height"}
+		>
+			<View style={styles.logInContainer}>
+				<ImageBackground
+					source={require("../assets/background/loginbackground.png")}
+					style={styles.background}
+				>
+					<View style={styles.logoCont}>
+						<Image
+							source={require("../assets/images/LogoWhite.png")}
+							style={styles.image}
+						/>
 
-            {/* <Text style={styles.loginHeader}>Log In</Text> */}
-          </View>
-          <View style={styles.formCont}>
-            <TextInput
-              onChangeText={handleEmailInput}
-              placeholder="Email"
-              style={styles.username}
-            />
-            <TextInput
-              onChangeText={handlePasswordInput}
-              placeholder="Password"
-              style={styles.password}
-            />
-            {loginAccepted ? (
-              <Link
-                to={"/"}
-                onPress={isUser}
-                style={styles.button}
-                underlayColor={"transparent"}
-              >
-                <Text style={styles.buttonText}>Log In</Text>
-              </Link>
-            ) : (
-              <Link style={styles.button} underlayColor={"transparent"}>
-                <Text style={styles.buttonText}>Log In</Text>
-              </Link>
-            )}
-            <View style={styles.divider}>
-              <View style={styles.line}></View>
-              <Text style={styles.or}>or</Text>
-              <View style={styles.line}></View>
-            </View>
-            <Link
-              to={"/register"}
-              style={styles.button}
-              underlayColor={"transparent"}
-            >
-              <Text style={styles.buttonText}>Register</Text>
-            </Link>
-          </View>
-        </ImageBackground>
-      </View>
-    </KeyboardAvoidingView>
-  );
-};
+						{/* <Text style={styles.loginHeader}>Log In</Text> */}
+					</View>
+					<View style={styles.formCont}>
+						<TextInput
+							onChangeText={handleEmailInput}
+							placeholder="Email"
+							style={styles.username}
+						/>
+						<TextInput
+							onChangeText={handlePasswordInput}
+							placeholder="Password"
+							style={styles.password}
+						/>
+
+						{loginAccepted ? (
+							<Link
+								to={"/"}
+								style={styles.button}
+								underlayColor={"transparent"}
+							>
+								<Text style={styles.buttonText}>Log In</Text>
+							</Link>
+						) : (
+							<Link style={styles.button} underlayColor={"transparent"}>
+								<Text style={styles.buttonText}>Log In</Text>
+							</Link>
+						)}
+						<View style={styles.divider}>
+							<View style={styles.line}></View>
+							<Text style={styles.or}>or</Text>
+							<View style={styles.line}></View>
+						</View>
+						<Link
+							to={"/register"}
+							style={styles.button}
+							underlayColor={"transparent"}
+						>
+							<Text style={styles.buttonText}>Register</Text>
+						</Link>
+					</View>
+				</ImageBackground>
+			</View>
+		</KeyboardAvoidingView>
+	);
+}
+          
 
 const styles = StyleSheet.create({
   logInContainer: {
