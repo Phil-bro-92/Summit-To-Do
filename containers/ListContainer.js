@@ -5,6 +5,7 @@ import {
   TextInput,
   ScrollView,
   SafeAreaView,
+  TextStyle
 } from "react-native";
 import { Table, TableWrapper, Row, Cell } from "react-native-table-component";
 import Icon from "react-native-vector-icons/MaterialIcons";
@@ -157,94 +158,97 @@ const ListContainer = ({ munros, getSelectedMunro }) => {
   };
 
   return (
-    <View style={styles.listCont}>
-      <SafeAreaView>
-        <View style={styles.searchFilter}>
-          <View style={styles.searchBarCont}>
-            <TextInput
-              style={styles.textInput}
-              placeholder="Search Munros:"
-              onChangeText={handleFilterMunros}
-            ></TextInput>
-          </View>
-          <View style={styles.filterModal}>
-            <FilterModal
-              handleFilterCompletedMunros={handleFilterCompletedMunros}
-              handleFilterUncompletedMunros={handleFilterUncompletedMunros}
-              handleFilterEasyMunros={handleFilterEasyMunros}
-              handleFilterModerateMunros={handleFilterModerateMunros}
-              handleFilterHardMunros={handleFilterHardMunros}
-              handleFilterAllMunros={handleFilterAllMunros}
-            />
-          </View>
-        </View>
-        <ScrollView style={styles.scrollView}>
-          <Table
-            borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}
-            style={styles.table}
-          >
-            <TableWrapper style={styles.tablewrap} width={"100%"}>
-              <Cell
-                data="Name"
-                onPress={handleSortNamesAlphabetically}
-                width={"50%"}
-                alignSelf={"center"}
-              />
-              <Cell
-                data="Height"
-                onPress={handleSortHeight}
-                alignSelf={"center"}
-              />
-              <Cell data="Completed" alignSelf={"center"} />
-            </TableWrapper>
+		<View style={styles.listCont}>
+			<SafeAreaView>
+				<View style={styles.searchFilter}>
+					<View style={styles.searchBarCont}>
+						<TextInput
+							style={styles.textInput}
+							placeholder="Search Munros:"
+							onChangeText={handleFilterMunros}
+						></TextInput>
+					</View>
+					<View style={styles.filterModal}>
+						<FilterModal
+							handleFilterCompletedMunros={handleFilterCompletedMunros}
+							handleFilterUncompletedMunros={handleFilterUncompletedMunros}
+							handleFilterEasyMunros={handleFilterEasyMunros}
+							handleFilterModerateMunros={handleFilterModerateMunros}
+							handleFilterHardMunros={handleFilterHardMunros}
+							handleFilterAllMunros={handleFilterAllMunros}
+						/>
+					</View>
+				</View>
+				<ScrollView style={styles.scrollView}>
+					<Table style={styles.table}>
+						<TableWrapper style={styles.tablewrap} width={"100%"}>
+							<Cell
+								data="Name"
+								onPress={handleSortNamesAlphabetically}
+								alignSelf={"center"}
+								textStyle={styles.tablewrapData}
+								width={"40%"}
+							/>
+							<Cell
+								data="Height"
+								onPress={handleSortHeight}
+								alignSelf={"center"}
+								textStyle={styles.tablewrapData}
+							/>
+							<Cell
+								data="Completed"
+								alignSelf={"center"}
+								textStyle={styles.tablewrapData}
+							/>
+						</TableWrapper>
 
-            {
-              (munroItems = res.map((munro, index) => {
-                let climbedIcon;
-                if (munro.climbed) {
-                  climbedIcon = (
-                    <Icon
-                      name="landscape"
-                      size={35}
-                      color="green"
-                      alignSelf={"center"}
-                    />
-                  );
-                } else {
-                  climbedIcon = (
-                    <Icon
-                      name="landscape"
-                      size={25}
-                      color="grey"
-                      alignSelf={"center"}
-                    />
-                  );
-                }
-                return (
+						{
+							(munroItems = res.map((munro, index) => {
+								let climbedIcon;
+								if (munro.climbed) {
+									climbedIcon = (
+										<Icon
+											name="landscape"
+											size={35}
+											color="green"
+											alignSelf={"center"}
+										/>
+									);
+								} else {
+									climbedIcon = (
+										<Icon
+											name="landscape"
+											size={25}
+											color="grey"
+											alignSelf={"center"}
+										/>
+									);
+								}
+								return (
 									<View>
-										<Link 
+										<Link
 											underlayColor={"transparent"}
 											to={"/munro-card"}
 											onPress={() => getSelectedMunro(munro)}
 										>
 											<Row
 												key={index}
-												style={styles.dataText}
+												textStyle={styles.dataText}
+												style={styles.data}
 												data={[munro.name, munro.height + "m", climbedIcon]}
-												heightArr={[28, 28]}
-												flexArr={[2, 1, 1]}
+												flexArr={[3, 2, 2]}
 											/>
 										</Link>
 									</View>
 								);
-              }))
-            }
-          </Table>
-        </ScrollView>
-      </SafeAreaView>
-      <NavBar />
-    </View>
-  );
+							}))
+						}
+					</Table>
+				</ScrollView>
+			</SafeAreaView>
+			<NavBar />
+		</View>
+	);
 };
 
 const styles = StyleSheet.create({
@@ -279,28 +283,45 @@ const styles = StyleSheet.create({
 		backgroundColor: "rgba(250, 250, 250, 0.5)",
 		height: "20%",
 		borderRadius: "10%",
-    paddingLeft: '5%'
+		paddingLeft: "5%",
 	},
 	table: {
 		backgroundColor: "rgba(250, 250, 250, 0.3)",
 		width: "90%",
 		alignSelf: "center",
+		color: "white",
 	},
 
 	scrollView: {
 		height: "65%",
+		color: "white",
 	},
 	dataText: {
 		fontSize: 18,
 		margin: "8%",
+		color: "rgba(50, 50, 30, 0.9)",
+		textAlign: "center",
+	},
+	data: {
 		borderBottomWidth: 1,
 		borderBottomColor: "white",
+    paddingTop: '2%',
+    paddingBottom: '2%'
+		
 	},
 	tablewrap: {
 		display: "flex",
 		flexDirection: "row",
 		height: 40,
 		backgroundColor: "rgba(0,0,0,0.2)",
+		borderWidth: 1,
+		borderColor: "white",
+		color: "white",
 	},
+  tablewrapData:{
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 500
+  }
 });
 export default ListContainer;
