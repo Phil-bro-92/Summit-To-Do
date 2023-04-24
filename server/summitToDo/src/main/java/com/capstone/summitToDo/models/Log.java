@@ -64,4 +64,12 @@ public class Log {
     public void setWeather(String weather) {
         this.weather = weather;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

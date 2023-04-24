@@ -49,4 +49,12 @@ public class Munro {
     public void setHeight(int height) {
         this.height = height;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

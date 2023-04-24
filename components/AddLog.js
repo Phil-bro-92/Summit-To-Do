@@ -1,20 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  Pressable,
-  DatePickerIOS,
-  Modal,
-} from "react-native";
+import { View, Text, TextInput, Button, Pressable } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
   faCloud,
   faCloudRain,
   faSnowflake,
   faSun,
-  faX,
 } from "@fortawesome/free-solid-svg-icons";
 import Request from "../helpers/Request";
 
@@ -31,55 +22,71 @@ const AddLog = ({ munro, user }) => {
   const [rainySelected, setRainySelected] = useState("grey");
   const [snowySelected, setSnowySelected] = useState("grey");
   const [cloudySelected, setCloudySelected] = useState("grey");
-  const [updateUsers, setUpdateUsers] = useState({
-    name: user.name,
-    email: user.email,
-    password: user.password,
-    munrosCompleted: user.munrosCompleted,
-    logs: user.logs,
-    id: user.id
-  });
-  const [newLog, setNewLog] = useState({
-    comment: "",
-    dateCompleted: "",
-    weather: "",
-    munro: {name: munro.name, height: munro.height}
-  });
-
-  const addedMunro = [{name: "Ben Nevis", height: 2343}]
-  const addedLog = [...user.logs, newLog]
-
-  user1 = {
-    "name": user.name,
-    "email": user.email,
-    "password": user.password,
-    "munrosCompleted": addedMunro,
-    "logs": addedLog,
-    "id": user.id
-  };
+  const [serverMunros, setServerMunros] = useState([]);
+  const [currentMunro, setCurrentMunro] = useState({});
+  const [newLog, setNewLog] = useState({});
 
   useEffect(() => {
-    // console.log(addedMunro)
-    // console.log(addedLog)
-    setUpdateUsers(user1)
-  }, [newLog])
+    fetchDbMunros();
+  }, [currentMunro]);
 
-  const updateUser = () => {
-    const request = new Request();
-    request.patch("http://172.19.43.158:8080/api/users/" + user.id, updateUsers);
-    
+  useEffect(() => {
+    findMunro();
+  }, [serverMunros]);
+
+  useEffect(() => {
+    console.log(newLog);
+  }, [newLog]);
+
+  const findMunro = () => {
+    serverMunros.map((serverMunro) => {
+      if (
+        serverMunro.name === munro.name &&
+        serverMunro.height === munro.height
+      ) {
+        setCurrentMunro(serverMunro);
+      }
+    });
   };
 
-  const handleSaveLog = () => {
-    setNewLog({
+  const fetchDbMunros = () => {
+    const request = new Request();
+    request
+      .get("http://localhost:8080/api/munros")
+      .then((data) => setServerMunros(data));
+  };
+
+  const postLog = () => {
+    const log = {
       comment: comment,
       dateCompleted: date,
       weather: "Sunny",
-      munro: {name: munro.name, height: munro.height}
-    })
+      munro: currentMunro,
+    };
+    const request = new Request();
+    request
+      .post("http://localhost:8080/api/logs", log)
+      .then((res) => res.json())
+      .then((data) => setNewLog(data));
+  };
+
+  const updateUser = () => {
+    const userCopy = {
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      munrosCompleted: [...user.munrosCompleted, currentMunro],
+      id: user.id,
+    };
+    const request = new Request();
+    request.patch("http://localhost:8080/api/users/" + user.id, userCopy);
+  };
+
+  const handleSaveLog = () => {
     setLogFormVisible(false);
     setLogVisible(true);
-    updateUser(updateUsers)
+    updateUser();
+    postLog();
   };
   const handleAddLog = () => {
     setLogFormVisible(true);
@@ -175,9 +182,7 @@ const AddLog = ({ munro, user }) => {
 
       {LogsVisibile ? (
         <View>
-          <View>
-            {/* <Text>{user.logs[0].comment}</Text> */}
-          </View>
+          <View>{/* <Text>{user.logs[0].comment}</Text> */}</View>
           <View>
             <Button onPress={handleAddLog} title="Add New Log" />
           </View>
