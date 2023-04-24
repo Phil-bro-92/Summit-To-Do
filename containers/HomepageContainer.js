@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginTop: "5%",
+    alignSelf: 'center',
     padding: "0%",
   },
   image: {
@@ -245,6 +245,7 @@ const styles = StyleSheet.create({
   logText: {
     fontSize: 18,
     marginLeft: "10%",
+    
   },
   arrow: {
     resizeMode: "contain",

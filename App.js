@@ -32,7 +32,7 @@ const App = () => {
   const fetchDbMunros = () => {
     const request = new Request();
     request
-			.get("http://http://172.19.43.158:8080/api/munros")
+			.get("http://172.19.43.158:8080/api/munros")
 			.then((data) => setDbMunros(data));
   };
 
