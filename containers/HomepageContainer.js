@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView} from 'react-native';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faPersonHiking } from '@fortawesome/free-solid-svg-icons';
 import NavBar from '../components/NavBar';
@@ -26,114 +26,144 @@ export default function HomepageContainer ({munros, user}){
 
   return (
 		<View style={styles.homepageContainer}>
-			<NavBar />
-			<View style={styles.logo}>
-				<Image
-					source={require("../assets/images/Logo.png")}
-					style={styles.logoImage}
-				/>
-			</View>
-			<View style={styles.greeting}>
-				<Text style={styles.greetingText}>Hi {name}!</Text>
-			</View>
-			<View style={styles.progress}>
-				<Text style={styles.progressHeader}>Munros</Text>
-				<Text style={styles.completed}>
-					Completed: {user.munrosCompleted.length}
-				</Text>
-				<Text style={styles.remaining}>Remaining: {munrosRemaining} </Text>
-				<View style={styles.progressBarCont}>
-					<View style={styles.barCont}>
-						<View style={styles.progressBar}></View>
-						<View
-							style={styles.progressAmount}
-							width={`${progressBarPercentage}%`}
-						></View>
-						<View>
-							<View left={`${progressBarPercentage}%`}>
-								<FontAwesomeIcon
-									icon={faPersonHiking}
-									size={22}
-									style={styles.progressIcon}
-								/>
+		<SafeAreaView>
+			<View style={styles.outwithNavbar}>
+				<View style={styles.logoAndName}>
+					<View style={styles.logo}>
+						<Image
+							source={require("../assets/images/LogoWhite.png")}
+							style={styles.logoImage}
+						/>
+					</View>
+					<View style={styles.greeting}>
+						<Text style={styles.greetingText}>Hi {name}!</Text>
+					</View>
+				</View>
+				<View style={styles.progress}>
+					<Text style={styles.progressHeader}>Munros</Text>
+					<Text style={styles.completed}>
+						Completed: {user.munrosCompleted.length}
+					</Text>
+					<Text style={styles.remaining}>Remaining: {munrosRemaining} </Text>
+					<View style={styles.progressBarCont}>
+						<View style={styles.barCont}>
+							<View style={styles.progressBar}></View>
+							<View
+								style={styles.progressAmount}
+								width={`${progressBarPercentage}%`}
+							></View>
+							<View>
+								<View left={`${progressBarPercentage}%`}>
+									<FontAwesomeIcon
+										icon={faPersonHiking}
+										size={22}
+										style={styles.progressIcon}
+									/>
+								</View>
 							</View>
 						</View>
 					</View>
+					<View style={styles.progressPercent}>
+							<Text>{progressBarPercentage}%</Text>
+						</View>
 				</View>
-				<View>
-					<Text style={styles.progressPercent}>{progressBarPercentage}%</Text>
+				<View style={styles.logLink}>
+					<Link
+						to={"/munro-list"}
+						component={TouchableOpacity}
+						underlayColor={"white"}
+					>
+						<View style={styles.log}>
+							<Text style={styles.logText}>Log Completed Munro</Text>
+							<Image
+								source={require("../assets/images/image.png")}
+								style={styles.image}
+							/>
+							<Image
+								source={require("../assets/images/image2.png")}
+								style={styles.arrow}
+							/>
+						</View>
+					</Link>
+				</View>
+				<View style={styles.recent}>
+					<Text  style={styles.recentHeader}>Recently Climbed</Text>
+					<View style={styles.latestLog}>
+					<Text style={styles.logDate}>{user.logs[0].dateCompleted}</Text>
+					<Text style={styles.munroName}>{user.logs[0].munro.name}</Text>
+					<Text>{user.logs[0].munro.height}m</Text>
+					<Text>Notes: {user.logs[0].comment}</Text>
+					<Text>Weather: {user.logs[0].weather}</Text>
+					</View>
 				</View>
 			</View>
-			<Link
-				to={"/munro-list"}
-				component={TouchableOpacity}
-				underlayColor={"white"}
-				style={styles.logLink}
-			>
-				<View style={styles.log}>
-					<Text style={styles.logText}>Log Completed Munro</Text>
-					<Image
-						source={require("../assets/images/image.png")}
-						style={styles.image}
-					/>
-					<Image
-						source={require("../assets/images/image2.png")}
-						style={styles.arrow}
-					/>
-				</View>
-			</Link>
-			<View style={styles.recent}>
-				<Text style={styles.recentHeader}>Recently Climbed</Text>
-				<Text>{user.logs[0].dateCompleted}</Text>
-				<Text>{user.logs[0].munro.name}</Text>
-				<Text>{user.logs[0].munro.height}m</Text>
-				<Text>{user.logs[0].comment}</Text>
-				<Text>Weather: {user.logs[0].weather}</Text>
-			</View>
+			</SafeAreaView>
+			<NavBar />
 		</View>
 	);
 }
 const styles = StyleSheet.create({
 	homepageContainer: {
-		width: "100%",
+		maxWidth: "100%",
 		height: "100%",
 	},
 
-	backgroundImage: {
+	outwithNavbar: {
+		height: "90%",
 		width: "100%",
-		height: "100%",
-		position: "fixed",
-		zIndex: -2,
+
 	},
-	greeting: {
-		marginTop: "-35%",
-	},
-	greetingText: {
-		fontSize: 30,
-		textAlign: "center",
-		color: "rgb(200, 220, 200)",
+	logoAndName: {
+		width: "100%",
+		height: "40%",
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'center'
 	},
 	logo: {
 		width: "100%",
-		marginTop: "5%",
+		alignItems: "center",
+		height: "50%",
 	},
 	logoImage: {
-		marginTop: "12%",
-		width: "40%",
-		height: "30%",
+		resizeMode: "contain",
+		width: 200,
+		height: 200,
+	},
+
+	greeting: {
+		width: "100%",
+		height: "50%",
+		alignItems: "center",
+	},
+	greetingText: {
+		fontSize: 28,
+		textAlign: "center",
+		color: "rgb(200, 220, 200)",
+		marginTop: "10%",
+		padding: "0%",
+	},
+
+	progressBarCont: {
+		width: "90%",
+		display: "flex",
+		flexDirection: "row",
+		justifyContent: "space-evenly",
+		alignItems: "center",
 		alignSelf: "center",
 	},
 	progress: {
 		alignSelf: "center",
 		backgroundColor: "rgba(250,250, 250, 0.7)",
 		width: "70%",
-		height: "20%",
-		borderRadius: "20%",
-		marginTop: "8%",
+		height: "25%",
+		borderRadius: "15%",
+		display: "flex",
+		flexDirection: "column",
+		justifyContent: "space-evenly",
 	},
 	progressHeader: {
 		fontSize: 20,
-		marginTop: "5%",
 		marginLeft: "10%",
 		padding: "2%",
 	},
@@ -147,14 +177,7 @@ const styles = StyleSheet.create({
 		marginLeft: "10%",
 		padding: "2%",
 	},
-	progressBarCont: {
-		width: "90%",
-		display: "flex",
-		flexDirection: "row",
-		justifyContent: "space-evenly",
-		alignItems: "center",
-		alignSelf: "center",
-	},
+
 	barCont: {
 		width: "80%",
 	},
@@ -177,37 +200,33 @@ const styles = StyleSheet.create({
 	},
 	progressIcon: {
 		marginTop: "-10%",
-		left: "-5%",
+		left: "-4%",
 	},
 	progressPercent: {
 		fontSize: 15,
 		alignSelf: "center",
-		position: "absolute",
 	},
 	logLink: {
-		padding: "0%",
-		margin: "0%",
 		alignSelf: "center",
 		backgroundColor: "rgba(250,250, 250, 0.7)",
 		width: "70%",
 		height: "7%",
-		borderRadius: "20%",
+		borderRadius: "15%",
 		marginTop: "3%",
-		outline: 'none'
+		outline: "none",
 	},
 	log: {
-			display: "flex",
+		display: "flex",
 		flexDirection: "row",
 		justifyContent: "space-between",
 		alignItems: "center",
-		marginTop: '5%',
-		padding: '0%'
-
+		marginTop: "5%",
+		padding: "0%",
 	},
 	image: {
 		resizeMode: "contain",
-		height: 25,
-		width: 25,
+		height: 22,
+		width: 22,
 	},
 	logText: {
 		fontSize: 18,
@@ -223,14 +242,37 @@ const styles = StyleSheet.create({
 		alignSelf: "center",
 		backgroundColor: "rgba(250,250, 250, 0.7)",
 		width: "70%",
-		height: "20%",
-		borderRadius: "20%",
+		height: "25%",
+		borderRadius: "15%",
 		marginTop: "3%",
+		padding: "1%",
 	},
 	recentHeader: {
 		fontSize: 20,
-		marginTop: "5%",
-		marginLeft: "10%",
+		justifyContent: 'center',
+		marginLeft: '10%',
+		marginTop: '3%',
+		marginBottom: '3%'
+	},
+	logDate: {
+		marginRight: "2%",
+		textAlign: "right",
+	},
+	nameAndHeight: {
+		display: "flex",
+		flexDirection: "row",
+		justifyContent: "space-between",
+	},
+	munroName: {
+		fontSize: 18,
+	},
+	latestLog: {
+		display: "flex",
+		flexDirection: "column",
+		justifyContent: "space-evenly",
 		padding: "2%",
+		borderWidth:2,
+		borderColor: 'rgba(250,250,250,0.7)',
+		borderRadius: '10%'
 	},
 });

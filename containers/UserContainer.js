@@ -1,14 +1,17 @@
 import React from 'react'
 import {View, Text, StyleSheet} from 'react-native'
 import NavBar from '../components/NavBar'
+import { SafeAreaView } from 'react-native';
 
 const UserContainer = () => {
   return (
-    <View style={styles.userContainer}>
-    <NavBar />
-    <Text>WOrld</Text>
-   </View>
-  )
+		<View style={styles.userContainer}>
+			<SafeAreaView>
+				<Text>Log Out</Text>
+			</SafeAreaView>
+			<NavBar />
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({
