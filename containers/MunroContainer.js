@@ -82,105 +82,102 @@ const MunroContainer = ({ munro, user}) => {
   );
 };
 const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22,
-  },
-  modalView: {
-    width: "90%",
-    height: "70%",
-    marginTop: "-5%",
-    margin: 10,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  rowWrapper: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    height: "100%",
-    width: "100%",
-  },
-  backArrow: {
-    resizeMode: "contain",
-    width: 20,
-    height: 20,
-  },
-  firstRow: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    height: "20%",
-    width: "100%",
-    alignContent: "center",
-    alignItems: "center",
-  },
-  secondRow: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    width: "100%",
-    height: "40%",
-    marginTop: "10%",
-  },
-  secondRowTextCont: {
-    textAlign: "left",
-  },
-  thirdRow: {
-    height: "30%",
-    width: "100%",
-  },
-  modalHeader: {
-    width: "60%",
-    fontSize: 25,
-    textAlign: "center",
-    alignSelf: "center",
-  },
-  mountainIconCont: {
-    width: "40%",
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    margin: "3%",
-    textAlign: "center",
-  },
-  modalTextLeft: {
-    textAlign: "left",
-    margin: "5%",
-  },
-  map: {
-    width: "50%",
-    height: "100%",
-    borderRadius: "10%",
-    alignSelf: "center",
-  },
+	centeredView: {
+		width: "100%",
+		height: "100%",
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	modalView: {
+		width: "90%",
+		height: "75%",
+		backgroundColor: "white",
+		borderRadius: 20,
+		padding: 20,
+		alignItems: "center",
+		shadowColor: "#000",
+		shadowOffset: {
+			width: 0,
+			height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 4,
+		elevation: 5,
+	},
+	rowWrapper: {
+		display: "flex",
+		flexDirection: "column",
+		justifyContent: "center",
+		height: "100%",
+		width: "100%",
+	},
+	backArrow: {
+		resizeMode: "contain",
+		width: 20,
+		height: 20,
+	},
+	firstRow: {
+		display: "flex",
+		flexDirection: "row",
+		justifyContent: "space-evenly",
+		height: "15%",
+		width: "100%",
+		alignContent: "center",
+		alignItems: "center",
+	},
+	secondRow: {
+		display: "flex",
+		flexDirection: "row",
+		justifyContent: "space-evenly",
+		width: "100%",
+		height: "35%",
+	},
+	secondRowText: {
+		textAlign: "left",
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'space-evenly'
+	},
+	thirdRow: {
+		height: "20%",
+		width: "100%",
+		display: "flex",
+		flexDirection: "column",
+		justifyContent: "space-evenly",
+	},
+	modalHeader: {
+		width: "60%",
+		fontSize: 25,
+		textAlign: "center",
+		alignSelf: "center",
+	},
+	mountainIconCont: {
+		width: "40%",
+	},
+
+	textStyle: {
+		color: "white",
+		fontWeight: "bold",
+		textAlign: "center",
+	},
+	modalText: {
+		margin: "3%",
+		textAlign: "center",
+	},
+	modalTextLeft: {
+		textAlign: "left",
+		margin: "3%",
+	},
+	map: {
+		width: "45%",
+		height: "70%",
+		borderRadius: "10%",
+		alignSelf: "center",
+	},
+	addLog: {
+		height: '50%'
+	},
 });
 
 export default MunroContainer;
+

@@ -21,13 +21,16 @@ const App = () => {
     fetchMunros();
     fetchUsers();
     fetchLogs();
+    findUser()
   }, []);
+
 
   const fetchUsers = () => {
     const request = new Request();
     request
       .get("http://localhost:8080/api/users")
       .then((data) => setUsers(data));
+
   };
 
   const fetchLogs = () => {
@@ -82,7 +85,7 @@ const App = () => {
               element={
                 <ListContainer
                   munros={munros}
-                  getSelectedMunro={getSelectedMunro}
+                  getSelectedMunro={getSelectedMunro} user = {loggedInUser}
                 />
               }
             />
@@ -92,6 +95,7 @@ const App = () => {
               element={
                 <MunroContainer munro={selectedMunro} user={loggedInUser} />
               }
+
             />
 
             <Route

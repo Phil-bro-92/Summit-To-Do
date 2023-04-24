@@ -12,8 +12,11 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import FilterModal from "../components/FilterModal";
 import NavBar from "../components/NavBar";
 import { Link } from "react-router-native";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faMountain } from "@fortawesome/free-solid-svg-icons";
 
-const ListContainer = ({ munros, getSelectedMunro }) => {
+
+const ListContainer = ({ munros, getSelectedMunro, user }) => {
   const [filteredMunros, setFilteredMunros] = useState([]);
   const [easyMunros, setEasyMunros] = useState([]);
   const [moderateMunros, setModerateMunros] = useState([]);
@@ -24,6 +27,7 @@ const ListContainer = ({ munros, getSelectedMunro }) => {
   const [areMunrosAscending, setAreMunrosAscending] = useState(false);
   const [munrosAlphabetical, setMunrosAlphabetical] = useState([]);
   const [areMunrosAlphabetical, setAreMunrosAlphabetical] = useState(false);
+
 
   const filterMunros = (input) => {
     const filteredNodes = munros.filter((munro) => {
@@ -67,8 +71,13 @@ const ListContainer = ({ munros, getSelectedMunro }) => {
   };
 
   const handleFilterCompletedMunros = () => {
-    const filterCompletedMunros = munros.filter((munro) => {
-      return munro.climbed;
+    const filterCompletedMunros = user.munrosCompleted.filter((munro) => {
+      munros.map((singleMunro) => {
+	if(singleMunro.name === munro.name) {
+		completedMunros.push(singleMunro)
+	}
+      })
+      console.log(completedMunros)
     });
     setCompletedMunros(filterCompletedMunros);
     setUncompletedMunros([]);
@@ -203,27 +212,30 @@ const ListContainer = ({ munros, getSelectedMunro }) => {
 						</TableWrapper>
 
 						{
-							(munroItems = res.map((munro, index) => {
+						munroItems = res.map((munro, index) => {
 								let climbedIcon;
-								if (munro.climbed) {
+								completedMunros.map((singleMunro) =>{
+									if (singleMunro.name === munro.name) {
 									climbedIcon = (
-										<Icon
-											name="landscape"
+										<FontAwesomeIcon
+											icon={faMountain}
 											size={35}
-											color="green"
+											color={"green"}
 											alignSelf={"center"}
 										/>
-									);
-								} else {
+									)
+									
+								 } else {
 									climbedIcon = (
-										<Icon
-											name="landscape"
-											size={25}
-											color="grey"
+										<FontAwesomeIcon
+											icon={faMountain}
+											size={35}
+											color={"green"}
 											alignSelf={"center"}
 										/>
 									);
-								}
+								 }
+								})
 								return (
 									<View>
 										<Link
@@ -241,7 +253,7 @@ const ListContainer = ({ munros, getSelectedMunro }) => {
 										</Link>
 									</View>
 								);
-							}))
+							})
 						}
 					</Table>
 				</ScrollView>
