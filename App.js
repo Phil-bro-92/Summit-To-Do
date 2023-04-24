@@ -13,41 +13,26 @@ import Request from "./helpers/Request.js";
 const App = () => {
   const [munros, setMunros] = useState([]);
   const [selectedMunro, setSelectedMunro] = useState([]);
-  const [dbMunros, setDbMunros] = useState([]);
   const [users, setUsers] = useState([]);
   const [logs, setLogs] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState({});
 
   useEffect(() => {
-    console.log(selectedMunro);
-  }, [selectedMunro]);
-
-  useEffect(() => {
     fetchMunros();
-    fetchDbMunros();
     fetchUsers();
     fetchLogs();
   }, []);
 
-  const fetchDbMunros = () => {
-    const request = new Request();
-    request
-			.get("http://172.19.43.158:8080/api/munros")
-			.then((data) => setDbMunros(data));
-  };
-
   const fetchUsers = () => {
     const request = new Request();
     request
-			.get("http://172.19.43.158:8080/api/users")
-			.then((data) => setUsers(data));
+      .get("http://localhost:8080/api/users")
+      .then((data) => setUsers(data));
   };
 
   const fetchLogs = () => {
     const request = new Request();
-    request
-			.get("http://172.19.43.158:8080/api/logs")
-			.then((data) => setLogs(data));
+    request.get("http://localhost:8080/api/logs").then((data) => setLogs(data));
   };
 
   const fetchMunros = () => {
@@ -68,7 +53,6 @@ const App = () => {
         setLoggedInUser(user);
       }
     });
-    console.log(loggedInUser);
   };
 
   return (
@@ -105,7 +89,9 @@ const App = () => {
             <Route
               exact
               path="/munro-card"
-              element={<MunroContainer munro={selectedMunro} user={loggedInUser}/>}
+              element={
+                <MunroContainer munro={selectedMunro} user={loggedInUser} />
+              }
             />
 
             <Route

@@ -605,10 +605,10 @@ public class DataLoader implements ApplicationRunner {
         logRepository.save(log2);
 
 
-        User becca = new User("Becca", "BB", "BB", "");
-        User daniel = new User("Daniel", "DP", "DP", "");
-        User eliza = new User("Eliza", "EP", "EP", "");
-        User phil = new User("Phil", "PB", "PB", "");
+        User becca = new User("Becca", "BB", "BB");
+        User daniel = new User("Daniel", "DP", "DP");
+        User eliza = new User("Eliza", "EP", "EP");
+        User phil = new User("Phil", "PB", "PB");
 
         phil.addMunroCompleted(munro1);
         phil.addLog(log1);
