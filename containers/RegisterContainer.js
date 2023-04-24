@@ -12,7 +12,6 @@ import {
   Keyboard,
 } from "react-native";
 import { Link } from "react-router-native";
-import HomepageContainer from "./HomepageContainer";
 import Request from "../helpers/Request";
 import { Alert } from "react-native";
 
@@ -56,7 +55,6 @@ const RegisterContainer = () => {
     if (name.length === 0 || email.length === 0 || password.length === 0) {
       Alert.alert("Please complete all fields.");
     } else {
-      setNewUser({ ...newUser, name: name, email: email, password: password });
       const request = new Request();
       request.post("http://172.19.43.158:8080/api/users", newUser);
       Alert.alert("Registration successful. Please log in.");
