@@ -37,32 +37,37 @@ const AddLog = ({ munro, user }) => {
     password: user.password,
     munrosCompleted: user.munrosCompleted,
     logs: user.logs,
+    id: user.id
   });
   const [newLog, setNewLog] = useState({
     comment: "",
     dateCompleted: "",
     weather: "",
-    munro: munro,
+    munro: {name: munro.name, height: munro.height}
   });
 
-
+  const addedMunro = [{name: "Ben Nevis", height: 2343}]
+  const addedLog = [...user.logs, newLog]
 
   user1 = {
-    name: user.name,
-    email: user.email,
-    password: user.password,
-    munrosCompleted: user.munrosCompleted.push(munro),
-    logs: user.logs.push(newLog),
+    "name": user.name,
+    "email": user.email,
+    "password": user.password,
+    "munrosCompleted": addedMunro,
+    "logs": addedLog,
+    "id": user.id
   };
 
   useEffect(() => {
+    // console.log(addedMunro)
+    // console.log(addedLog)
     setUpdateUsers(user1)
-    console.log(newLog)
   }, [newLog])
 
   const updateUser = () => {
     const request = new Request();
     request.patch("http://172.19.43.158:8080/api/users/" + user.id, updateUsers);
+    
   };
 
   const handleSaveLog = () => {
@@ -70,9 +75,11 @@ const AddLog = ({ munro, user }) => {
       comment: comment,
       dateCompleted: date,
       weather: "Sunny",
+      munro: {name: munro.name, height: munro.height}
     })
     setLogFormVisible(false);
     setLogVisible(true);
+    updateUser(updateUsers)
   };
   const handleAddLog = () => {
     setLogFormVisible(true);
@@ -162,17 +169,17 @@ const AddLog = ({ munro, user }) => {
               />
             </Pressable>
           </View>
-          <Button onPress={() => {handleSaveLog; updateUser}} title="Save" />
+          <Button onPress={handleSaveLog} title="Save" />
         </View>
       ) : null}
 
       {LogsVisibile ? (
         <View>
           <View>
-            <Text>Wow that was a tough one!</Text>
+            {/* <Text>{user.logs[0].comment}</Text> */}
           </View>
           <View>
-            <Button onPress={handleAddLog} title="Add Log" />
+            <Button onPress={handleAddLog} title="Add New Log" />
           </View>
         </View>
       ) : null}

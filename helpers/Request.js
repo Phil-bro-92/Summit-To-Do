@@ -19,6 +19,7 @@ class Request {
     });
   }
   patch(url, payload){
+    console.log(payload)
     return fetch(url, {
       method: "PATCH",
       headers: { "Content-type": "application/json" },
