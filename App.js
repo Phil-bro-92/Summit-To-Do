@@ -16,8 +16,11 @@ const App = () => {
   const [dbMunros, setDbMunros] = useState([]);
   const [users, setUsers] = useState([]);
   const [logs, setLogs] = useState([]);
-  const [loggedInUser, setLoggedInUser] = useState({})
+  const [loggedInUser, setLoggedInUser] = useState({});
 
+  useEffect(() => {
+    console.log(selectedMunro);
+  }, [selectedMunro]);
 
   useEffect(() => {
     fetchMunros();
@@ -27,21 +30,22 @@ const App = () => {
   }, []);
 
   const fetchDbMunros = () => {
-      const request = new Request();
-      request.get('http://127.0.0.1:8080/api/munros')
-			.then((data) => setDbMunros(data));
+    const request = new Request();
+    request
+      .get("http://127.0.0.1:8080/api/munros")
+      .then((data) => setDbMunros(data));
   };
 
   const fetchUsers = () => {
-   const request = new Request();
-		request.get("http://127.0.0.1:8080/api/users")
-			.then((data) => setUsers(data));
+    const request = new Request();
+    request
+      .get("http://127.0.0.1:8080/api/users")
+      .then((data) => setUsers(data));
   };
 
   const fetchLogs = () => {
-      const request = new Request();
-			request.get("http://127.0.0.1:8080/api/logs")
-				.then((data) => setLogs(data));
+    const request = new Request();
+    request.get("http://127.0.0.1:8080/api/logs").then((data) => setLogs(data));
   };
 
   const fetchMunros = () => {
@@ -58,12 +62,12 @@ const App = () => {
 
   const findUser = (userEmail) => {
     users.filter((user) => {
-      if(userEmail === user.email){
-        setLoggedInUser(user)
+      if (userEmail === user.email) {
+        setLoggedInUser(user);
       }
-    })
+    });
     console.log(loggedInUser);
-  }
+  };
 
   return (
     <NativeRouter initialEntries={["/login"]}>
@@ -82,7 +86,9 @@ const App = () => {
             <Route
               exact
               path="/"
-              element={<HomepageContainer munros={munros} user = {loggedInUser}/>}
+              element={
+                <HomepageContainer munros={munros} user={loggedInUser} />
+              }
             />
             <Route
               exact
@@ -103,7 +109,12 @@ const App = () => {
             <Route
               exact
               path="/munro-map"
-              element={<MapContainer munros={munros} getSelectedMunro={getSelectedMunro} />}
+              element={
+                <MapContainer
+                  munros={munros}
+                  getSelectedMunro={getSelectedMunro}
+                />
+              }
             />
             <Route exact path="/user-profile" element={<UserContainer />} />
           </Routes>
