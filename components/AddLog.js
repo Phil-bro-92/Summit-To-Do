@@ -35,29 +35,25 @@ const AddLog = ({ munro }) => {
     comment: "",
     dateCompleted: "",
     weather: "",
-    munro: munro,
+    munro: {},
   });
 
-  const log1 = {
+  log1 = {
     comment: comment,
     dateCompleted: date,
     weather: "Sunny",
-    munro: munro,
+    munro: {},
   };
 
   useEffect(() => {
     setNewLog(log1);
-  }, []);
+  }, [date]);
 
   const handleSaveLog = () => {
-    if (comment.length === 0 || date.length === 0) {
-      Alert.alert("Please complete all fields.");
-    } else {
 	  const request = new Request();
 	  request.post("http://172.19.43.158:8080/api/logs", newLog)
       setLogFormVisible(false);
       setLogVisible(true);
-    }
   };
   const handleAddLog = () => {
     setLogFormVisible(true);
@@ -147,7 +143,6 @@ const AddLog = ({ munro }) => {
               />
             </Pressable>
           </View>
-
           <Button onPress={handleSaveLog} title="Save" />
         </View>
       ) : null}

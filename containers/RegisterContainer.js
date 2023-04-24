@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, } from "react";
 import { useHistory } from "react-router-native";
 import {
   View,
@@ -9,13 +9,15 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
-  Keyboard,
+  Keyboard, 
+	Pressable
 } from "react-native";
-import { Link } from "react-router-native";
+import { Link, useNavigate } from "react-router-native";
 import Request from "../helpers/Request";
 import { Alert } from "react-native";
 
 const RegisterContainer = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,7 +41,6 @@ const RegisterContainer = () => {
 
   useEffect(() => {
     setNewUser(user1);
-    console.log(newUser);
   }, [password]);
 
   const nameInput = (text) => {
@@ -57,10 +58,11 @@ const RegisterContainer = () => {
     } else {
       const request = new Request();
       request.post("http://172.19.43.158:8080/api/users", newUser);
-      Alert.alert("Registration successful. Please log in.");
+      // Alert.alert("Registration successful. Please log in.");
       setName("");
       setEmail("");
       setPassword("");
+      navigate("/login");
     }
   };
 
@@ -108,14 +110,13 @@ const RegisterContainer = () => {
               onChangeText={passwordInput}
               value={password}
             />
-
-            <Link
+            <Pressable
               style={styles.button}
               underlayColor={"transparent"}
               onPress={handleAddUser}
             >
               <Text style={styles.buttonText}>Register</Text>
-            </Link>
+            </Pressable>
             <View style={styles.divider}>
               <View style={styles.line}></View>
               <Text style={styles.or}>or</Text>
