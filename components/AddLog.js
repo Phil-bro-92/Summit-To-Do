@@ -18,7 +18,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Request from "../helpers/Request";
 
-const AddLog = ({ munro }) => {
+const AddLog = ({ munro, user }) => {
   const [LogFormVisible, setLogFormVisible] = useState(true);
   const [LogsVisibile, setLogVisible] = useState(false);
   const [comment, setComment] = useState("");
@@ -31,29 +31,48 @@ const AddLog = ({ munro }) => {
   const [rainySelected, setRainySelected] = useState("grey");
   const [snowySelected, setSnowySelected] = useState("grey");
   const [cloudySelected, setCloudySelected] = useState("grey");
+  const [updateUsers, setUpdateUsers] = useState({
+    name: user.name,
+    email: user.email,
+    password: user.password,
+    munrosCompleted: user.munrosCompleted,
+    logs: user.logs,
+  });
   const [newLog, setNewLog] = useState({
     comment: "",
     dateCompleted: "",
     weather: "",
-    munro: {},
+    munro: munro,
   });
 
-  log1 = {
-    comment: comment,
-    dateCompleted: date,
-    weather: "Sunny",
-    munro: {},
+
+
+  user1 = {
+    name: user.name,
+    email: user.email,
+    password: user.password,
+    munrosCompleted: user.munrosCompleted.push(munro),
+    logs: user.logs.push(newLog),
   };
 
   useEffect(() => {
-    setNewLog(log1);
-  }, [date]);
+    setUpdateUsers(user1)
+    console.log(newLog)
+  }, [newLog])
+
+  const updateUser = () => {
+    const request = new Request();
+    request.patch("http://172.19.43.158:8080/api/users/" + user.id, updateUsers);
+  };
 
   const handleSaveLog = () => {
-	  const request = new Request();
-	  request.post("http://172.19.43.158:8080/api/logs", newLog)
-      setLogFormVisible(false);
-      setLogVisible(true);
+    setNewLog({
+      comment: comment,
+      dateCompleted: date,
+      weather: "Sunny",
+    })
+    setLogFormVisible(false);
+    setLogVisible(true);
   };
   const handleAddLog = () => {
     setLogFormVisible(true);
@@ -143,7 +162,7 @@ const AddLog = ({ munro }) => {
               />
             </Pressable>
           </View>
-          <Button onPress={handleSaveLog} title="Save" />
+          <Button onPress={() => {handleSaveLog; updateUser}} title="Save" />
         </View>
       ) : null}
 

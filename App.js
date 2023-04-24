@@ -105,7 +105,7 @@ const App = () => {
             <Route
               exact
               path="/munro-card"
-              element={<MunroContainer munro={selectedMunro} />}
+              element={<MunroContainer munro={selectedMunro} user={loggedInUser}/>}
             />
 
             <Route

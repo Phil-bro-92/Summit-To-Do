@@ -6,7 +6,7 @@ import { Marker } from "react-native-maps";
 import AddLog from "../components/AddLog";
 import {Link} from 'react-router-native';
 
-const MunroContainer = ({munro}) => {
+const MunroContainer = ({munro, user}) => {
 
   const handleMapsLink = () => {
     Linking.openURL(munro.googleMapsLink);
@@ -76,7 +76,7 @@ const MunroContainer = ({munro}) => {
 						</Text>
 						<Text style={styles.modalText}>Translation: {munro.meaning}</Text>
 					</View>
-					<AddLog munro={munro} />
+					<AddLog munro={munro} user={user} />
 				</View>
 			</View>
 		</View>
