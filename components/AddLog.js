@@ -16,47 +16,135 @@ import {
   faSun,
   faX,
 } from "@fortawesome/free-solid-svg-icons";
+import Request from "../helpers/Request";
 
-const AddLog = () => {
+const AddLog = ({ munro }) => {
   const [LogFormVisible, setLogFormVisible] = useState(true);
   const [LogsVisibile, setLogVisible] = useState(false);
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [chosenDate, setChosenDate] = useState("");
-  const [modalVisible, setModalVisible] = useState(false);
+  const [comment, setComment] = useState("");
+  const [date, setDate] = useState("");
+  const [sunny, setSunny] = useState(false);
+  const [rainy, setRainy] = useState(false);
+  const [snowy, setSnowy] = useState(false);
+  const [cloudy, setCloudy] = useState(false);
+  const [sunnySelected, setSunnySelected] = useState("grey");
+  const [rainySelected, setRainySelected] = useState("grey");
+  const [snowySelected, setSnowySelected] = useState("grey");
+  const [cloudySelected, setCloudySelected] = useState("grey");
+  const [newLog, setNewLog] = useState({
+    comment: "",
+    dateCompleted: "",
+    weather: "",
+    munro: munro,
+  });
+
+  const log1 = {
+    comment: comment,
+    dateCompleted: date,
+    weather: "Sunny",
+    munro: munro,
+  };
+
+  useEffect(() => {
+    setNewLog(log1);
+  }, []);
 
   const handleSaveLog = () => {
-    setLogFormVisible(false);
-    setLogVisible(true);
+    if (comment.length === 0 || date.length === 0) {
+      Alert.alert("Please complete all fields.");
+    } else {
+	  const request = new Request();
+	  request.post("http://172.19.43.158:8080/api/logs", newLog)
+      setLogFormVisible(false);
+      setLogVisible(true);
+    }
   };
   const handleAddLog = () => {
     setLogFormVisible(true);
     setLogVisible(false);
   };
 
-  const handleSubmitDate = (date) => {
-    setChosenDate(String(date));
-    console.log(date);
+  const handleCommentChange = (text) => {
+    setComment(text);
+  };
+  const handleDateChange = (text) => {
+    setDate(text);
+  };
+  const handleSunnyChange = () => {
+    if (sunny === false) {
+      setSunny(true);
+      setSunnySelected("green");
+    } else {
+      setSunny(false);
+      setSunnySelected("grey");
+    }
+  };
+  const handleRainyChange = () => {
+    if (rainy === false) {
+      setRainy(true);
+      setRainySelected("green");
+    } else {
+      setRainy(false);
+      setRainySelected("grey");
+    }
+  };
+  const handleSnowyChange = () => {
+    if (snowy === false) {
+      setSnowy(true);
+      setSnowySelected("green");
+    } else {
+      setSnowy(false);
+      setSnowySelected("grey");
+    }
+  };
+  const handleCloudyChange = () => {
+    if (cloudy === false) {
+      setCloudy(true);
+      setCloudySelected("green");
+    } else {
+      setCloudy(false);
+      setCloudySelected("grey");
+    }
   };
 
   return (
     <View>
       {LogFormVisible ? (
         <View>
-          <TextInput placeholder="Notes"></TextInput>
-          <TextInput keyboardType="number-pad" placeholder="DD/MM/YYYY"></TextInput>
+          <TextInput
+            onChangeText={handleCommentChange}
+            placeholder="Notes"
+          ></TextInput>
+          <TextInput
+            onChangeText={handleDateChange}
+            keyboardType="number-pad"
+            placeholder="DD/MM/YYYY"
+          ></TextInput>
           <View>
             <Text>Weather:</Text>
-            <Pressable>
-              <FontAwesomeIcon icon={faSun} size={15} />
+            <Pressable onPress={handleSunnyChange}>
+              <FontAwesomeIcon color={sunnySelected} icon={faSun} size={15} />
             </Pressable>
-            <Pressable>
-              <FontAwesomeIcon icon={faCloud} size={15} />
+            <Pressable onPress={handleCloudyChange}>
+              <FontAwesomeIcon
+                color={cloudySelected}
+                icon={faCloud}
+                size={15}
+              />
             </Pressable>
-            <Pressable>
-              <FontAwesomeIcon icon={faCloudRain} size={15} />
+            <Pressable onPress={handleRainyChange}>
+              <FontAwesomeIcon
+                color={rainySelected}
+                icon={faCloudRain}
+                size={15}
+              />
             </Pressable>
-            <Pressable>
-              <FontAwesomeIcon icon={faSnowflake} size={15} />
+            <Pressable onPress={handleSnowyChange}>
+              <FontAwesomeIcon
+                color={snowySelected}
+                icon={faSnowflake}
+                size={15}
+              />
             </Pressable>
           </View>
 

@@ -76,7 +76,7 @@ const MunroContainer = ({munro}) => {
 						</Text>
 						<Text style={styles.modalText}>Translation: {munro.meaning}</Text>
 					</View>
-					<AddLog />
+					<AddLog munro={munro} />
 				</View>
 			</View>
 		</View>
