@@ -50,7 +50,7 @@ const RegisterContainer = () => {
 	const handleAddUser = () => {
 		setNewUser({...newUser, name: name, email: email, password: password})
 		const request = new Request ();
-		request.post('http://127.0.0.1:8080/api/users', newUser)
+		request.post("http://172.19.43.158:8080/api/users", newUser);
 		Alert.alert("Registration successful. Please log in.");
 		setName("")
 		setEmail("")

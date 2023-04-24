@@ -228,11 +228,14 @@ const styles = StyleSheet.create({
     borderRadius: "15%",
     marginTop: "3%",
     outline: "none",
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row', 
   },
   log: {
-    display: "flex",
+    display: 'flex',
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
     alignItems: "center",
     alignSelf: 'center',
     padding: "0%",
@@ -245,6 +248,8 @@ const styles = StyleSheet.create({
   logText: {
     fontSize: 18,
     marginLeft: "10%",
+    textAlign: 'center',
+    alignSelf: 'center'
     
   },
   arrow: {
@@ -252,6 +257,7 @@ const styles = StyleSheet.create({
     height: 20,
     width: 20,
     marginRight: "5%",
+    alignSelf: 'center',
   },
   recent: {
     alignSelf: "center",
