@@ -41,5 +41,5 @@
     "@babel/core": "^7.20.0"
   },
   "private": true,
-  "proxy": "http://localhost:8080/"
+  "proxy": "http://172.19.43.158:8080/"
 }

@@ -32,20 +32,22 @@ const App = () => {
   const fetchDbMunros = () => {
     const request = new Request();
     request
-      .get("http://127.0.0.1:8080/api/munros")
-      .then((data) => setDbMunros(data));
+			.get("http://http://172.19.43.158:8080/api/munros")
+			.then((data) => setDbMunros(data));
   };
 
   const fetchUsers = () => {
     const request = new Request();
     request
-      .get("http://127.0.0.1:8080/api/users")
-      .then((data) => setUsers(data));
+			.get("http://172.19.43.158:8080/api/users")
+			.then((data) => setUsers(data));
   };
 
   const fetchLogs = () => {
     const request = new Request();
-    request.get("http://127.0.0.1:8080/api/logs").then((data) => setLogs(data));
+    request
+			.get("http://172.19.43.158:8080/api/logs")
+			.then((data) => setLogs(data));
   };
 
   const fetchMunros = () => {
