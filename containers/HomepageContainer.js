@@ -1,28 +1,25 @@
+
 import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView} from 'react-native';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faPersonHiking } from '@fortawesome/free-solid-svg-icons';
-import NavBar from '../components/NavBar';
-import {Link} from 'react-router-native';
+import { faPersonHiking } from "@fortawesome/free-solid-svg-icons";
+import NavBar from "../components/NavBar";
+import { Link } from "react-router-native";
 
-
-export default function HomepageContainer ({munros, user}){
-
- 
-  const munrosRemaining = 282 - (user.munrosCompleted.length) 
-
+export default function HomepageContainer({ munros, user }) {
+  const munrosRemaining = 282 - user.munrosCompleted.length;
 
   const name = user.name;
 
-//     const [fontsLoaded] = useFonts({
-//     'Sen-Bold': require('../assets/fonts/Sen-Bold.ttf'),
-//     'Sen-Regular': require('../assets/fonts/Sen-Regular.ttf'),
-//     'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf')
-//   })
+  //     const [fontsLoaded] = useFonts({
+  //     'Sen-Bold': require('../assets/fonts/Sen-Bold.ttf'),
+  //     'Sen-Regular': require('../assets/fonts/Sen-Regular.ttf'),
+  //     'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf')
+  //   })
 
-  const progressBarPercentage = (( user.munrosCompleted.length/282 )* 100).toFixed(1);
-
-
-  
+  const progressBarPercentage = (
+    (user.munrosCompleted.length / 282) *
+    100
+  ).toFixed(1);
 
   return (
 		<View style={styles.homepageContainer}>

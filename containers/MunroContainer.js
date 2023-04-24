@@ -7,6 +7,7 @@ import AddLog from "../components/AddLog";
 import {Link} from 'react-router-native';
 
 const MunroContainer = ({munro}) => {
+
   const handleMapsLink = () => {
     Linking.openURL(munro.googleMapsLink);
   };
