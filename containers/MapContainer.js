@@ -1,14 +1,15 @@
-import React, { useState } from "react";
-import { StyleSheet, Dimensions, Modal, Linking } from "react-native";
+import React from "react";
+import { StyleSheet, Dimensions } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Marker } from "react-native-maps";
 import NavBar from "../components/NavBar";
 import { View } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faMountain } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-native";
+import { Link, useNavigate } from "react-router-native";
 
-const MapContainer = ({ munros, getSelectedMunro }) => {
+const MapContainer = ({ munros, getSelectedMunro}) => {
+  const navigate = useNavigate();
   return (
     <View>
       <NavBar />
@@ -27,15 +28,12 @@ const MapContainer = ({ munros, getSelectedMunro }) => {
       >
         {munros.map((munro, index) => (
           <View>
-            <Link
-              to={"/munro-card"}
-              
-            >
+          
               <Marker
-              onPress={() => {
-                getSelectedMunro(munro);
-                console.log("pressed");
-              }}
+                onPress={() => {
+                  getSelectedMunro(munro);
+                  navigate("/munro-card")
+                }}
                 key={index}
                 coordinate={{
                   latitude: munro.latitude,
@@ -50,7 +48,6 @@ const MapContainer = ({ munros, getSelectedMunro }) => {
                   color={"rgba(0,0,0,0.8)"}
                 />
               </Marker>
-            </Link>
           </View>
         ))}
       </MapView>
