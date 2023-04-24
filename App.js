@@ -27,26 +27,27 @@ const App = () => {
     fetchDbMunros();
     fetchUsers();
     fetchLogs();
+    findUser()
   }, []);
 
   const fetchDbMunros = () => {
     const request = new Request();
     request
-			.get("http://172.19.43.158:8080/api/munros")
+			.get('http://192.168.0.5:8080/api/munros')
 			.then((data) => setDbMunros(data));
   };
 
   const fetchUsers = () => {
     const request = new Request();
     request
-			.get("http://172.19.43.158:8080/api/users")
+			.get("http://192.168.0.5:8080/api/users")
 			.then((data) => setUsers(data));
   };
 
   const fetchLogs = () => {
     const request = new Request();
     request
-			.get("http://172.19.43.158:8080/api/logs")
+			.get("http://192.168.0.5:8080/api/logs")
 			.then((data) => setLogs(data));
   };
 
@@ -98,14 +99,14 @@ const App = () => {
               element={
                 <ListContainer
                   munros={munros}
-                  getSelectedMunro={getSelectedMunro}
+                  getSelectedMunro={getSelectedMunro} user = {loggedInUser}
                 />
               }
             />
             <Route
               exact
               path="/munro-card"
-              element={<MunroContainer munro={selectedMunro} user={loggedInUser}/>}
+              element={<MunroContainer munro={selectedMunro} user={loggedInUser} dbMunros={dbMunros}/>}
             />
 
             <Route

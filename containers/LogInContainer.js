@@ -27,6 +27,7 @@ const LogInContainer = ({ users, findUser }) => {
             setUserEmail(user.email);
       }
     })
+     findUser(userEmail)
 , [passwordInput]})
   
 
@@ -39,7 +40,7 @@ const LogInContainer = ({ users, findUser }) => {
     setPasswordInput(text);
   };
 
-  findUser(userEmail);
+ 
 
   return (
 		<KeyboardAvoidingView

@@ -1,16 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Linking, Image } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Marker } from "react-native-maps";
 import AddLog from "../components/AddLog";
 import {Link} from 'react-router-native';
+import { icon } from "@fortawesome/fontawesome-svg-core";
 
-const MunroContainer = ({munro, user}) => {
+const MunroContainer = ({munro, user, dbMunros}) => {
+	const [munroVisited, setMunroVisited] = useState(false)
+	const [iconColor, setIconColor] = useState("grey")
 
   const handleMapsLink = () => {
     Linking.openURL(munro.googleMapsLink);
   };
+
+  useEffect(() => {
+    findCompletedMunro()
+  }, [user])
+
+  const findCompletedMunro = () => {
+	user.munrosCompleted.filter((mountain, index) => {
+	  if(mountain.name === munro.name) {
+		setMunroVisited(true)
+	  } else {
+		setMunroVisited(false)
+	  }
+	})
+	if (munroVisited === true){
+		setIconColor("green")
+	} else {
+		setIconColor("grey")
+	}
+	console.log(munroVisited)
+  }
+
 
   return (
 		<View style={styles.centeredView}>
@@ -27,18 +51,17 @@ const MunroContainer = ({munro, user}) => {
 						<Icon
 							name="landscape"
 							size={35}
-							color="green"
+							color={iconColor}
 							alignSelf={"center"}
 						/>
 					</View>
 					<View style={styles.secondRow}>
-						<View>
-							<Text style={styles.modalText}>Height: {munro.height}m</Text>
-							<Text style={styles.modalText}> {munro.region}</Text>
-							<Text style={styles.modalText}>
-								Difficulty: {munro.difficulty}
+						<View style={styles.secondRowText}>
+							<Text style={styles.modalTextLeft}>Height: {munro.height}m</Text>
+							<Text style={styles.modalTextLeft}>Region: {munro.region}</Text>
+							<Text style={styles.modalTextLeft}>Difficulty: {munro.difficulty}
 							</Text>
-							<Text style={styles.modalText}>Duration: {munro.duration}</Text>
+							<Text style={styles.modalTextLeft}>Duration: {munro.duration}</Text>
 						</View>
 
 						<MapView
@@ -75,8 +98,14 @@ const MunroContainer = ({munro, user}) => {
 							Gaelic Name: {munro.gaelicName}
 						</Text>
 						<Text style={styles.modalText}>Translation: {munro.meaning}</Text>
+						
 					</View>
-					<AddLog munro={munro} user={user} />
+					<AddLog
+							munro={munro}
+							user={user}
+							dbMunros={dbMunros}
+							style={styles.addLog}
+						/>
 				</View>
 			</View>
 		</View>
@@ -84,19 +113,17 @@ const MunroContainer = ({munro, user}) => {
 };
 const styles = StyleSheet.create({
 	centeredView: {
-		flex: 1,
+		width: "100%",
+		height: "100%",
 		justifyContent: "center",
 		alignItems: "center",
-		marginTop: 22,
 	},
 	modalView: {
 		width: "90%",
-		height: "70%",
-		marginTop: "-5%",
-		margin: 10,
+		height: "75%",
 		backgroundColor: "white",
 		borderRadius: 20,
-		padding: 35,
+		padding: 20,
 		alignItems: "center",
 		shadowColor: "#000",
 		shadowOffset: {
@@ -116,15 +143,14 @@ const styles = StyleSheet.create({
 	},
 	backArrow: {
 		resizeMode: "contain",
-    width: 20,
-    height: 20,
-
+		width: 20,
+		height: 20,
 	},
 	firstRow: {
 		display: "flex",
 		flexDirection: "row",
 		justifyContent: "space-evenly",
-		height: "20%",
+		height: "15%",
 		width: "100%",
 		alignContent: "center",
 		alignItems: "center",
@@ -134,15 +160,20 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "space-evenly",
 		width: "100%",
-		height: "40%",
-		marginTop: "10%",
+		height: "35%",
 	},
-	secondRowTextCont: {
+	secondRowText: {
 		textAlign: "left",
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'space-evenly'
 	},
 	thirdRow: {
-		height: "30%",
+		height: "20%",
 		width: "100%",
+		display: "flex",
+		flexDirection: "column",
+		justifyContent: "space-evenly",
 	},
 	modalHeader: {
 		width: "60%",
@@ -153,17 +184,7 @@ const styles = StyleSheet.create({
 	mountainIconCont: {
 		width: "40%",
 	},
-	button: {
-		borderRadius: 20,
-		padding: 10,
-		elevation: 2,
-	},
-	buttonOpen: {
-		backgroundColor: "#F194FF",
-	},
-	buttonClose: {
-		backgroundColor: "#2196F3",
-	},
+
 	textStyle: {
 		color: "white",
 		fontWeight: "bold",
@@ -175,13 +196,16 @@ const styles = StyleSheet.create({
 	},
 	modalTextLeft: {
 		textAlign: "left",
-		margin: "5%",
+		margin: "3%",
 	},
 	map: {
-		width: "50%",
-		height: "100%",
+		width: "45%",
+		height: "70%",
 		borderRadius: "10%",
 		alignSelf: "center",
+	},
+	addLog: {
+		height: '50%'
 	},
 });
 
