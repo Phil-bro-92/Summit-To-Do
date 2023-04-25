@@ -1,6 +1,7 @@
 package com.capstone.summitToDo.controllers;
 
 import com.capstone.summitToDo.models.Log;
+import com.capstone.summitToDo.models.User;
 import com.capstone.summitToDo.repositories.LogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,11 @@ public class LogController {
 
     @Autowired
     LogRepository logRepository;
+
+    @GetMapping(value = "/logs/byUser")
+    public ResponseEntity<List<Log>> getLogsByUser(@RequestParam(name="user", required = false) Long userId) {
+        return new ResponseEntity<>(logRepository.findByUserId(userId), HttpStatus.OK);
+    }
 
     @GetMapping(value = "/logs")
     public ResponseEntity<List<Log>> getAllLogs() {

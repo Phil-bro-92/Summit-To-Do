@@ -598,17 +598,15 @@ public class DataLoader implements ApplicationRunner {
         Munro munro282 = new Munro("Ben Vane", 915);
         munroRepository.save(munro282);
 
-
-        Log log1 = new Log("was easy", "2018-12-09", "sunny", munro1);
-        logRepository.save(log1);
-        Log log2 = new Log("was windy", "2019-11-09", "Windy", munro7);
-        logRepository.save(log2);
-
-
         User becca = new User("Becca", "BB", "BB");
         User daniel = new User("Daniel", "DP", "DP");
         User eliza = new User("Eliza", "EP", "EP");
         User phil = new User("Phil", "PB", "PB");
+
+        Log log1 = new Log("was easy", "2018-12-09", "sunny", munro1, eliza);
+        logRepository.save(log1);
+        Log log2 = new Log("was windy", "2019-11-09", "Windy", munro7, daniel);
+        logRepository.save(log2);
 
         phil.addMunroCompleted(munro1);
         phil.addLog(log1);

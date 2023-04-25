@@ -1,6 +1,3 @@
-
- 
-
 import React, { useEffect, useState } from "react";
 import { View, Text, TextInput, Button, Pressable } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -11,6 +8,7 @@ import {
   faSun,
 } from "@fortawesome/free-solid-svg-icons";
 import Request from "../helpers/Request";
+import { useNavigate } from "react-router-native";
 
 const AddLog = ({ munro, user }) => {
   const [LogFormVisible, setLogFormVisible] = useState(true);
@@ -28,6 +26,16 @@ const AddLog = ({ munro, user }) => {
   const [serverMunros, setServerMunros] = useState([]);
   const [currentMunro, setCurrentMunro] = useState({});
   const [newLog, setNewLog] = useState({});
+  const [currentUser, setCurrentUser] = useState({})
+  const [userLogs, setUserLogs] = useState([])
+  
+
+
+  // const navigate = useNavigate()
+
+  // useEffect(() => {
+  //   fetchUserLogs();
+  // }, [newLog])
 
   useEffect(() => {
     fetchDbMunros();
@@ -40,6 +48,14 @@ const AddLog = ({ munro, user }) => {
   useEffect(() => {
     console.log(newLog);
   }, [newLog]);
+
+  useEffect(() => {
+    fetchUser()
+  }, []);
+
+  useEffect(() => {
+    updateUser()
+  }, [newLog])
 
   const findMunro = () => {
     serverMunros.map((serverMunro) => {
@@ -59,12 +75,27 @@ const AddLog = ({ munro, user }) => {
       .then((data) => setServerMunros(data));
   };
 
+  const fetchUser = () => {
+    const request = new Request();
+    request
+    .get("http://localhost:8080/api/users/" + user.id)
+    .then((data) => setCurrentUser(data));
+  };
+
+  // const fetchUserLogs = () => {
+  //   const request = new Request();
+  //   request
+  //   .get("http://localhost:8080/api/logs/byUser?user=" + user.id)
+  //   .then((data) => setUserLogs(data));
+  // }
+
   const postLog = () => {
     const log = {
       comment: comment,
       dateCompleted: date,
       weather: "Sunny",
       munro: currentMunro,
+      // user: user.id,
     };
     const request = new Request();
     request
@@ -74,22 +105,19 @@ const AddLog = ({ munro, user }) => {
   };
 
   const updateUser = () => {
-    const userCopy = {
-      name: user.name,
-      email: user.email,
-      password: user.password,
-      munrosCompleted: [...user.munrosCompleted, currentMunro],
-      id: user.id,
-    };
+    const userCopy = {... user}
+    userCopy.munrosCompleted.push(currentMunro)
+    // userCopy.logs.push(newLog);
     const request = new Request();
     request.patch("http://localhost:8080/api/users/" + user.id, userCopy);
+
   };
 
   const handleSaveLog = () => {
     setLogFormVisible(false);
     setLogVisible(true);
-    updateUser();
     postLog();
+    // navigate("/munro-card")
   };
   const handleAddLog = () => {
     setLogFormVisible(true);
@@ -185,7 +213,7 @@ const AddLog = ({ munro, user }) => {
 
       {LogsVisibile ? (
         <View>
-          <View>{/* <Text>{user.logs[0].comment}</Text> */}</View>
+          {/* <View><Text>{user.logs[0].comment}</Text></View> */}
           <View>
             <Button onPress={handleAddLog} title="Add New Log" />
           </View>
