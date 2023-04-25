@@ -1,168 +1,172 @@
 import React, { useState } from "react";
 import {
-  View,
-  StyleSheet,
-  TextInput,
-  ScrollView,
-  SafeAreaView,
-  TextStyle,
-  Text
+	View,
+	StyleSheet,
+	TextInput,
+	ScrollView,
+	SafeAreaView,
+	TextStyle,
+	Text,
 } from "react-native";
-import { Table, TableWrapper, Row, Cell , Cells,} from "react-native-table-component";
+import {
+	Table,
+	TableWrapper,
+	Row,
+	Cell,
+	Cells,
+} from "react-native-table-component";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import FilterModal from "../components/FilterModal";
 import NavBar from "../components/NavBar";
 import { Link } from "react-router-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faMountain } from "@fortawesome/free-solid-svg-icons";
-
+import { faA, faMountain } from "@fortawesome/free-solid-svg-icons";
 
 const ListContainer = ({ munros, getSelectedMunro, user }) => {
-  const [filteredMunros, setFilteredMunros] = useState([]);
-  const [easyMunros, setEasyMunros] = useState([]);
-  const [moderateMunros, setModerateMunros] = useState([]);
-  const [hardMunros, setHardMunros] = useState([]);
-  const [completedMunros, setCompletedMunros] = useState([]);
-  const [uncompletedMunros, setUncompletedMunros] = useState([]);
-  const [munrosAscending, setMunrosAscending] = useState([]);
-  const [areMunrosAscending, setAreMunrosAscending] = useState(false);
-  const [munrosAlphabetical, setMunrosAlphabetical] = useState([]);
-  const [areMunrosAlphabetical, setAreMunrosAlphabetical] = useState(false);
+	const [filteredMunros, setFilteredMunros] = useState([]);
+	const [easyMunros, setEasyMunros] = useState([]);
+	const [moderateMunros, setModerateMunros] = useState([]);
+	const [hardMunros, setHardMunros] = useState([]);
+	const [completedMunros, setCompletedMunros] = useState([]);
+	const [uncompletedMunros, setUncompletedMunros] = useState([]);
+	const [munrosAscending, setMunrosAscending] = useState([]);
+	const [areMunrosAscending, setAreMunrosAscending] = useState(false);
+	const [munrosAlphabetical, setMunrosAlphabetical] = useState([]);
+	const [areMunrosAlphabetical, setAreMunrosAlphabetical] = useState(false);
 
+	const filterMunros = (input) => {
+		const filteredNodes = munros.filter((munro) => {
+			return munro.name.toLowerCase().includes(input.toLowerCase());
+		});
+		setFilteredMunros(filteredNodes);
+		if (input === "") {
+			setFilteredMunros([]);
+		}
+	};
 
-  const filterMunros = (input) => {
-    const filteredNodes = munros.filter((munro) => {
-      return munro.name.toLowerCase().includes(input.toLowerCase());
-    });
-    setFilteredMunros(filteredNodes);
-    if (input === "") {
-      setFilteredMunros([]);
-    }
-  };
+	const handleFilterMunros = (text) => {
+		filterMunros(text);
+	};
 
-  const handleFilterMunros = (text) => {
-    filterMunros(text);
-  };
+	const handleFilterEasyMunros = () => {
+		const filteredEasyMunros = munros.filter((munro) => {
+			return munro.difficulty === "Easy";
+		});
+		setEasyMunros(filteredEasyMunros);
+		setHardMunros([]);
+		setModerateMunros([]);
+	};
 
-  const handleFilterEasyMunros = () => {
-    const filteredEasyMunros = munros.filter((munro) => {
-      return munro.difficulty === "Easy";
-    });
-    setEasyMunros(filteredEasyMunros);
-    setHardMunros([]);
-    setModerateMunros([]);
-  };
+	const handleFilterModerateMunros = () => {
+		const filteredModerateMunros = munros.filter((munro) => {
+			return munro.difficulty === "Moderate";
+		});
+		setModerateMunros(filteredModerateMunros);
+		setEasyMunros([]);
+		setHardMunros([]);
+	};
 
-  const handleFilterModerateMunros = () => {
-    const filteredModerateMunros = munros.filter((munro) => {
-      return munro.difficulty === "Moderate";
-    });
-    setModerateMunros(filteredModerateMunros);
-    setEasyMunros([]);
-    setHardMunros([]);
-  };
+	const handleFilterHardMunros = () => {
+		const filteredHardMunros = munros.filter((munro) => {
+			return munro.difficulty === "Hard";
+		});
+		setHardMunros(filteredHardMunros);
+		setEasyMunros([]);
+		setModerateMunros([]);
+	};
 
-  const handleFilterHardMunros = () => {
-    const filteredHardMunros = munros.filter((munro) => {
-      return munro.difficulty === "Hard";
-    });
-    setHardMunros(filteredHardMunros);
-    setEasyMunros([]);
-    setModerateMunros([]);
-  };
+	const handleFilterCompletedMunros = () => {
+		const filterCompletedMunros = user.munrosCompleted.filter((munro) => {
+			return munro;
+		});
+		setCompletedMunros(filterCompletedMunros);
+		setUncompletedMunros([]);
+		setEasyMunros([]);
+		setModerateMunros([]);
+		setHardMunros([]);
+	};
 
-  const handleFilterCompletedMunros = () => {
-    const filterCompletedMunros = user.munrosCompleted.filter((munro) => {
-		return munro
-	})
-    setCompletedMunros(filterCompletedMunros);
-    setUncompletedMunros([]);
-    setEasyMunros([]);
-    setModerateMunros([]);
-    setHardMunros([]);
-  }
+	const handleFilterUncompletedMunros = () => {
+		const filterUncompletedMunros = user.munrosCompleted.filter((munro) => {
+			return !munro;
+		});
+		setUncompletedMunros(filterUncompletedMunros);
+		setCompletedMunros([]);
+		setEasyMunros([]);
+		setModerateMunros([]);
+		setHardMunros([]);
+	};
 
-  const handleFilterUncompletedMunros = () => {
-    const filterUncompletedMunros = user.munrosCompleted.filter((munro) => {
-      return !munro
-    });
-    setUncompletedMunros(filterUncompletedMunros);
-    setCompletedMunros([]);
-    setEasyMunros([]);
-    setModerateMunros([]);
-    setHardMunros([]);
-  };
+	const handleFilterAllMunros = () => {
+		setCompletedMunros([]);
+		setUncompletedMunros([]);
+		setEasyMunros([]);
+		setModerateMunros([]);
+		setHardMunros([]);
+	};
 
-  const handleFilterAllMunros = () => {
-    setCompletedMunros([]);
-    setUncompletedMunros([]);
-    setEasyMunros([]);
-    setModerateMunros([]);
-    setHardMunros([]);
-  };
+	let res;
+	if (filteredMunros.length > 0) {
+		res = filteredMunros;
+	} else if (easyMunros.length > 0) {
+		res = easyMunros;
+	} else if (moderateMunros.length > 0) {
+		res = moderateMunros;
+	} else if (hardMunros.length > 0) {
+		res = hardMunros;
+	} else if (completedMunros.length > 0) {
+		res = completedMunros;
+	} else if (uncompletedMunros.length > 0) {
+		res = uncompletedMunros;
+	} else if (munrosAscending.length > 0) {
+		res = munrosAscending;
+	} else if (munrosAlphabetical.length > 0) {
+		res = munrosAlphabetical;
+	} else {
+		res = munros;
+	}
 
-  let res;
-  if (filteredMunros.length > 0) {
-    res = filteredMunros;
-  } else if (easyMunros.length > 0) {
-    res = easyMunros;
-  } else if (moderateMunros.length > 0) {
-    res = moderateMunros;
-  } else if (hardMunros.length > 0) {
-    res = hardMunros;
-  } else if (completedMunros.length > 0) {
-    res = completedMunros;
-  } else if (uncompletedMunros.length > 0) {
-    res = uncompletedMunros;
-  } else if (munrosAscending.length > 0) {
-    res = munrosAscending;
-  } else if (munrosAlphabetical.length > 0) {
-    res = munrosAlphabetical;
-  } else  {
-    res = munros;
-  }
+	const handleSortNamesAlphabetically = () => {
+		if (!areMunrosAlphabetical) {
+			setAreMunrosAlphabetical(true);
+			setMunrosAlphabetical(
+				munros.sort((a, b) => {
+					if (a.name < b.name) {
+						return -1;
+					}
+					if (a.name > b.name) {
+						return 1;
+					}
+					return 0;
+				})
+			);
+		} else {
+			setAreMunrosAlphabetical(false);
+			setMunrosAlphabetical(
+				munros.sort((a, b) => {
+					if (a.name > b.name) {
+						return -1;
+					}
+					if (a.name < b.name) {
+						return 1;
+					}
+					return 0;
+				})
+			);
+		}
+	};
 
-  const handleSortNamesAlphabetically = () => {
-    if (!areMunrosAlphabetical) {
-      setAreMunrosAlphabetical(true);
-      setMunrosAlphabetical(
-        munros.sort((a, b) => {
-          if (a.name < b.name) {
-            return -1;
-          }
-          if (a.name > b.name) {
-            return 1;
-          }
-          return 0;
-        })
-      );
-    } else {
-      setAreMunrosAlphabetical(false);
-      setMunrosAlphabetical(
-        munros.sort((a, b) => {
-          if (a.name > b.name) {
-            return -1;
-          }
-          if (a.name < b.name) {
-            return 1;
-          }
-          return 0;
-        })
-      );
-    }
-  };
+	const handleSortHeight = () => {
+		if (!areMunrosAscending) {
+			setAreMunrosAscending(true);
+			setMunrosAscending(munros.sort((a, b) => a.height - b.height));
+		} else {
+			setAreMunrosAscending(false);
+			setMunrosAscending(munros.sort((a, b) => b.height - a.height));
+		}
+	};
 
-  const handleSortHeight = () => {
-    if (!areMunrosAscending) {
-      setAreMunrosAscending(true);
-      setMunrosAscending(munros.sort((a, b) => a.height - b.height));
-    } else {
-      setAreMunrosAscending(false);
-      setMunrosAscending(munros.sort((a, b) => b.height - a.height));
-    }
-  };
-
-  return (
+	return (
 		<View style={styles.listCont}>
 			<SafeAreaView>
 				<View style={styles.searchFilter}>
@@ -192,23 +196,21 @@ const ListContainer = ({ munros, getSelectedMunro, user }) => {
 								onPress={handleSortNamesAlphabetically}
 								alignSelf={"center"}
 								color={"white"}
-								
 							/>
 							<Cell
 								data={"Height"}
 								onPress={handleSortHeight}
 								alignSelf={"center"}
 								color={"white"}
-								
 							/>
-							<Cell data={"Completed"} alignSelf={"center"} color={"white"}/>
+							<Cell data={"Completed"} alignSelf={"center"} color={"white"} />
 						</TableWrapper>
 
 						{
 							(munroItems = res.map((munro, index) => {
 								let climbedIcon;
-								completedMunros.map((singleMunro) => {
-									if (singleMunro.name === munro.name) {
+								const result = user.munrosCompleted.some((userMunro) => userMunro.name === munro.name)
+									if (result) {
 										climbedIcon = (
 											<FontAwesomeIcon
 												icon={faMountain}
@@ -222,13 +224,12 @@ const ListContainer = ({ munros, getSelectedMunro, user }) => {
 											<FontAwesomeIcon
 												icon={faMountain}
 												size={25}
-												color={"grey"}
+												color={"rgba(250,250,250,0.7)"}
 												style={styles.icon}
-												
 											/>
 										);
 									}
-								});
+							
 								return (
 									<View>
 										<Link
@@ -309,9 +310,8 @@ const styles = StyleSheet.create({
 	data: {
 		borderBottomWidth: 1,
 		borderBottomColor: "white",
-    paddingTop: '2%',
-    paddingBottom: '2%'
-		
+		paddingTop: "2%",
+		paddingBottom: "2%",
 	},
 	tablewrap: {
 		display: "flex",
@@ -322,13 +322,13 @@ const styles = StyleSheet.create({
 		borderColor: "white",
 		color: "white",
 	},
-  tablewrapData:{
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 500
-  },
-  icon: {
-	alignSelf: 'center',
-  }
+	tablewrapData: {
+		color: "white",
+		fontSize: 16,
+		fontWeight: 500,
+	},
+	icon: {
+		alignSelf: "center",
+	},
 });
 export default ListContainer;
