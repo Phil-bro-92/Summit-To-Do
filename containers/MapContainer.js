@@ -14,6 +14,7 @@ const MapContainer = ({ munros, getSelectedMunro}) => {
     <View>
       <NavBar />
       <MapView
+        key={''}
         style={styles.map}
         mapType={"terrain"}
         provider={PROVIDER_GOOGLE}
@@ -33,6 +34,7 @@ const MapContainer = ({ munros, getSelectedMunro}) => {
                 onPress={() => {
                   getSelectedMunro(munro);
                   navigate("/munro-card")
+                
                 }}
                 key={index}
                 coordinate={{

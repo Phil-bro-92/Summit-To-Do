@@ -5,9 +5,10 @@ import {
   TextInput,
   ScrollView,
   SafeAreaView,
-  TextStyle
+  TextStyle,
+  Text
 } from "react-native";
-import { Table, TableWrapper, Row, Cell } from "react-native-table-component";
+import { Table, TableWrapper, Row, Cell , Cells,} from "react-native-table-component";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import FilterModal from "../components/FilterModal";
 import NavBar from "../components/NavBar";
@@ -72,23 +73,18 @@ const ListContainer = ({ munros, getSelectedMunro, user }) => {
 
   const handleFilterCompletedMunros = () => {
     const filterCompletedMunros = user.munrosCompleted.filter((munro) => {
-      munros.map((singleMunro) => {
-	if(singleMunro.name === munro.name) {
-		completedMunros.push(singleMunro)
-	}
-      })
-      console.log(completedMunros)
-    });
+		return munro
+	})
     setCompletedMunros(filterCompletedMunros);
     setUncompletedMunros([]);
     setEasyMunros([]);
     setModerateMunros([]);
     setHardMunros([]);
-  };
+  }
 
   const handleFilterUncompletedMunros = () => {
-    const filterUncompletedMunros = munros.filter((munro) => {
-      return !munro.climbed;
+    const filterUncompletedMunros = user.munrosCompleted.filter((munro) => {
+      return !munro
     });
     setUncompletedMunros(filterUncompletedMunros);
     setCompletedMunros([]);
@@ -122,7 +118,7 @@ const ListContainer = ({ munros, getSelectedMunro, user }) => {
     res = munrosAscending;
   } else if (munrosAlphabetical.length > 0) {
     res = munrosAlphabetical;
-  } else {
+  } else  {
     res = munros;
   }
 
@@ -195,47 +191,44 @@ const ListContainer = ({ munros, getSelectedMunro, user }) => {
 								data="Name"
 								onPress={handleSortNamesAlphabetically}
 								alignSelf={"center"}
-								textStyle={styles.tablewrapData}
-								width={"40%"}
+								color={"white"}
+								
 							/>
 							<Cell
-								data="Height"
+								data={"Height"}
 								onPress={handleSortHeight}
 								alignSelf={"center"}
-								textStyle={styles.tablewrapData}
+								color={"white"}
+								
 							/>
-							<Cell
-								data="Completed"
-								alignSelf={"center"}
-								textStyle={styles.tablewrapData}
-							/>
+							<Cell data={"Completed"} alignSelf={"center"} color={"white"}/>
 						</TableWrapper>
 
 						{
-						munroItems = res.map((munro, index) => {
+							(munroItems = res.map((munro, index) => {
 								let climbedIcon;
-								completedMunros.map((singleMunro) =>{
+								completedMunros.map((singleMunro) => {
 									if (singleMunro.name === munro.name) {
-									climbedIcon = (
-										<FontAwesomeIcon
-											icon={faMountain}
-											size={35}
-											color={"green"}
-											alignSelf={"center"}
-										/>
-									)
-									
-								 } else {
-									climbedIcon = (
-										<FontAwesomeIcon
-											icon={faMountain}
-											size={35}
-											color={"green"}
-											alignSelf={"center"}
-										/>
-									);
-								 }
-								})
+										climbedIcon = (
+											<FontAwesomeIcon
+												icon={faMountain}
+												size={25}
+												color={"green"}
+												style={styles.icon}
+											/>
+										);
+									} else {
+										climbedIcon = (
+											<FontAwesomeIcon
+												icon={faMountain}
+												size={25}
+												color={"grey"}
+												style={styles.icon}
+												
+											/>
+										);
+									}
+								});
 								return (
 									<View>
 										<Link
@@ -248,12 +241,11 @@ const ListContainer = ({ munros, getSelectedMunro, user }) => {
 												textStyle={styles.dataText}
 												style={styles.data}
 												data={[munro.name, munro.height + "m", climbedIcon]}
-												flexArr={[3, 2, 2]}
 											/>
 										</Link>
 									</View>
 								);
-							})
+							}))
 						}
 					</Table>
 				</ScrollView>
@@ -334,6 +326,9 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: 500
+  },
+  icon: {
+	alignSelf: 'center',
   }
 });
 export default ListContainer;
