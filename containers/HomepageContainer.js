@@ -95,14 +95,16 @@ export default function HomepageContainer({ munros, user }) {
 							{user.logs.length > 0 ? (
 								<View>
 									<Text style={styles.logDate}>
-										{user.logs[0].dateCompleted}
+										{user.logs[user.logs.length - 1].dateCompleted}
 									</Text>
 									<Text style={styles.munroName}>
-										{user.logs[0].munro.name}
+										{user.logs[user.logs.length - 1].munroName}
 									</Text>
-									<Text>{user.logs[0].munro.height}m</Text>
-									<Text>Notes: {user.logs[0].comment}</Text>
-									<Text>Weather: {user.logs[0].weather}</Text>
+									<Text>{user.logs[user.logs.length - 1].munroHeight}m</Text>
+									<Text>Notes: {user.logs[user.logs.length - 1].comment}</Text>
+									<Text>
+										Weather: {user.logs[user.logs.length - 1].weather}
+									</Text>
 								</View>
 							) : (
 								<View>

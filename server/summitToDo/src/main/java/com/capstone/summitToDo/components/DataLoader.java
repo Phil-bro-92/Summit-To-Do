@@ -612,7 +612,7 @@ public class DataLoader implements ApplicationRunner {
 //        phil.addLog(log1);
 //        daniel.addMunroCompleted(munro7);
 //        daniel.addLog(log2);
-        Log log1 = new Log("was easy", "2018-12-09", "sunny", munro1);
+        Log log1 = new Log("was easy", "2018-12-09", "sunny", "Ben Nevis", "1345");
         logRepository.save(log1);
 
 
@@ -621,7 +621,6 @@ public class DataLoader implements ApplicationRunner {
         userRepository.save(daniel);
         userRepository.save(eliza);
         userRepository.save(phil);
-        phil.addLog(log1);
         userRepository.save(phil);
     }
 

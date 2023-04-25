@@ -18,33 +18,25 @@ public class Log {
     @Column(name = "date_completed")
     private String dateCompleted;
 
-    @Column(name="weather")
+    @Column(name = "weather")
     private String weather;
 
-    @ManyToOne
-    @JoinColumn(name = "munro_id")
-    private Munro munro;
+    @Column(name= "munro_name")
+    private String munroName;
 
-    @JsonIgnoreProperties(value = "logs")
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "user_logs",
-            joinColumns = {@JoinColumn(name = "log_id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_id")}
-    )
-    private List<User> users;
-
+    @Column(name="munro_height")
+    private String munroHeight;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Log(String comment, String dateCompleted, String weather, Munro munro) {
+    public Log(String comment, String dateCompleted, String weather, String munroName, String munroHeight) {
         this.comment = comment;
         this.dateCompleted = dateCompleted;
         this.weather = weather;
-        this.munro = munro;
-        this.users = new ArrayList<User>();
+        this.munroName = munroName;
+        this.munroHeight = munroHeight;
     }
 
     public Log() {
@@ -67,7 +59,6 @@ public class Log {
     }
 
 
-
     public String getWeather() {
         return weather;
     }
@@ -84,22 +75,20 @@ public class Log {
         this.id = id;
     }
 
-
-
-
-    public Munro getMunro() {
-        return munro;
+    public String getMunroName() {
+        return munroName;
     }
 
-    public void setMunro(Munro munro) {
-        this.munro = munro;
+    public void setMunroName(String munroName) {
+        this.munroName = munroName;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public String getMunroHeight() {
+        return munroHeight;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setMunroHeight(String munroHeight) {
+        this.munroHeight = munroHeight;
     }
 }
+

@@ -16,12 +16,6 @@ public class Munro {
     @Column(name = "height")
     private int height;
 
-    @JsonIgnoreProperties(value = "munro")
-    @OneToMany(mappedBy = "munro", fetch = FetchType.LAZY)
-    private List<Log> logs;
-
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,7 +23,6 @@ public class Munro {
     public Munro(String name, int height) {
         this.name = name;
         this.height = height;
-        this.logs=new ArrayList<Log>();
 
 
     }
@@ -64,11 +57,4 @@ public class Munro {
         this.id = id;
     }
 
-    public List<Log> getLogs() {
-        return logs;
-    }
-
-    public void setLogs(List<Log> logs) {
-        this.logs = logs;
-    }
 }

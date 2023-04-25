@@ -25,13 +25,13 @@ const AddLog = ({ munro, user }) => {
   const [cloudySelected, setCloudySelected] = useState("grey");
   const [serverMunros, setServerMunros] = useState([]);
   const [currentMunro, setCurrentMunro] = useState({});
-  const [newLog, setNewLog] = useState({});
+  // const [newLog, setNewLog] = useState({});
   const [currentUser, setCurrentUser] = useState({})
   const [userLogs, setUserLogs] = useState([])
   
 
 
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
   // useEffect(() => {
   //   fetchUserLogs();
@@ -46,16 +46,9 @@ const AddLog = ({ munro, user }) => {
   }, [serverMunros]);
 
   useEffect(() => {
-    console.log(newLog);
-  }, [newLog]);
-
-  useEffect(() => {
     fetchUser()
   }, []);
 
-  useEffect(() => {
-    updateUser()
-  }, [newLog])
 
   const findMunro = () => {
     serverMunros.map((serverMunro) => {
@@ -89,35 +82,29 @@ const AddLog = ({ munro, user }) => {
   //   .then((data) => setUserLogs(data));
   // }
 
-  const postLog = () => {
-    const log = {
-      comment: comment,
-      dateCompleted: date,
-      weather: "Sunny",
-      munro: currentMunro,
-      // user: user
-    };
-    const request = new Request();
-    request
-      .post("http://localhost:8080/api/logs", log)
-      .then((res) => res.json())
-      .then((data) => setNewLog(data));
-  };
+
 
   const updateUser = () => {
     const userCopy = {... user}
+    const log = {
+			comment: comment,
+			dateCompleted: date,
+			weather: "Sunny",
+			munroName: currentMunro.name,
+      munroHeight: currentMunro.height
+		};
     userCopy.munrosCompleted.push(currentMunro)
-    // userCopy.logs.push(newLog);
+    userCopy.logs.push(log);
     const request = new Request();
+    console.log(userCopy);
     request.patch("http://localhost:8080/api/users/" + user.id, userCopy);
-
+    navigate('/')
   };
 
   const handleSaveLog = () => {
     setLogFormVisible(false);
     setLogVisible(true);
-    postLog();
-    // navigate("/munro-card")
+    updateUser()
   };
   const handleAddLog = () => {
     setLogFormVisible(true);

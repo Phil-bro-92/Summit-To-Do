@@ -17,10 +17,6 @@ public class LogController {
     @Autowired
     LogRepository logRepository;
 
-    @GetMapping(value = "/logs/byUser")
-    public ResponseEntity<List<Log>> getLogsByUser(@RequestParam(name = "user", required = false) Long userId) {
-        return new ResponseEntity<>(logRepository.findByUsersId(userId), HttpStatus.OK);
-    }
 
     @GetMapping(value = "/logs")
     public ResponseEntity<List<Log>> getAllLogs() {
@@ -43,19 +39,7 @@ public class LogController {
 //        logRepository.save(log);
 //        return new ResponseEntity<>(log, HttpStatus.OK);
 //    }
-    @PatchMapping(value = "/logs/{id}")
-    public ResponseEntity<Log> updateLog(@PathVariable Long id, @RequestBody Log log) {
-    Log found = logRepository.findById(id).orElse(null);
-    if (found == null) {
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-    found.setComment(log.getComment());
-    found.setDateCompleted(log.getDateCompleted());
-    found.setMunro(log.getMunro());
-    found.setWeather(log.getWeather());
-    logRepository.save(found);
-    return new ResponseEntity<>(found, HttpStatus.OK);
-}
+
 
     @DeleteMapping(value = "/logs/{id}")
     public ResponseEntity<Log> deleteLog(@PathVariable Long id) {
