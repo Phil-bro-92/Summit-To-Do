@@ -15,40 +15,53 @@ import { faFilter, faX } from "@fortawesome/free-solid-svg-icons";
 const FilterModal = ({handleFilterCompletedMunros,handleFilterUncompletedMunros, handleFilterEasyMunros, handleFilterModerateMunros, handleFilterHardMunros, handleFilterAllMunros}) => {
   const [modalVisible, setModalVisible] = useState(false);
   return (
-    <View>
-      <Modal
-        style={styles.modalCont}
-            animationType="none"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              setModalVisible(!modalVisible);
-            }}
-          >
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <FilterModalContent handleFilterCompletedMunros={handleFilterCompletedMunros} handleFilterUncompletedMunros={handleFilterUncompletedMunros} handleFilterEasyMunros={handleFilterEasyMunros} handleFilterModerateMunros={handleFilterModerateMunros} handleFilterHardMunros={handleFilterHardMunros} handleFilterAllMunros={handleFilterAllMunros}/>
-                <Pressable
-                  onPress={() => {
-                    setModalVisible(!modalVisible);
-                  }}
-                >
-                 <FontAwesomeIcon icon={faX} size={13} />
-                </Pressable>
-              </View>
-            </View>
-          </Modal>
-          <View style={styles.filterSearch}>
-          <Pressable
-            onPress={() => {
-              setModalVisible(true);
-            }}
-          >
-            <Text><FontAwesomeIcon icon={faFilter} size={20} color={'rgba(250,250,250, 0.7)'}/></Text>
-          </Pressable>
-          </View>
-    </View>
-  )
+		<View>
+			<Modal
+				style={styles.modalCont}
+				animationType="none"
+				transparent={true}
+				visible={modalVisible}
+				onRequestClose={() => {
+					setModalVisible(!modalVisible);
+				}}
+			>
+				<View style={styles.centeredView}>
+					<View style={styles.modalView}>
+						<Pressable
+							onPress={() => {
+								setModalVisible(!modalVisible);
+							}}
+						>
+							<FontAwesomeIcon icon={faX} size={13} style={styles.closeCross}/>
+						</Pressable>
+						<FilterModalContent
+							handleFilterCompletedMunros={handleFilterCompletedMunros}
+							handleFilterUncompletedMunros={handleFilterUncompletedMunros}
+							handleFilterEasyMunros={handleFilterEasyMunros}
+							handleFilterModerateMunros={handleFilterModerateMunros}
+							handleFilterHardMunros={handleFilterHardMunros}
+							handleFilterAllMunros={handleFilterAllMunros}
+						/>
+					</View>
+				</View>
+			</Modal>
+			<View style={styles.filterSearch}>
+				<Pressable
+					onPress={() => {
+						setModalVisible(true);
+					}}
+				>
+					<Text>
+						<FontAwesomeIcon
+							icon={faFilter}
+							size={20}
+							color={"rgba(250,250,250, 0.7)"}
+						/>
+					</Text>
+				</Pressable>
+			</View>
+		</View>
+	);
 }
 
 const styles=StyleSheet.create({
@@ -70,6 +83,9 @@ const styles=StyleSheet.create({
       height: 2,
     },
   },
+  closeCross:{
+  marginBottom: '5%'
+  }
 })
 
 export default FilterModal

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, Button, Pressable } from "react-native";
+import { View, Text, TextInput, Button, Pressable, StyleSheet } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
   faCloud,
@@ -155,59 +155,133 @@ const AddLog = ({ munro, user }) => {
   };
 
   return (
-    <View>
-      {LogFormVisible ? (
-        <View>
-          <TextInput
-            onChangeText={handleCommentChange}
-            placeholder="Notes"
-          ></TextInput>
-          <TextInput
-            onChangeText={handleDateChange}
-            keyboardType="number-pad"
-            placeholder="DD/MM/YYYY"
-          ></TextInput>
-          <View>
-            <Text>Weather:</Text>
-            <Pressable onPress={handleSunnyChange}>
-              <FontAwesomeIcon color={sunnySelected} icon={faSun} size={15} />
-            </Pressable>
-            <Pressable onPress={handleCloudyChange}>
-              <FontAwesomeIcon
-                color={cloudySelected}
-                icon={faCloud}
-                size={15}
-              />
-            </Pressable>
-            <Pressable onPress={handleRainyChange}>
-              <FontAwesomeIcon
-                color={rainySelected}
-                icon={faCloudRain}
-                size={15}
-              />
-            </Pressable>
-            <Pressable onPress={handleSnowyChange}>
-              <FontAwesomeIcon
-                color={snowySelected}
-                icon={faSnowflake}
-                size={15}
-              />
-            </Pressable>
-          </View>
-          <Button onPress={handleSaveLog} title="Save" />
-        </View>
-      ) : null}
-
-      {LogsVisibile ? (
-        <View>
-          {/* <View><Text>{user.logs[0].comment}</Text></View> */}
-          <View>
-            <Button onPress={handleAddLog} title="Add New Log" />
-          </View>
-        </View>
-      ) : null}
-    </View>
-  );
+		<View style={styles.formCont}>
+			<View style={styles.rowOne}>
+				<TextInput
+					style={styles.notesInput}
+					onChangeText={handleCommentChange}
+					placeholder={"Notes"}
+					textAlign={"left"}
+					paddingLeft={5}
+				></TextInput>
+			</View>
+			<View style={styles.rowTwo}>
+				<View style={styles.dateCont}>
+					<TextInput
+						style={styles.dateInput}
+						onChangeText={handleDateChange}
+						keyboardType="number-pad"
+						placeholder="DD/MM/YYYY"
+					></TextInput>
+				</View>
+				<View style={styles.weatherIcons}>
+					<Pressable onPress={handleSunnyChange}>
+						<FontAwesomeIcon color={sunnySelected} icon={faSun} size={15} />
+					</Pressable>
+					<Pressable onPress={handleCloudyChange}>
+						<FontAwesomeIcon color={cloudySelected} icon={faCloud} size={15} />
+					</Pressable>
+					<Pressable onPress={handleRainyChange}>
+						<FontAwesomeIcon
+							color={rainySelected}
+							icon={faCloudRain}
+							size={15}
+						/>
+					</Pressable>
+					<Pressable onPress={handleSnowyChange}>
+						<FontAwesomeIcon
+							color={snowySelected}
+							icon={faSnowflake}
+							size={15}
+						/>
+					</Pressable>
+				</View>
+			</View>
+			<View style={styles.rowThree}>
+				{/* <View>
+					<View>
+						<Button onPress={handleAddLog} title="Add New Log" />
+					</View>
+				</View> */}
+				<Pressable onPress={handleSaveLog}>
+					<View style={styles.saveButton}>
+						<Text style={styles.saveButtonText}>Save</Text>
+					</View>
+				</Pressable>
+			</View>
+		</View>
+	);
 };
 
+const styles = StyleSheet.create({
+	formCont: {
+		width: "100%",
+		height: "100%",
+		borderWidth: 2,
+		borderColor: "rgba(13,13,13,0.2)",
+		borderRadius: "20%",
+		display: "flex",
+		flexDirection: "column",
+		justifyContent: "space-evenly",
+	},
+	rowOne: {
+		width: "100%",
+		height: "50%",
+		display: "flex",
+		flexDirection: "column",
+		justifyContent: "space-evenly",
+		borderWeight: 1,
+		borderColor: "rgba(13,13,13,0.5)",
+	},
+
+	notesInput: {
+		width: "90%",
+		height: "70%",
+		alignSelf: "center",
+		borderWidth: 1,
+		borderColor: "rgba(13,13,13,0.5)",
+		borderRadius: "20%",
+	},
+	rowTwo: {
+		width: "90%",
+		height: "20%",
+		display: "flex",
+		flexDirection: "row",
+		justifyContent: "space-between",
+		alignSelf: "center",
+	},
+  dateCont:{
+    width: '50%',
+  },
+	dateInput: {
+		borderWidth: 1,
+		borderColor: "rgba(13,13,13,0.5)",
+		borderRadius: "20%",
+    padding: '2%'
+	},
+	weatherIcons: {
+		display: "flex",
+		flexDirection: "row",
+		justifyContent: "space-between",
+    width: '40%'
+	},
+	rowThree: {
+		width: "100%",
+		height: "30%",
+	},
+	saveButton: {
+		width: "50%",
+		borderRadius: "20%",
+		borderWidth: 1,
+		borderColor: "white",
+		backgroundColor: "rgba(13,13,13,0.5)",
+		alignSelf: "center",
+    margin: '2%'
+	},
+	saveButtonText: {
+		color: "white",
+		textAlign: "center",
+		padding: "2%",
+	},
+});
 export default AddLog;
