@@ -29,12 +29,14 @@ public class User {
     private List<Munro> munrosCompleted;
 
     @JsonIgnoreProperties(value = "users")
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
-            joinColumns = {@JoinColumn(name = "user_id", nullable = false, updatable = false)},
+            name = "user_logs",
+            joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "log_id")}
     )
     private List<Log> logs;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -44,7 +46,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.munrosCompleted = new ArrayList<>();
-        this.logs = new ArrayList<>();
+        this.logs = new ArrayList<Log>();
     }
 
     public User() {
@@ -67,17 +69,7 @@ public class User {
         this.password = password;
     }
 
-    public List<Log> getLogs() {
-        return logs;
-    }
 
-    public void setLogs(List<Log> logs) {
-        this.logs = logs;
-    }
-
-    public void addLog(Log log) {
-        this.logs.add(log);
-    }
 
     public void removeLog(Log log) {
         this.logs.remove(log);
@@ -110,5 +102,17 @@ public class User {
 
     public Long getId() {
         return id;
+    }
+
+
+    public List<Log> getLogs() {
+        return logs;
+    }
+
+    public void setLogs(List<Log> logs) {
+        this.logs = logs;
+    }
+    public void addLog(Log log) {
+        this.logs.add(log);
     }
 }

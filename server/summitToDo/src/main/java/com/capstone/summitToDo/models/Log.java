@@ -1,9 +1,12 @@
 package com.capstone.summitToDo.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "logs")
@@ -22,21 +25,26 @@ public class Log {
     @JoinColumn(name = "munro_id")
     private Munro munro;
 
-    @JsonBackReference
-    @ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JsonIgnoreProperties(value = "logs")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "user_logs",
+            joinColumns = {@JoinColumn(name = "log_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")}
+    )
+    private List<User> users;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Log(String comment, String dateCompleted, String weather, Munro munro, User user) {
+    public Log(String comment, String dateCompleted, String weather, Munro munro) {
         this.comment = comment;
         this.dateCompleted = dateCompleted;
         this.weather = weather;
         this.munro = munro;
-        this.user = user;
+        this.users = new ArrayList<User>();
     }
 
     public Log() {
@@ -58,13 +66,7 @@ public class Log {
         this.dateCompleted = dateCompleted;
     }
 
-    public Munro getMunro() {
-        return munro;
-    }
 
-    public void setMunro(Munro munro) {
-        this.munro = munro;
-    }
 
     public String getWeather() {
         return weather;
@@ -82,11 +84,22 @@ public class Log {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+
+
+
+    public Munro getMunro() {
+        return munro;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setMunro(Munro munro) {
+        this.munro = munro;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }

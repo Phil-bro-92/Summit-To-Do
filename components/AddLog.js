@@ -95,7 +95,7 @@ const AddLog = ({ munro, user }) => {
       dateCompleted: date,
       weather: "Sunny",
       munro: currentMunro,
-      // user: user.id,
+      // user: user
     };
     const request = new Request();
     request
