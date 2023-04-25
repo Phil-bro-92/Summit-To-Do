@@ -1,6 +1,7 @@
 package com.capstone.summitToDo.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,6 +16,10 @@ public class Munro {
     @Column(name = "height")
     private int height;
 
+    @JsonIgnoreProperties(value = "munro")
+    @OneToMany(mappedBy = "munro", fetch = FetchType.LAZY)
+    private List<Log> logs;
+
 
 
     @Id
@@ -24,6 +29,7 @@ public class Munro {
     public Munro(String name, int height) {
         this.name = name;
         this.height = height;
+        this.logs=new ArrayList<Log>();
 
 
     }
@@ -56,5 +62,13 @@ public class Munro {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Log> getLogs() {
+        return logs;
+    }
+
+    public void setLogs(List<Log> logs) {
+        this.logs = logs;
     }
 }

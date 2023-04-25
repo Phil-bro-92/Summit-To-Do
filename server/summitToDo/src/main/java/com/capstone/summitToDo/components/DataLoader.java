@@ -603,23 +603,26 @@ public class DataLoader implements ApplicationRunner {
         User eliza = new User("Eliza", "EP", "EP");
         User phil = new User("Phil", "PB", "PB");
 
-        Log log1 = new Log("was easy", "2018-12-09", "sunny", munro1, eliza);
-        logRepository.save(log1);
-        Log log2 = new Log("was windy", "2019-11-09", "Windy", munro7, daniel);
-        logRepository.save(log2);
+//        Log log1 = new Log("was easy", "2018-12-09", "sunny", munro1);
+//        logRepository.save(log1);
+//        Log log2 = new Log("was windy", "2019-11-09", "Windy", munro7);
+//        logRepository.save(log2);
 
-        phil.addMunroCompleted(munro1);
-        phil.addLog(log1);
-        daniel.addMunroCompleted(munro7);
-        daniel.addLog(log2);
+//        phil.addMunroCompleted(munro1);
+//        phil.addLog(log1);
+//        daniel.addMunroCompleted(munro7);
+//        daniel.addLog(log2);
+        Log log1 = new Log("was easy", "2018-12-09", "sunny", munro1);
+        logRepository.save(log1);
+
 
 
         userRepository.save(becca);
         userRepository.save(daniel);
         userRepository.save(eliza);
         userRepository.save(phil);
-
-
+        phil.addLog(log1);
+        userRepository.save(phil);
     }
 
 
