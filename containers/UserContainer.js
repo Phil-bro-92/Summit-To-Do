@@ -1,23 +1,35 @@
 import React from 'react'
-import {View, Text, StyleSheet, Dimensions, ScrollView} from 'react-native'
+import {View, Text, StyleSheet, Dimensions, ScrollView, Pressable} from 'react-native'
 import NavBar from '../components/NavBar'
 import { SafeAreaView } from 'react-native';
 import { Link } from "react-router-native";
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 const UserContainer = ({user}) => {
 
-	const getLogs = user.logs.map((logs) => {
+
+	const handleDeleteLog = () => {
+		console.log("pressed");
+		
+	};
+
+
+	const getLogs = user.logs.map((log) => {
 	  return (
-			<View style={styles.logCont}>
-				<Text style={styles.logDate}>
-					{logs.dateCompleted}
-				</Text>
-				<Text style={styles.munroName}>
-					{logs.munroName}
-				</Text>
-				<Text>{logs.munroHeight}m</Text>
-				<Text>Notes: {logs.comment}</Text>
-				<Text>Weather: {logs.weather}</Text>
+			<View style={styles.logCont} >
+				<View style={styles.topRow}>
+					<Text style={styles.munroName}>{log.munroName}</Text>
+					<View style={styles.dateAndBin}>
+						<Text style={styles.logDate}>{log.dateCompleted}</Text>
+						<Pressable onPress={handleDeleteLog}>
+							<FontAwesomeIcon icon={faTrashCan} size={15} />
+						</Pressable>
+					</View>
+				</View>
+				<Text>{log.munroHeight}m</Text>
+				<Text>Notes: {log.comment}</Text>
+				<Text>Weather: {log.weather}</Text>
 			</View>
 		);
 	})
@@ -66,7 +78,6 @@ const styles = StyleSheet.create({
 	logList: {
 		alignSelf: "center",
 		width: "95%",
-		borderWidth: 2,
 		borderColor: "white",
 		borderRadius: "20%",
 		height: "90%",
@@ -85,10 +96,23 @@ const styles = StyleSheet.create({
 		backgroundColor: 'rgba(250,250,250, 0.5)',
 		margin: '2%'
 	},
+	topRow: {
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'space-between'
+
+	},
+	dateAndBin:{
+		display: 'flex',
+		flexDirection: 'row',
+		alignSelf: 'flex-end',
+		
+	},
 	logDate: {
 		marginRight: "2%",
 		textAlign: "right",
-		color: 'green'
+		color: 'green',
+		paddingRight: '4%'
 	},
 	munroName: {
 		fontSize: 18,

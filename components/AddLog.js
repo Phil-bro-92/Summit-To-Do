@@ -28,6 +28,7 @@ const AddLog = ({ munro, user }) => {
   // const [newLog, setNewLog] = useState({});
   const [currentUser, setCurrentUser] = useState({})
   const [userLogs, setUserLogs] = useState([])
+
   
 
 
@@ -82,6 +83,20 @@ const AddLog = ({ munro, user }) => {
   //   .then((data) => setUserLogs(data));
   // }
 
+  let weatherArray = []
+  const weatherForm = () => {
+    if (sunnySelected === "green"){
+      weatherArray.push("Sunny")
+    } else if (rainySelected === "green") {
+			weatherArray.push("Rainy");
+		} else if (snowySelected === "green") {
+			weatherArray.push("Snowy");
+		} else if (cloudySelected === "green") {
+			weatherArray.push("Cloudy");
+		} 
+    console.log(weatherArray)
+  }
+
 
 
   const updateUser = () => {
@@ -89,14 +104,13 @@ const AddLog = ({ munro, user }) => {
     const log = {
 			comment: comment,
 			dateCompleted: date,
-			weather: "Sunny",
+			weather: weatherArray.toString(),
 			munroName: currentMunro.name,
       munroHeight: currentMunro.height
 		};
     userCopy.munrosCompleted.push(currentMunro)
     userCopy.logs.push(log);
     const request = new Request();
-    console.log(userCopy);
     request.patch("http://localhost:8080/api/users/" + user.id, userCopy);
     navigate('/')
   };
@@ -104,7 +118,9 @@ const AddLog = ({ munro, user }) => {
   const handleSaveLog = () => {
     setLogFormVisible(false);
     setLogVisible(true);
-    updateUser()
+    weatherForm();
+    updateUser();
+
   };
   const handleAddLog = () => {
     setLogFormVisible(true);
@@ -117,10 +133,14 @@ const AddLog = ({ munro, user }) => {
   const handleDateChange = (text) => {
     setDate(text);
   };
+
+
+
   const handleSunnyChange = () => {
     if (sunny === false) {
       setSunny(true);
       setSunnySelected("green");
+
     } else {
       setSunny(false);
       setSunnySelected("grey");

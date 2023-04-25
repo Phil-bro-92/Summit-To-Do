@@ -47,13 +47,20 @@ const MunroContainer = ({ munro, user }) => {
 					</View>
 					<View style={styles.secondRow}>
 						<View style={styles.firstFacts}>
-							<Text style={styles.modalTextLeft}>Height: {munro.height}m</Text>
-							<Text style={styles.modalTextLeft}>Region: {munro.region}</Text>
 							<Text style={styles.modalTextLeft}>
-								Difficulty: {munro.difficulty}
+								<Text style={styles.bold}>Height: </Text>
+								{munro.height}m
 							</Text>
 							<Text style={styles.modalTextLeft}>
-								Duration: {munro.duration}
+								<Text style={styles.bold}>Region: </Text> {munro.region}
+							</Text>
+							<Text style={styles.modalTextLeft}>
+								<Text style={styles.bold}>Difficulty: </Text>
+								{munro.difficulty}
+							</Text>
+							<Text style={styles.modalTextLeft}>
+								<Text style={styles.bold}>Duration: </Text>
+								{munro.duration}
 							</Text>
 						</View>
 
@@ -85,12 +92,17 @@ const MunroContainer = ({ munro, user }) => {
 					</View>
 					<View style={styles.thirdRow}>
 						<Text style={styles.modalText}>
-							Gaelic Name: {munro.gaelicName}
+							<Text style={styles.bold}>Gaelic Name: </Text>
+							{munro.gaelicName}
 						</Text>
 						<Text style={styles.modalText}>
-							Pronunciation: {munro.pronunciation}
+							<Text style={styles.bold}>Pronunciation: </Text>{" "}
+							{munro.pronunciation}
 						</Text>
-						<Text style={styles.modalText}>Translation: {munro.meaning}</Text>
+						<Text style={styles.modalText}>
+							<Text style={styles.bold}>Translation: </Text>
+							{munro.meaning}
+						</Text>
 					</View>
 					<View style={styles.addLog}>
 						<AddLog munro={munro} user={user} />
@@ -152,9 +164,9 @@ const styles = StyleSheet.create({
 		width: "100%",
 		height: "35%",
 	},
-	secondRowText: {
-		textAlign: "left",
-		
+
+	bold: {
+		fontWeight: 600
 	},
 	firstFacts: {
 	height:' 80%',
@@ -167,30 +179,27 @@ const styles = StyleSheet.create({
 		width: "100%",
 		display: "flex",
 		flexDirection: "column",
-		justifyContent: "space-evenly",
+		justifyContent: "space-between",
 	},
 	modalHeader: {
 		width: "60%",
 		fontSize: 22,
 		textAlign: "center",
 		alignSelf: "center",
+		fontWeight: 200
 	},
 	mountainIconCont: {
 		width: "40%",
 	},
-
-	textStyle: {
-		color: "white",
-		fontWeight: "bold",
-		textAlign: "center",
-	},
 	modalText: {
 		margin: "3%",
 		textAlign: "center",
+		fontWeight: 200
 	},
 	modalTextLeft: {
 		textAlign: "left",
 		margin: "3%",
+		fontWeight: 200
 	},
 	map: {
 		width: "45%",
@@ -199,8 +208,8 @@ const styles = StyleSheet.create({
 		alignSelf: "center",
 	},
 	addLog: {
-		marginTop: '5%',
-		height: '30%'
+		marginTop: '10%',
+		height: '35%'
 	}
 });
 
