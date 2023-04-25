@@ -1,5 +1,7 @@
 package com.capstone.summitToDo.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.text.DateFormat;
 
@@ -19,15 +21,22 @@ public class Log {
     @ManyToOne
     @JoinColumn(name = "munro_id")
     private Munro munro;
+
+    @JsonBackReference
+    @ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Log(String comment, String dateCompleted, String weather, Munro munro) {
+    public Log(String comment, String dateCompleted, String weather, Munro munro, User user) {
         this.comment = comment;
         this.dateCompleted = dateCompleted;
         this.weather = weather;
         this.munro = munro;
+        this.user = user;
     }
 
     public Log() {
@@ -71,5 +80,13 @@ public class Log {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
