@@ -108,7 +108,7 @@ const App = () => {
                 />
               }
             />
-            <Route exact path="/user-profile" element={<UserContainer />} />
+            <Route exact path="/user-profile" element={<UserContainer user={loggedInUser} />} />
           </Routes>
         </ImageBackground>
       </View>
