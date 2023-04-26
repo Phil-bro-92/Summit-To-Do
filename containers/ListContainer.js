@@ -20,7 +20,7 @@ import FilterModal from "../components/FilterModal";
 import NavBar from "../components/NavBar";
 import { Link } from "react-router-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faA, faMountain } from "@fortawesome/free-solid-svg-icons";
+import { faA, faMountain, faS, faSort } from "@fortawesome/free-solid-svg-icons";
 
 const ListContainer = ({ munros, getSelectedMunro, user }) => {
 	const [filteredMunros, setFilteredMunros] = useState([]);
@@ -192,44 +192,53 @@ const ListContainer = ({ munros, getSelectedMunro, user }) => {
 					<Table style={styles.table}>
 						<TableWrapper style={styles.tablewrap} width={"100%"}>
 							<Cell
-								data="Name"
+								data={"Name"}
 								onPress={handleSortNamesAlphabetically}
 								alignSelf={"center"}
 								color={"white"}
+								textStyle={styles.cell}
 							/>
 							<Cell
 								data={"Height"}
 								onPress={handleSortHeight}
 								alignSelf={"center"}
 								color={"white"}
+								textStyle={styles.cell}
 							/>
-							<Cell data={"Completed"} alignSelf={"center"} color={"white"} />
+							<Cell
+								data={"Completed"}
+								alignSelf={"center"}
+								color={"white"}
+								textStyle={styles.cell}
+							/>
 						</TableWrapper>
 
 						{
 							(munroItems = res.map((munro, index) => {
 								let climbedIcon;
-								const result = user.munrosCompleted.some((userMunro) => userMunro.name === munro.name)
-									if (result) {
-										climbedIcon = (
-											<FontAwesomeIcon
-												icon={faMountain}
-												size={25}
-												color={"green"}
-												style={styles.icon}
-											/>
-										);
-									} else {
-										climbedIcon = (
-											<FontAwesomeIcon
-												icon={faMountain}
-												size={25}
-												color={"rgba(250,250,250,0.7)"}
-												style={styles.icon}
-											/>
-										);
-									}
-							
+								const result = user.munrosCompleted.some(
+									(userMunro) => userMunro.name === munro.name
+								);
+								if (result) {
+									climbedIcon = (
+										<FontAwesomeIcon
+											icon={faMountain}
+											size={25}
+											color={"green"}
+											style={styles.icon}
+										/>
+									);
+								} else {
+									climbedIcon = (
+										<FontAwesomeIcon
+											icon={faMountain}
+											size={25}
+											color={"rgba(250,250,250,0.7)"}
+											style={styles.icon}
+										/>
+									);
+								}
+
 								return (
 									<View>
 										<Link
@@ -292,14 +301,19 @@ const styles = StyleSheet.create({
 	},
 	table: {
 		backgroundColor: "rgba(250, 250, 250, 0.3)",
-		width: "90%",
+		width: "100%",
 		alignSelf: "center",
 		color: "white",
 	},
 
 	scrollView: {
+		width: '90%',
 		height: "65%",
 		color: "white",
+		borderRadius: "20%",
+		borderWidth: 1,
+		borderColor: 'white',
+		alignSelf: 'center'
 	},
 	dataText: {
 		fontSize: 18,
@@ -316,10 +330,12 @@ const styles = StyleSheet.create({
 	tablewrap: {
 		display: "flex",
 		flexDirection: "row",
-		height: 40,
+		height: 50,
 		backgroundColor: "rgba(0,0,0,0.2)",
-		borderWidth: 1,
-		borderColor: "white",
+		color: "white",
+	},
+	cell: {
+		fontSize: 17,
 		color: "white",
 	},
 	tablewrapData: {
