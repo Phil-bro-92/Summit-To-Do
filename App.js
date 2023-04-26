@@ -9,6 +9,7 @@ import LogInContainer from "./containers/LogInContainer";
 import RegisterContainer from "./containers/RegisterContainer";
 import MunroContainer from "./containers/MunroContainer";
 import Request from "./helpers/Request.js";
+import { LogBox } from 'react-native';
 
 const App = () => {
   const [munros, setMunros] = useState([]);
@@ -17,6 +18,9 @@ const App = () => {
   const [logs, setLogs] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState({});
 
+  LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+  LogBox.ignoreAllLogs();//Ignore all log notifications
+  
   useEffect(() => {
     fetchMunros();
     fetchUsers();
