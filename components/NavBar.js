@@ -9,22 +9,25 @@ import {
 import { Link } from "react-router-native";
 
 export default function NavBar() {
+
   return (
 		<View style={styles.navbar}>
-			<Link to={"/"} style={styles.link} underlayColor={"transparent"}>
+			<Link activeOpacity={0.5} to={"/"} style={styles.link} underlayColor={"transparent"}>
 				<FontAwesomeIcon style={styles.icon} icon={faHouseChimney} size={29} />
 			</Link>
 			<Link
+        activeOpacity={0.5}
 				to={"/munro-list"}
 				style={styles.link}
 				underlayColor={"transparent"}
 			>
 				<FontAwesomeIcon style={styles.icon} icon={faMountainSun} size={29} />
 			</Link>
-			<Link to={"/munro-map"} style={styles.link} underlayColor={"transparent"}>
+			<Link to={"/munro-map"} activeOpacity={0.5} style={styles.link} underlayColor={"transparent"}>
 				<FontAwesomeIcon style={styles.icon} icon={faMapPin} size={29} />
 			</Link>
 			<Link
+        activeOpacity={0.5}
 				to={"/user-profile"}
 				style={styles.link}
 				underlayColor={"transparent"}

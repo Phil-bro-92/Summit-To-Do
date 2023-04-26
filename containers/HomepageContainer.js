@@ -70,12 +70,13 @@ export default function HomepageContainer({ munros, user }) {
 							</View>
 						</View>
 					</View>
-					<View style={styles.logLink}>
 						<Link
+							style={styles.logLink}
 							to={"/munro-list"}
 							component={TouchableOpacity}
-							underlayColor={"white"}
+							underlayColor={"rgba(250,250,250,0.5)"}
 						>
+						<View>
 							<View style={styles.log}>
 								<Text style={styles.logText}>Log Completed Munro</Text>
 								<Image
@@ -87,8 +88,9 @@ export default function HomepageContainer({ munros, user }) {
 									style={styles.arrow}
 								/>
 							</View>
+							</View>
 						</Link>
-					</View>
+					
 					<View style={styles.recent}>
 						<Text style={styles.recentHeader}>Recently Climbed</Text>
 						<View style={styles.latestLog}>

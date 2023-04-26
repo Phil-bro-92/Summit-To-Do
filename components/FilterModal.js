@@ -14,26 +14,22 @@ import { faFilter, faX } from "@fortawesome/free-solid-svg-icons";
 
 const FilterModal = ({handleFilterCompletedMunros,handleFilterUncompletedMunros, handleFilterEasyMunros, handleFilterModerateMunros, handleFilterHardMunros, handleFilterAllMunros}) => {
   const [modalVisible, setModalVisible] = useState(false);
+
+  const handleToggle = () => {
+    setModalVisible(!modalVisible)
+  }
+
+  console.log(modalVisible)
   return (
 		<View>
 			<Modal
 				style={styles.modalCont}
 				animationType="none"
 				transparent={true}
-				visible={modalVisible}
-				onRequestClose={() => {
-					setModalVisible(!modalVisible);
-				}}
+				visible={modalVisible === true}
 			>
 				<View style={styles.centeredView}>
 					<View style={styles.modalView}>
-						<Pressable
-							onPress={() => {
-								setModalVisible(!modalVisible);
-							}}
-						>
-							<FontAwesomeIcon icon={faX} size={13} style={styles.closeCross}/>
-						</Pressable>
 						<FilterModalContent
 							handleFilterCompletedMunros={handleFilterCompletedMunros}
 							handleFilterUncompletedMunros={handleFilterUncompletedMunros}
@@ -41,15 +37,14 @@ const FilterModal = ({handleFilterCompletedMunros,handleFilterUncompletedMunros,
 							handleFilterModerateMunros={handleFilterModerateMunros}
 							handleFilterHardMunros={handleFilterHardMunros}
 							handleFilterAllMunros={handleFilterAllMunros}
+              handleToggle={handleToggle}
 						/>
 					</View>
 				</View>
 			</Modal>
 			<View style={styles.filterSearch}>
 				<Pressable
-					onPress={() => {
-						setModalVisible(true);
-					}}
+					onPress={handleToggle}
 				>
 					<Text>
 						<FontAwesomeIcon
