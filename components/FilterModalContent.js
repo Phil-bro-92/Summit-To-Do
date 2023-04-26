@@ -1,28 +1,59 @@
 import React from "react";
 import { View, StyleSheet, Button } from "react-native";
 
-const FilterModalContent = ({handleFilterCompletedMunros,handleFilterUncompletedMunros, handleFilterEasyMunros, handleFilterModerateMunros, handleFilterHardMunros, handleFilterAllMunros}) => {
+const FilterModalContent = ({handleFilterCompletedMunros,handleFilterUncompletedMunros, handleFilterEasyMunros, handleFilterModerateMunros, handleFilterHardMunros, handleFilterAllMunros, handleToggle}) => {
+
+  const handleAllToggle = () => {
+    handleToggle()
+    handleFilterAllMunros()
+  }
+
+  const handleCompletedToggle = () => {
+    handleToggle()
+    handleFilterCompletedMunros()
+  }
+
+  const handleUncompletedToggle = () => {
+    handleToggle()
+    handleFilterUncompletedMunros()
+  }
+
+  const handleEasyToggle = () => {
+    handleToggle()
+    handleFilterEasyMunros()
+  }
+
+  const handleModerateToggle = () => {
+    handleToggle()
+    handleFilterModerateMunros()
+  }
+
+  const handleHardToggle = () => {
+    handleToggle()
+    handleFilterHardMunros()
+  }
+
   return (
     <View>
       <Button
         title="All"
-        onPress={handleFilterAllMunros}
+        onPress={handleAllToggle}
       />
       <Button
         title="Completed"
-        onPress={handleFilterCompletedMunros}
+        onPress={handleCompletedToggle}
       />
       <Button
         title="Uncompleted"
-        onPress={handleFilterUncompletedMunros}
+        onPress={handleUncompletedToggle}
       />
-      <Button title="Easy" onPress={handleFilterEasyMunros}
+      <Button title="Easy" onPress={handleEasyToggle}
       />
       <Button
         title="Moderate"
-        onPress={handleFilterModerateMunros}
+        onPress={handleModerateToggle}
       />
-      <Button title="Hard" onPress={handleFilterHardMunros}/>
+      <Button title="Hard" onPress={handleHardToggle}/>
     </View>
   );
 };
