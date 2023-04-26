@@ -43,10 +43,6 @@ const FilterModalContent = ({handleFilterCompletedMunros,handleFilterUncompleted
         title="Completed"
         onPress={handleCompletedToggle}
       />
-      <Button
-        title="Uncompleted"
-        onPress={handleUncompletedToggle}
-      />
       <Button title="Easy" onPress={handleEasyToggle}
       />
       <Button
