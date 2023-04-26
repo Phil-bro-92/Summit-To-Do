@@ -174,7 +174,9 @@ const AddLog = ({ munro, user }) => {
 				<TextInput
 					style={styles.notesInput}
 					onChangeText={handleCommentChange}
-					placeholder={"Notes"}
+					placeholder={"Notes:"}
+          placeholderTextColor={"rgba(0,0,0,0.5)"}
+          multiline={true}
 					textAlign={"left"}
 					paddingLeft={5}
 				></TextInput>
@@ -186,6 +188,7 @@ const AddLog = ({ munro, user }) => {
 						onChangeText={handleDateChange}
 						keyboardType="number-pad"
 						placeholder="DD/MM/YYYY"
+            placeholderTextColor={"rgba(0,0,0,0.5)"}
 					></TextInput>
 				</View>
 				<View style={styles.weatherIcons}>
@@ -212,11 +215,6 @@ const AddLog = ({ munro, user }) => {
 				</View>
 			</View>
 			<View style={styles.rowThree}>
-				{/* <View>
-					<View>
-						<Button onPress={handleAddLog} title="Add New Log" />
-					</View>
-				</View> */}
 				<Pressable onPress={handleSaveLog}>
 					<View style={styles.saveButton}>
 						<Text style={styles.saveButtonText}>Save</Text>
@@ -254,7 +252,7 @@ const styles = StyleSheet.create({
 		alignSelf: "center",
 		borderWidth: 1,
 		borderColor: "rgba(13,13,13,0.5)",
-		borderRadius: "20%",
+		borderRadius: "12%",
 	},
 	rowTwo: {
 		width: "90%",
@@ -268,29 +266,36 @@ const styles = StyleSheet.create({
     width: '50%',
   },
 	dateInput: {
+    height: "70%",
 		borderWidth: 1,
 		borderColor: "rgba(13,13,13,0.5)",
-		borderRadius: "20%",
-    padding: '2%'
+		borderRadius: "8%",
+    padding: '3%',
+    fontSize: "12"
 	},
 	weatherIcons: {
 		display: "flex",
 		flexDirection: "row",
 		justifyContent: "space-between",
-    width: '40%'
+    width: '40%',
+    marginRight: "2%",
+    marginTop: "3%"
 	},
 	rowThree: {
 		width: "100%",
 		height: "30%",
 	},
 	saveButton: {
-		width: "50%",
+		width: "45%",
+    height: "55%",
 		borderRadius: "20%",
 		borderWidth: 1,
 		borderColor: "white",
 		backgroundColor: "rgba(13,13,13,0.5)",
 		alignSelf: "center",
-    margin: '2%'
+    justifyContent: "center",
+    margin: '2%',
+    marginTop: "4%"
 	},
 	saveButtonText: {
 		color: "white",

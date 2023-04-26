@@ -102,7 +102,7 @@ export default function HomepageContainer({ munros, user }) {
 									<Text style={styles.munroName}>
 										{user.logs[user.logs.length - 1].munroName}
 									</Text>
-									<Text>{user.logs[user.logs.length - 1].munroHeight}m</Text>
+									<Text>Height: {user.logs[user.logs.length - 1].munroHeight}m</Text>
 									<Text>Notes: {user.logs[user.logs.length - 1].comment}</Text>
 									<Text>
 										Weather: {user.logs[user.logs.length - 1].weather}
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
 	},
 
 	outwithNavbar: {
-		height: "90%",
+		height: "88%",
 		width: "100%",
 	},
 	logoAndName: {
@@ -145,8 +145,8 @@ const styles = StyleSheet.create({
 	},
 	logoImage: {
 		resizeMode: "contain",
-		width: 200,
-		height: 200,
+		width: 250,
+		height: 250,
 	},
 
 	greeting: {
@@ -157,9 +157,9 @@ const styles = StyleSheet.create({
 	greetingText: {
 		fontSize: 28,
 		textAlign: "center",
-		color: "rgb(200, 220, 200)",
-		marginTop: "10%",
-		padding: "0%",
+		color: "rgb(250, 250, 250)",
+		marginTop: "8%",
+		padding: "2%",
 	},
 
 	progressBarCont: {
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
 	progress: {
 		alignSelf: "center",
 		backgroundColor: "rgba(250,250, 250, 0.7)",
-		width: "70%",
+		width: "78%",
 		height: "25%",
 		borderRadius: "15%",
 		display: "flex",
@@ -181,19 +181,18 @@ const styles = StyleSheet.create({
 		justifyContent: "space-evenly",
 	},
 	progressHeader: {
-		fontSize: 20,
-		marginLeft: "10%",
-		padding: "2%",
+		fontSize: 18,
+		fontWeight: 500,
+		marginLeft: "12%",
+		marginTop: "3%"
 	},
 	completed: {
 		fontSize: 15,
-		marginLeft: "10%",
-		padding: "2%",
+		marginLeft: "12%",
 	},
 	remaining: {
 		fontSize: 15,
-		marginLeft: "10%",
-		padding: "2%",
+		marginLeft: "12%",
 	},
 
 	barCont: {
@@ -226,14 +225,15 @@ const styles = StyleSheet.create({
 	},
 	logLink: {
 		backgroundColor: "rgba(250,250, 250, 0.7)",
-		width: "70%",
+		width: "78%",
 		height: "7%",
 		borderRadius: "15%",
-		marginTop: "3%",
+		marginTop: "5%",
 		outline: "none",
 		alignSelf: "center",
     display: 'flex',
     justifyContent: 'center'
+
 	},
 	log: {
 		display: "flex",
@@ -247,7 +247,8 @@ const styles = StyleSheet.create({
 	},
 	logText: {
 		fontSize: 18,
-		marginLeft: "10%",
+		fontWeight: 500,
+		marginLeft: "12%",
 		textAlign: "center",
 		alignSelf: "center",
 	},
@@ -261,21 +262,21 @@ const styles = StyleSheet.create({
 	recent: {
 		alignSelf: "center",
 		backgroundColor: "rgba(250,250, 250, 0.7)",
-		width: "70%",
-		height: "25%",
+		width: "78%",
+		height: "26%",
 		borderRadius: "15%",
-		marginTop: "3%",
-		padding: "1%",
+		marginTop: "5%",
 	},
 	recentHeader: {
-		fontSize: 20,
+		fontSize: 18,
+		fontWeight: 500,
 		justifyContent: "center",
-		marginLeft: "10%",
-		marginTop: "3%",
+		marginLeft: "12%",
+		marginTop: "4%",
 		marginBottom: "3%",
 	},
 	logDate: {
-		marginRight: "2%",
+		marginRight: "5%",
 		textAlign: "right",
 	},
 	nameAndHeight: {
@@ -284,15 +285,19 @@ const styles = StyleSheet.create({
 		justifyContent: "space-between",
 	},
 	munroName: {
-		fontSize: 18,
+		fontSize: 17,
+		paddingBottom: "5%"
 	},
 	latestLog: {
 		display: "flex",
 		flexDirection: "column",
 		justifyContent: "space-evenly",
 		padding: "2%",
-		borderWidth: 2,
+		marginLeft: "5%",
+		marginRight: "5%",
+		borderTopWidth: 2,
 		borderColor: "rgba(250,250,250,0.7)",
 		borderRadius: "10%",
+		paddingLeft: "7%",
 	},
 });

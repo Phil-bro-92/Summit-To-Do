@@ -194,12 +194,12 @@ const styles = StyleSheet.create({
 	modalText: {
 		margin: "3%",
 		textAlign: "center",
-		fontWeight: 200
+		fontWeight: 300
 	},
 	modalTextLeft: {
 		textAlign: "left",
 		margin: "3%",
-		fontWeight: 200
+		fontWeight: 300
 	},
 	map: {
 		width: "45%",

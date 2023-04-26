@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   header: {
     color: "white",
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: 500,
     alignSelf: "center",
   },
@@ -114,13 +114,13 @@ const styles = StyleSheet.create({
   },
   logOutCont: {
     alignSelf: "center",
-    width: "80%",
+    width: "70%",
     paddingTop: "3%",
     paddingBottom: "3%",
     borderWidth: 2,
-    backgroundColor: "rgba(230,230,230, 0.8)",
+    backgroundColor: "rgba(250,250,250, 0.6)",
     borderRadius: "20%",
-    borderColor: "rgba(230,230,230, 1)",
+    borderColor: "rgba(93, 159, 107, 0.8)",
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   logOutText: {
     textAlign: "center",
     fontSize: 20,
-    color: "rgba(0,0,0, 0.5)",
+    color: "rgba(93, 159, 107, 1)",
     fontWeight: 500,
   },
 });

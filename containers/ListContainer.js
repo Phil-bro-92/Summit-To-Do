@@ -174,6 +174,7 @@ const ListContainer = ({ munros, getSelectedMunro, user }) => {
 						<TextInput
 							style={styles.textInput}
 							placeholder="Search Munros:"
+							placeholderTextColor={"rgba(0,0,0,0.5)"}
 							onChangeText={handleFilterMunros}
 						></TextInput>
 					</View>
