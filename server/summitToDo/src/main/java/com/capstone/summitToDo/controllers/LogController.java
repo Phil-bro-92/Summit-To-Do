@@ -43,8 +43,12 @@ public class LogController {
 
     @DeleteMapping(value = "/logs/{id}")
     public ResponseEntity<Log> deleteLog(@PathVariable Long id) {
-        Log found = logRepository.getOne(id);
-        logRepository.delete(found);
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        Optional<Log> found = logRepository.findById(id);
+        if (found.isPresent()) {
+            logRepository.delete(found.get());
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 }

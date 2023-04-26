@@ -13,7 +13,7 @@ import {
 
 import { Link } from "react-router-native";
 
-const LogInContainer = ({ users, findUser, fetchUsers }) => {
+const LogInContainer = ({ users, findUser, fetchUsers, fetchLogs, fetchMunros }) => {
   const [loginAccepted, setLoginAccepted] = useState(false);
   const [passwordInput, setPasswordInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
@@ -28,7 +28,7 @@ const LogInContainer = ({ users, findUser, fetchUsers }) => {
             setUserEmail(user.email);
       }
     })
-     findUser(userEmail)
+    findUser(userEmail)
 , [passwordInput]})
   
 

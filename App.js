@@ -69,7 +69,7 @@ const App = () => {
             <Route
               exact
               path="/login"
-              element={<LogInContainer users={users} findUser={findUser} fetchUsers={fetchUsers} />}
+              element={<LogInContainer users={users} findUser={findUser} fetchUsers={fetchUsers} fetchLogs={fetchLogs} fetchMunros={fetchMunros}/>}
             />
             <Route exact path="/register" element={<RegisterContainer fetchUsers={fetchUsers} />} />
             <Route
@@ -108,7 +108,7 @@ const App = () => {
                 />
               }
             />
-            <Route exact path="/user-profile" element={<UserContainer user={loggedInUser} />} />
+            <Route exact path="/user-profile" element={<UserContainer user={loggedInUser} fetchUsers={fetchUsers} />} />
           </Routes>
         </ImageBackground>
       </View>
