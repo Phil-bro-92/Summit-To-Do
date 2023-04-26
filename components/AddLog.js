@@ -88,7 +88,6 @@ const AddLog = ({ munro, user }) => {
 		} else if (cloudySelected === "green") {
 			weatherArray.push("Cloudy");
 		} 
-    console.log(weatherArray)
   }
 
 

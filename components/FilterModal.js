@@ -18,8 +18,6 @@ const FilterModal = ({handleFilterCompletedMunros,handleFilterUncompletedMunros,
   const handleToggle = () => {
     setModalVisible(!modalVisible)
   }
-
-  console.log(modalVisible)
   return (
 		<View>
 			<Modal
