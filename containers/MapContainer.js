@@ -28,7 +28,7 @@ const MapContainer = ({ munros, getSelectedMunro}) => {
         }}
       >
         {munros.map((munro, index) => (
-          <View>
+          <View key={index}>
           
               <Marker
                 onPress={() => {
