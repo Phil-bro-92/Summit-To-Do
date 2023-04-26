@@ -600,7 +600,7 @@ public class DataLoader implements ApplicationRunner {
 
         User becca = new User("Becca", "BB", "BB");
         User daniel = new User("Daniel", "DP", "DP");
-        User eliza = new User("Eliza", "EP", "EP");
+        User eliza = new User("Eliza", "Eliza@gmail.com", "Eliza");
         User phil = new User("Phil", "PB", "PB");
 
 //        Log log1 = new Log("was easy", "2018-12-09", "sunny", munro1);
@@ -612,16 +612,50 @@ public class DataLoader implements ApplicationRunner {
 //        phil.addLog(log1);
 //        daniel.addMunroCompleted(munro7);
 //        daniel.addLog(log2);
-        Log log1 = new Log("was easy", "2018-12-09", "sunny", "Ben Nevis", "1345");
-        logRepository.save(log1);
-
-
-
         userRepository.save(becca);
         userRepository.save(daniel);
         userRepository.save(eliza);
         userRepository.save(phil);
         userRepository.save(phil);
+
+        Log log1 = new Log("Great climb - challenging and rewarding!", "2018-12-09", "Cloudy", "Ben Nevis", "1345");
+        logRepository.save(log1);
+        Log log2 = new Log("Incredible views", "2020-07-19", "Sunny", "Ben Wyvis", "11046");
+        logRepository.save(log2);
+        Log log3 = new Log("Very steep inclines!", "2022-08-22", "Cloudy", "Meall Ghlas", "959");
+        logRepository.save(log3);
+        Log log4 = new Log("Really rewarding climb", "2022-04-20", "Cloudy", "Ben Lomond", "974");
+        logRepository.save(log4);
+        Log log5 = new Log("Really tough but so worth it", "2022-09-01", "Rainy", "Sgairneach Mhor", "991");
+        logRepository.save(log5);
+        Log log6 = new Log("Beautiful day for it", "2022-09-23", "Sunny", "Beinn Tarsuinn", "937");
+        logRepository.save(log6);
+
+        eliza.addMunroCompleted(munro1);
+        eliza.addMunroCompleted(munro85);
+        eliza.addMunroCompleted(munro199);
+        eliza.addMunroCompleted(munro184);
+        eliza.addMunroCompleted(munro155);
+        eliza.addMunroCompleted(munro150);
+        eliza.addMunroCompleted(munro54);
+        eliza.addMunroCompleted(munro13);
+        eliza.addMunroCompleted(munro33);
+        eliza.addMunroCompleted(munro90);
+        eliza.addMunroCompleted(munro123);
+        eliza.addMunroCompleted(munro133);
+        eliza.addMunroCompleted(munro135);
+        eliza.addMunroCompleted(munro200);
+
+        eliza.addLog(log1);
+        eliza.addLog(log2);
+        eliza.addLog(log3);
+        eliza.addLog(log4);
+        eliza.addLog(log5);
+        eliza.addLog(log6);
+        userRepository.save(eliza);
+
+
+
     }
 
 
