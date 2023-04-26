@@ -69,9 +69,9 @@ const App = () => {
             <Route
               exact
               path="/login"
-              element={<LogInContainer users={users} findUser={findUser} />}
+              element={<LogInContainer users={users} findUser={findUser} fetchUsers={fetchUsers} />}
             />
-            <Route exact path="/register" element={<RegisterContainer />} />
+            <Route exact path="/register" element={<RegisterContainer fetchUsers={fetchUsers} />} />
             <Route
               exact
               path="/"

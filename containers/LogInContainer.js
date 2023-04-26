@@ -13,7 +13,7 @@ import {
 
 import { Link } from "react-router-native";
 
-const LogInContainer = ({ users, findUser }) => {
+const LogInContainer = ({ users, findUser, fetchUsers }) => {
   const [loginAccepted, setLoginAccepted] = useState(false);
   const [passwordInput, setPasswordInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
@@ -21,6 +21,7 @@ const LogInContainer = ({ users, findUser }) => {
 
 
   useEffect(() => {
+    fetchUsers()
     users.filter((user) => {
       if (user.email === emailInput && user.password === passwordInput){
             setLoginAccepted(true);

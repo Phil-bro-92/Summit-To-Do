@@ -16,7 +16,7 @@ import { Link, useNavigate } from "react-router-native";
 import Request from "../helpers/Request";
 import { Alert } from "react-native";
 
-const RegisterContainer = () => {
+const RegisterContainer = ({fetchUsers}) => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -62,6 +62,7 @@ const RegisterContainer = () => {
       setName("");
       setEmail("");
       setPassword("");
+      fetchUsers();
       navigate("/login");
     }
   };
