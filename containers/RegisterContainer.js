@@ -57,7 +57,7 @@ const RegisterContainer = ({fetchUsers}) => {
       Alert.alert("Please complete all fields.");
     } else {
       const request = new Request();
-      request.post("http://localhost:8080/api/users", newUser);
+      request.post("http:/localhost:8080/api/users", newUser);
       // Alert.alert("Registration successful. Please log in.");
       setName("");
       setEmail("");

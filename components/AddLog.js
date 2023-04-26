@@ -76,12 +76,6 @@ const AddLog = ({ munro, user }) => {
     .then((data) => setCurrentUser(data));
   };
 
-  // const fetchUserLogs = () => {
-  //   const request = new Request();
-  //   request
-  //   .get("http://localhost:8080/api/logs/byUser?user=" + user.id)
-  //   .then((data) => setUserLogs(data));
-  // }
 
   let weatherArray = []
   const weatherForm = () => {

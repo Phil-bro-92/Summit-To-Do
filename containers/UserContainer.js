@@ -12,7 +12,6 @@ import { SafeAreaView } from "react-native";
 import { Link } from "react-router-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
-import Request from "../helpers/Request";
 
 
 const UserContainer = ({ user }) => {
