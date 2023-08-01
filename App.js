@@ -66,7 +66,7 @@ const App = () => {
     <NativeRouter initialEntries={["/login"]}>
       <View style={styles.container}>
         <ImageBackground
-          source={require("./assets/background/Background.jpg")}
+          source={require("./assets/background/lightenedbg.png")}
           style={styles.backgroundImage}
         >
           <Routes>

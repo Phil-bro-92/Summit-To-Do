@@ -49,12 +49,12 @@ const LogInContainer = ({ users, findUser, fetchUsers, fetchLogs, fetchMunros })
 		>
 			<View style={styles.logInContainer}>
 				<ImageBackground
-					source={require("../assets/background/Login.jpg")}
+					source={require("../assets/background/loginbackground.png")}
 					style={styles.background}
 				>
 					<View style={styles.logoCont}>
 						<Image
-							source={require("../assets/images/Logo.png")}
+							source={require("../assets/images/LogoWhite.png")}
 							style={styles.image}
 						/>
 
